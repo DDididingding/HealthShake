@@ -1,4 +1,4 @@
-# JHJPT
+# JHGPT
 준'현지'피티 워크스페이스 입니다
 <div align=center> 
 <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> 
