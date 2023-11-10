@@ -22,7 +22,7 @@ USE `ssafit` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ssafit`.`user` (
   `user_id` INT NOT NULL AUTO_INCREMENT,
-  `username` VARCHAR(255) NULL DEFAULT NULL,
+  `name` VARCHAR(255) NULL DEFAULT NULL,
   `email` VARCHAR(255) NULL DEFAULT NULL,
   `password` VARCHAR(255) NULL DEFAULT NULL,
   `role` VARCHAR(50) NULL DEFAULT NULL,
@@ -36,13 +36,17 @@ DEFAULT CHARACTER SET = utf8mb3;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ssafit`.`board` (
   `board_id` INT NOT NULL AUTO_INCREMENT,
-  `author_id` INT NULL DEFAULT NULL,
-  `post_content` TEXT NULL DEFAULT NULL,
+  `writer_id` INT NULL DEFAULT NULL,
   `post_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `title` VARCHAR(45) NULL,
+  `content` VARCHAR(45) NULL,
+  `view_cnt` INT NULL,
+  `modified_time` DATETIME NULL,
+  `video_id` INT NULL,
   PRIMARY KEY (`board_id`),
-  INDEX `author_id` (`author_id` ASC) VISIBLE,
+  INDEX `author_id` (`writer_id` ASC) VISIBLE,
   CONSTRAINT `board_ibfk_1`
-    FOREIGN KEY (`author_id`)
+    FOREIGN KEY (`writer_id`)
     REFERENCES `ssafit`.`user` (`user_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
@@ -112,6 +116,9 @@ CREATE TABLE IF NOT EXISTS `ssafit`.`video` (
   `video_title` VARCHAR(255) NULL DEFAULT NULL,
   `video_url` VARCHAR(255) NULL DEFAULT NULL,
   `price` DECIMAL(10,2) NULL DEFAULT NULL,
+  `content` VARCHAR(45) NULL,
+  `part` VARCHAR(45) NULL,
+  `view_cnt` INT NULL,
   PRIMARY KEY (`video_id`),
   INDEX `trainer_id` (`trainer_id` ASC) VISIBLE,
   CONSTRAINT `video_ibfk_1`
