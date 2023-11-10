@@ -1,17 +1,26 @@
 package com.jhgpt.board.model.dto;
 
 public class Board {
-	private String video_id;
+	private int board_id;
+	private int video_id;
 	private String title;
 	private String content;
-	private String writer_id;
+	private int writer_id;
 	private int view_cnt;
 	private String post_time;
 	private String modified_time;
-	public String getVideo_id() {
+	
+	
+	public int getBoard_id() {
+		return board_id;
+	}
+	public void setBoard_id(int board_id) {
+		this.board_id = board_id;
+	}
+	public int getVideo_id() {
 		return video_id;
 	}
-	public void setVideo_id(String video_id) {
+	public void setVideo_id(int video_id) {
 		this.video_id = video_id;
 	}
 	public String getTitle() {
@@ -26,10 +35,10 @@ public class Board {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getWriter_id() {
+	public int getWriter_id() {
 		return writer_id;
 	}
-	public void setWriter_id(String writer_id) {
+	public void setWriter_id(int writer_id) {
 		this.writer_id = writer_id;
 	}
 	public int getView_cnt() {
@@ -52,9 +61,12 @@ public class Board {
 	}
 	@Override
 	public String toString() {
-		return "Board [video_id=" + video_id + ", title=" + title + ", content=" + content + ", writer_id=" + writer_id
-				+ ", view_cnt=" + view_cnt + ", post_time=" + post_time + ", modified_time=" + modified_time + "]";
+		return "Board [board_id=" + board_id + ", video_id=" + video_id + ", title=" + title + ", content=" + content
+				+ ", writer_id=" + writer_id + ", view_cnt=" + view_cnt + ", post_time=" + post_time
+				+ ", modified_time=" + modified_time + "]";
 	}
+	
+	
 	
 	
 

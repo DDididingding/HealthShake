@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jhgpt.board.model.dao.ReviewDao;
+import com.jhgpt.board.model.dto.Board;
 import com.jhgpt.board.model.dto.Review;
 
 @Service
@@ -41,6 +42,19 @@ public class ReviewServiceImpl implements ReviewService {
     public void deleteReview(int review_id) {
         reviewDao.deleteReview(review_id);
     }
+
+	@Override
+	public List<Review> getReviewsForVideo(int video_id) {
+		// TODO Auto-generated method stub
+		return reviewDao.selectReviewsForVideo(video_id);
+	}
+
+	@Override
+	public void writeReview(int video_id, Review review) {
+		// TODO Auto-generated method stub
+		review.setVideo_id(video_id); // Assuming there's a set method for video_id in your Review class
+	    reviewDao.insertReview(review);
+	}
 
 }
 

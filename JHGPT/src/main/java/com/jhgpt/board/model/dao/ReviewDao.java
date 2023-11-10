@@ -23,4 +23,7 @@ public interface ReviewDao {
 	// 조회수 증가
 	public void updateViewCnt(int review_id);
 
+	//비디오아이디를 통한 리뷰 가져오기
+	public List<Review> selectReviewsForVideo(int video_id);
+
 }

@@ -10,7 +10,7 @@ public interface BoardDao {
 	public List<Board> selectAll();
 
 	// ID에 해당하는 게시글 하나 가져오기
-	public Board selectOne(int video_id);
+	public Board selectOne(int board_id);
 
 	// 게시글 등록
 	public void insertBoard(Board board);
