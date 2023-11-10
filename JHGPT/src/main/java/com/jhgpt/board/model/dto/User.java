@@ -1,16 +1,16 @@
 package com.jhgpt.board.model.dto;
 
 public class User {
-	private String user_id;
+	private int user_id;
 	private String name;
 	private String password;
 	private String email;
 	private String role;
-	public String getId() {
+	public int getId() {
 		return user_id;
 	}
-	public void setId(String id) {
-		this.user_id = id;
+	public void setId(int user_id) {
+		this.user_id = user_id;
 	}
 	public String getName() {
 		return name;

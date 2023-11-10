@@ -7,18 +7,19 @@ import com.jhgpt.board.model.dto.User;
 public interface UserService {
 
 	//유저 목록 받아옥옥
-	List<User> getUserList();
-
+	public List<User> getUserList();
+	//유저 고르기
+	public User selectOne(int user_id);
 	//회원가입
-	int signup(User user);
+	public int signup(User user);
 	
 	//로그인
-	User login(User user);
+	public User login(User user);
 	
 	//로그아웃
-	User logout(int user_id);
+	public User logout(int user_id);
 	
 	//유저 삭제
-	Void deleteUser(int user_id);
+	public Void deleteUser(int user_id);
 	
 }

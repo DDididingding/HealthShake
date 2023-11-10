@@ -12,13 +12,13 @@ public interface ReviewDao {
 	public Review selectOne(int review_id);
 
 	// 게시글 등록
-	public void insertBoard(Review review);
+	public void insertReview(Review review);
 
 	// 게시글 삭제
-	public void deleteBoard(int review_id);
+	public void deleteReview(int review_id);
 
 	// 게시글 수정
-	public void updateBoard(Review review);
+	public void updateReview(Review review);
 
 	// 조회수 증가
 	public void updateViewCnt(int review_id);

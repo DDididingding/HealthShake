@@ -1,7 +1,7 @@
 package com.jhgpt.board.model.dto;
 
 public class Video {
-	private String video_id;
+	private int video_id;
 	private String video_title;
 	private String content;
 	private String video_url;
@@ -10,10 +10,10 @@ public class Video {
 	private int price;
 	private String trainer_id; //업로드는 트레이너만
 	
-	public String getVideo_id() {
+	public int getVideo_id() {
 		return video_id;
 	}
-	public void setVideo_id(String video_id) {
+	public void setVideo_id(int video_id) {
 		this.video_id = video_id;
 	}
 	public String getVideo_title() {

@@ -40,5 +40,11 @@ public class UserServiceImpl implements UserService{
 		userDao.deleteUser(user_id);
 		return null;
 	}
+
+	@Override
+	public User selectOne(int user_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

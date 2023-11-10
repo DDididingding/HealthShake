@@ -6,14 +6,14 @@ import com.jhgpt.board.model.dto.Review;
 
 public interface ReviewService {
 	
-	List<Review> getReviewList();
+	public List<Review> getReviewList();
 	
-	void writeReview(Review review);
+	public void writeReview(Review review);
 	
-	Review selectReview(int review_id);
+	public Review selectReview(int review_id);
 	
-	void modifyReview(Review review);
+	public void modifyReview(Review review);
 	
-	void deleteReview(int review_id);
+	public void deleteReview(int review_id);
 
 }
