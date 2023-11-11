@@ -2,8 +2,11 @@ package com.jhgpt.board.model.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.jhgpt.board.model.dto.Board;
 
+@Service
 public interface BoardService {
 	// 게시글 전체 조회
 	List<Board> getList();

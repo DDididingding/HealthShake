@@ -2,9 +2,12 @@ package com.jhgpt.board.model.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.jhgpt.board.model.dao.UserDao;
 import com.jhgpt.board.model.dto.User;
 
+@Service
 public class UserServiceImpl implements UserService{
 
 	private UserDao userDao;
@@ -36,9 +39,8 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public Void deleteUser(int user_id) {
+	public void deleteUser(int user_id) {
 		userDao.deleteUser(user_id);
-		return null;
 	}
 
 	@Override

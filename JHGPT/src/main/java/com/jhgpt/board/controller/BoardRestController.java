@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jhgpt.board.model.dto.Board;
+import com.jhgpt.board.model.service.BoardService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,7 +28,7 @@ import springfox.documentation.annotations.ApiIgnore;
 public class BoardRestController {
 
 	@Autowired
-	private com.jhgpt.board.model.service.BoardService boardService;
+	private BoardService boardService;
 
 	// 1. 목록(검색조건 있을 수도 있고 없을 수도 있다.)
 	@GetMapping("/board")
@@ -61,10 +62,6 @@ public class BoardRestController {
 	// 4. 삭제
 	@DeleteMapping("/board/{id}")
 	public ResponseEntity<Void> delete(@PathVariable int id) {
-		Board board = boardService.getBoard(id);
-		if (board == null)
-			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-
 		boardService.removeBoard(id);
 		// 반환 값을 통해서 지워졌는지 / 안지워졌는지 쳌
 		// 이상한 값(id) 못하게 막던지
@@ -76,10 +73,6 @@ public class BoardRestController {
 	@ApiIgnore
 	@PutMapping("/board") // JSON 형태의 데이터로 넘어왔을 떄 처리하고 싶은데?
 	public ResponseEntity<Void> update(@RequestBody Board board) {
-		Board b = boardService.getBoard(board.getBoard_id());
-		if (b == null)
-			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-		
 		boardService.modifyBoard(board);
 		// 위와같은 상황 대비
 

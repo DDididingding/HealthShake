@@ -22,11 +22,6 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public void writeReview(Review review) {
-        reviewDao.insertReview(review);
-    }
-
-    @Override
     public Review selectReview(int review_id) {
         // Update view count and then retrieve the review
         return reviewDao.selectOne(review_id);
@@ -50,9 +45,7 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public void writeReview(int video_id, Review review) {
-		// TODO Auto-generated method stub
-		review.setVideo_id(video_id); // Assuming there's a set method for video_id in your Review class
+	public void writeReview(Review review) {
 	    reviewDao.insertReview(review);
 	}
 

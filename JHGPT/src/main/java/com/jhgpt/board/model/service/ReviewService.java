@@ -2,14 +2,14 @@ package com.jhgpt.board.model.service;
 
 import java.util.List;
 
-import com.jhgpt.board.model.dto.Board;
+import org.springframework.stereotype.Service;
+
 import com.jhgpt.board.model.dto.Review;
 
+@Service
 public interface ReviewService {
 	
 	public List<Review> getReviewList();
-	
-	public void writeReview(Review review);
 	
 	public Review selectReview(int review_id);
 	
@@ -19,6 +19,6 @@ public interface ReviewService {
 
 	public List<Review> getReviewsForVideo(int video_id);
 
-	public void writeReview(int video_id, Review review);
+	public void writeReview(Review review);
 
 }

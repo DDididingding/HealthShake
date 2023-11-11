@@ -2,9 +2,12 @@ package com.jhgpt.board.model.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.jhgpt.board.model.dao.VideoDao;
 import com.jhgpt.board.model.dto.Video;
 
+@Service
 public class VideoServiceImpl implements VideoService{
 
 	private VideoDao videoDao;

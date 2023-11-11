@@ -2,8 +2,11 @@ package com.jhgpt.board.model.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.jhgpt.board.model.dto.User;
 
+@Service
 public interface UserService {
 
 	//유저 목록 받아옥옥
@@ -20,6 +23,6 @@ public interface UserService {
 	public User logout(int user_id);
 	
 	//유저 삭제
-	public Void deleteUser(int user_id);
+	public void deleteUser(int user_id);
 	
 }

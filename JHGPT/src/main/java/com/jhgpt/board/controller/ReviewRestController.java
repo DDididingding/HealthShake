@@ -43,7 +43,7 @@ public class ReviewRestController {
     // 3. 리뷰 등록
     @PostMapping("/video/{video_id}/review")
     public ResponseEntity<?> writeReview(@PathVariable int video_id, @RequestBody Review review) {
-        reviewService.writeReview(video_id, review);
+        reviewService.writeReview(review);
         return new ResponseEntity<Review>(review, HttpStatus.CREATED);
     }
 
