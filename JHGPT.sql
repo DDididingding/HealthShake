@@ -1,156 +1,83 @@
--- MySQL Workbench Forward Engineering
+CREATE DATABASE ssafy_prac;
+USE ssafy_prac;
 
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+DROP DATABASE ssafy_prac;
 
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
--- -----------------------------------------------------
--- Schema ssafit
--- -----------------------------------------------------
+-- User (사용자) 테이블
+CREATE TABLE User (
+    user_id VARCHAR(255) PRIMARY KEY,
+    username VARCHAR(255),
+    email VARCHAR(255),
+    password VARCHAR(255),
+    role VARCHAR(50)
+);
 
--- -----------------------------------------------------
--- Schema ssafit
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `ssafit` DEFAULT CHARACTER SET utf8mb3 ;
-USE `ssafit` ;
+-- Trainer (트레이너) 테이블
+CREATE TABLE Trainer (
+    trainer_id VARCHAR(255) PRIMARY KEY,
+    user_id VARCHAR(255),
+    description TEXT,
+    uploaded_videos INT
+);
 
--- -----------------------------------------------------
--- Table `ssafit`.`user`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ssafit`.`user` (
-  `user_id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(255) NULL DEFAULT NULL,
-  `email` VARCHAR(255) NULL DEFAULT NULL,
-  `password` VARCHAR(255) NULL DEFAULT NULL,
-  `role` VARCHAR(50) NULL DEFAULT NULL,
-  PRIMARY KEY (`user_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
+-- Video (영상) 테이블
+CREATE TABLE Video (
+    video_id INT AUTO_INCREMENT PRIMARY KEY,
+    trainer_id VARCHAR(255),
+    video_title VARCHAR(255),
+    video_url VARCHAR(255),
+    price DECIMAL(10, 2),
+    view_cnt INT
+);
 
+-- Member (회원) 테이블
+CREATE TABLE Member (
+    member_id VARCHAR(255) PRIMARY KEY,
+    user_id VARCHAR(255),
+    profile_info TEXT
+);
 
--- -----------------------------------------------------
--- Table `ssafit`.`board`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ssafit`.`board` (
-  `board_id` INT NOT NULL AUTO_INCREMENT,
-  `writer_id` INT NULL DEFAULT NULL,
-  `post_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-  `title` VARCHAR(45) NULL,
-  `content` VARCHAR(45) NULL,
-  `view_cnt` INT NULL,
-  `modified_time` DATETIME NULL,
-  `video_id` INT NULL,
-  PRIMARY KEY (`board_id`),
-  INDEX `author_id` (`writer_id` ASC) VISIBLE,
-  CONSTRAINT `board_ibfk_1`
-    FOREIGN KEY (`writer_id`)
-    REFERENCES `ssafit`.`user` (`user_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
+-- Board (게시판) 테이블
+CREATE TABLE Board (
+    board_id INT AUTO_INCREMENT PRIMARY KEY,
+    author_id VARCHAR(255),
+    post_content TEXT,
+    post_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
+-- Comments (댓글) 테이블
+CREATE TABLE Comments (
+    comment_id INT AUTO_INCREMENT PRIMARY KEY,
+    board_id INT,
+    author_id VARCHAR(255),
+    comment_content TEXT,
+    comment_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
--- -----------------------------------------------------
--- Table `ssafit`.`comments`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ssafit`.`comments` (
-  `comment_id` INT NOT NULL AUTO_INCREMENT,
-  `board_id` INT NULL DEFAULT NULL,
-  `author_id` INT NULL DEFAULT NULL,
-  `comment_content` TEXT NULL DEFAULT NULL,
-  `comment_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`comment_id`),
-  INDEX `board_id` (`board_id` ASC) VISIBLE,
-  INDEX `author_id` (`author_id` ASC) VISIBLE,
-  CONSTRAINT `comments_ibfk_1`
-    FOREIGN KEY (`board_id`)
-    REFERENCES `ssafit`.`board` (`board_id`),
-  CONSTRAINT `comments_ibfk_2`
-    FOREIGN KEY (`author_id`)
-    REFERENCES `ssafit`.`user` (`user_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
+-- Review (리뷰) 테이블
+CREATE TABLE Review (
+    review_id INT AUTO_INCREMENT PRIMARY KEY,
+    video_id INT,
+    member_id VARCHAR(255),
+    title VARCHAR(255),
+    content TEXT,
+    rating INT
+);
 
+-- 외래 키 설정
+ALTER TABLE Trainer ADD FOREIGN KEY (user_id) REFERENCES User(user_id);
+ALTER TABLE Video ADD FOREIGN KEY (trainer_id) REFERENCES Trainer(trainer_id);
+ALTER TABLE Member ADD FOREIGN KEY (user_id) REFERENCES User(user_id);
+ALTER TABLE Board ADD FOREIGN KEY (author_id) REFERENCES User(user_id);
+ALTER TABLE Comments ADD FOREIGN KEY (board_id) REFERENCES Board(board_id);
+ALTER TABLE Comments ADD FOREIGN KEY (author_id) REFERENCES User(user_id);
+ALTER TABLE Review ADD FOREIGN KEY (video_id) REFERENCES Video(video_id);
+ALTER TABLE Review ADD FOREIGN KEY (member_id) REFERENCES Member(member_id);
 
--- -----------------------------------------------------
--- Table `ssafit`.`member`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ssafit`.`member` (
-  `member_id` INT NOT NULL AUTO_INCREMENT,
-  `user_id` INT NULL DEFAULT NULL,
-  `profile_info` TEXT NULL DEFAULT NULL,
-  PRIMARY KEY (`member_id`),
-  INDEX `user_id` (`user_id` ASC) VISIBLE,
-  CONSTRAINT `member_ibfk_1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `ssafit`.`user` (`user_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
-
-
--- -----------------------------------------------------
--- Table `ssafit`.`trainer`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ssafit`.`trainer` (
-  `trainer_id` INT NOT NULL AUTO_INCREMENT,
-  `user_id` INT NULL DEFAULT NULL,
-  `description` TEXT NULL DEFAULT NULL,
-  `uploaded_videos` INT NULL DEFAULT NULL,
-  PRIMARY KEY (`trainer_id`),
-  INDEX `user_id` (`user_id` ASC) VISIBLE,
-  CONSTRAINT `trainer_ibfk_1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `ssafit`.`user` (`user_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
-
-
--- -----------------------------------------------------
--- Table `ssafit`.`video`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ssafit`.`video` (
-  `video_id` INT NOT NULL AUTO_INCREMENT,
-  `trainer_id` INT NULL DEFAULT NULL,
-  `video_title` VARCHAR(255) NULL DEFAULT NULL,
-  `video_url` VARCHAR(255) NULL DEFAULT NULL,
-  `price` DECIMAL(10,2) NULL DEFAULT NULL,
-  `content` VARCHAR(45) NULL,
-  `part` VARCHAR(45) NULL,
-  `view_cnt` INT NULL,
-  PRIMARY KEY (`video_id`),
-  INDEX `trainer_id` (`trainer_id` ASC) VISIBLE,
-  CONSTRAINT `video_ibfk_1`
-    FOREIGN KEY (`trainer_id`)
-    REFERENCES `ssafit`.`trainer` (`trainer_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
-
-
--- -----------------------------------------------------
--- Table `ssafit`.`review`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ssafit`.`review` (
-  `review_id` INT NOT NULL AUTO_INCREMENT,
-  `video_id` INT NULL DEFAULT NULL,
-  `member_id` INT NULL DEFAULT NULL,
-  `title` VARCHAR(255) NULL DEFAULT NULL,
-  `content` TEXT NULL DEFAULT NULL,
-  `rating` INT NULL DEFAULT NULL,
-  PRIMARY KEY (`review_id`),
-  INDEX `video_id` (`video_id` ASC) VISIBLE,
-  INDEX `member_id` (`member_id` ASC) VISIBLE,
-  CONSTRAINT `review_ibfk_1`
-    FOREIGN KEY (`video_id`)
-    REFERENCES `ssafit`.`video` (`video_id`),
-  CONSTRAINT `review_ibfk_2`
-    FOREIGN KEY (`member_id`)
-    REFERENCES `ssafit`.`member` (`member_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
-
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+INSERT INTO Video (video_title, video_url, price)
+VALUES 
+('title1', 'url1', 10000),
+('title2', 'url2', 10000),
+('title3', 'url3', 10000),
+('title4', 'url4', 10000),
+('title5', 'url5', 10000);
