@@ -5,6 +5,8 @@ import User from "../views/UserView.vue";
 import UserList from "@/components/user/UserList.vue";
 import UserRegist from "@/components/user/UserRegist.vue";
 import UserDetail from "@/components/user/UserDetail.vue";
+import Video from "../views/VideoView.vue";
+import VideoList from "@/components/video/VideoList.vue";
 
 const routes = [
   {
@@ -35,6 +37,17 @@ const routes = [
         path: ":id",
         name: "Detail",
         component: UserDetail,
+      },
+    ],
+  },
+  {
+    path: "/video",
+    component: Video,
+    children: [
+      {
+        path: "",
+        name: "List",
+        component: VideoList,
       },
     ],
   },

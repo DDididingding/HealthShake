@@ -18,85 +18,61 @@ const router = useRouter();
 const users = ref([]);
 
 // 사용자 목록 조회
-const getUserList = () => {
-  const API_URL = `http://localhost:9999/userapi/user`;
-  axios({
-    url: API_URL,
-    method: "get",
-  })
-    .then((res) => {
-      users.value = res.data;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+const getUserList = async () => {
+  try {
+    const res = await axios.get(`http://localhost:9999/api/user`);
+    users.value = res.data;
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 // 사용자 등록
-const createUser = (user) =>  {
-  const API_URL = `http://localhost:9999/userapi/user`;
-  axios({
-    url: API_URL,
-    method: "post",
-    params: {
+const createUser = async (user) =>  {
+  try {
+    const res = await axios.post(`http://localhost:9999/api/signup`, {
       id: user.id,
       password: user.password,
       name: user.name,
       email: user.email,
       age: user.age,
-    },
-  })
-    .then(() => {
-      alert("등록 완료");
-      getUserList();
-      router.push("/user");
-    })
-    .catch((err) => {
-      console.log(err);
     });
+    alert("등록 완료");
+    getUserList();
+    router.push("/api/user");
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 // 사용자 수정 (유효성 검토)
-const updateUser = (user) => {
-  const API_URL = `http://localhost:9999/userapi/user`;
-  // axios 요청 (Spring Boot Rest API 참고)
-  axios({
-    url: API_URL,
-    method: "put",
-    params: {
+const updateUser = async (user) => {
+  try {
+    const res = await axios.put(`http://localhost:9999/api/user`, {
       id: user.id,
       password: user.password,
       name: user.name,
       email: user.email,
       age: user.age,
-    },
-  })
-    .then(() => {
-      alert("수정 완료");
-      getUserList();
-      router.push("/user");
-    })
-    .catch((err) => {
-      console.log(err);
     });
+    alert("수정 완료");
+    getUserList();
+    router.push("/api/user");
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 // 사용자 삭제
-const deleteUser = (user) => {
-  const API_URL = `http://localhost:9999/userapi/user/${user.id}`;
-  // axios 요청 (Spring Boot Rest API 참고)
-  axios({
-    url: API_URL,
-    method: "delete",
-  })
-    .then(() => {
-      alert("삭제 완료");
-      getUserList();
-      router.push("/user");
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+const deleteUser = async (user) => {
+  try {
+    const res = await axios.delete(`http://localhost:9999/api/user/${user.id}`);
+    alert("삭제 완료");
+    getUserList();
+    router.push("/api/user");
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 onMounted(() => {

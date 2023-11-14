@@ -10,22 +10,24 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, defineProps } from "vue";
 import { useRouter } from "vue-router";
 import axios from 'axios'
 
+const props = defineProps(['videos']);
+const myVideos = ref(props.videos);
 const router = useRouter();
 const users = ref([]);
 
 // 영상 목록 조회
 const getVideoList = () => {
-  const API_URL = `http://localhost:9999/userapi/video`; //수정 필요
+  const API_URL = `http://localhost:9999/api/video`; 
   axios({
     url: API_URL,
     method: "get",
   })
     .then((res) => {
-      users.value = res.data;
+      myVideos.value = res.data;
     })
     .catch((err) => {
       console.log(err);
@@ -34,7 +36,7 @@ const getVideoList = () => {
 
 // 영상 등록
 const createVideo = (video) =>  {
-  const API_URL = `http://localhost:9999/userapi/user`; //수정 필요
+  const API_URL = `http://localhost:9999/api/video`; 
   axios({
     url: API_URL,
     method: "post",
@@ -55,25 +57,24 @@ const createVideo = (video) =>  {
     });
 };
 
-// 사용자 수정 (유효성 검토)
-const updateVideo = (user) => {
-  const API_URL = `http://localhost:9999/userapi/user`;
+// 비디오 수정 (유효성 검토)
+const updateVideo = (video) => {
+  const API_URL = `http://localhost:9999/api/video/${video.video_id}`;
   // axios 요청 (Spring Boot Rest API 참고)
   axios({
     url: API_URL,
     method: "put",
     params: {
-      id: user.id,
-      password: user.password,
-      name: user.name,
-      email: user.email,
-      age: user.age,
+      video_id: video.video_id,
+      video_title: video.video_title,
+      content: video.content,
+      video_url : video.video_url,
     },
   })
     .then(() => {
       alert("수정 완료");
-      getUserList();
-      router.push("/user");
+      getVideoList();
+      router.push("/video");
     })
     .catch((err) => {
       console.log(err);
@@ -82,7 +83,7 @@ const updateVideo = (user) => {
 
 // 사용자 삭제
 const deleteVideo = (user) => {
-  const API_URL = `http://localhost:9999/userapi/user/${user.id}`;
+  const API_URL = `http://localhost:9999/api/video/${video.video_id}`;
   // axios 요청 (Spring Boot Rest API 참고)
   axios({
     url: API_URL,
@@ -90,8 +91,8 @@ const deleteVideo = (user) => {
   })
     .then(() => {
       alert("삭제 완료");
-      getUserList();
-      router.push("/user");
+      getVideoList();
+      router.push("/video");
     })
     .catch((err) => {
       console.log(err);
@@ -99,7 +100,7 @@ const deleteVideo = (user) => {
 };
 
 onMounted(() => {
-  getUserList();
+  getVideoList();
 });
 </script>
 

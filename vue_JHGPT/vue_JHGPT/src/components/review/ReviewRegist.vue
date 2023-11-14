@@ -26,7 +26,7 @@ const content = ref("");
 const rating = ref(0);
 
 const getReviewList = () => {
-  const API_URL = `http://localhost:9999/userapi/user`; //수정필요
+  const API_URL = `http://localhost:9999/api/review`; 
   axios({
     url: API_URL,
     method: "GET",

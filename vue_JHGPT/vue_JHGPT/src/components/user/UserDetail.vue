@@ -54,7 +54,7 @@ const deleteUser = () => {
 onMounted(() => {
   const pathName = new URL(document.location).pathname.split("/");
   const id = pathName[pathName.length - 1];
-  const API_URL = `http://localhost:9999/userapi/user/${id}`;
+  const API_URL = `http://localhost:9999/api/user/${id}`;
   axios({
     url: API_URL,
     method: "GET",

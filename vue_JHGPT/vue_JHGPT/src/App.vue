@@ -28,7 +28,7 @@ const logout = () => {
 
 const loginUser = (loginUser) => {
   // user 정보 요청 api 주소
-  const API_URL = `http://localhost:9999/userapi/user`;
+  const API_URL = `http://localhost:9999/api/user`;
 
   // axios 요청
   axios

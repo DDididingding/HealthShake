@@ -63,7 +63,7 @@ const search = ref("");
 const users = ref([]);
 
 const searchUser = () => {
-  const API_URL = `http://localhost:9999/userapi/video/search`; //수정 필요
+  const API_URL = `http://localhost:9999/api/video/search`; //수정 필요
   axios({
     url: API_URL,
     method: "GET",

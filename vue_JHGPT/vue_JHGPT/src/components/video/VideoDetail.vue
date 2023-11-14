@@ -16,7 +16,7 @@
             <input type="number" id="view_cnt" v-model="video.view_cnt" class="view" /><br />
             <button class="btn" @click="updateVideo">수정</button>
             <button class="btn" @click="deleteVideo">삭제</button>
-            <button class="btn" @click="registReview">리뷰 등록</button>
+            <button class="btn" @click="registReview">리뷰 등록/button>
         </fieldset>
         <h2>해당 영상의 리뷰</h2>
         <fieldset class="text-center">
@@ -77,7 +77,7 @@ const deleteReview = () => {
 onMounted(() => {
   const pathName = new URL(document.location).pathname.split("/");
   const id = pathName[pathName.length - 1];
-  const API_URL = `http://localhost:9999/userapi/user/${id}`; //수정 필요
+  const API_URL = `http://localhost:9999/api/video/${video_id}`; //수정 필요
   axios({
     url: API_URL,
     method: "GET",

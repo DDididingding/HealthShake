@@ -60,7 +60,7 @@ const search = ref("");
 const users = ref([]);
 
 const searchUser = () => {
-  const API_URL = `http://localhost:9999/userapi/user/search`;
+  const API_URL = `http://localhost:9999/api/${id}`;
   axios({
     url: API_URL,
     method: "GET",
