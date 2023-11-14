@@ -22,6 +22,6 @@ public interface VideoDao {
 	public void updateVideo(Video video);
 	
 	//조회수 증가
-	public void updateViewCnt(int review_id);
+	public void updateViewCnt(int video_id);
 
 }

@@ -21,8 +21,5 @@ public interface BoardDao {
 	// 게시글 수정
 	public void updateBoard(Board board);
 
-	// 조회수 증가
-	public void updateViewCnt(int board_id);
-
 
 }

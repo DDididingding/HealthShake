@@ -5,19 +5,19 @@
 <mapper namespace="com.jhgpt.board.model.dao.VideoDao">
 
     <!-- 비디오 등록 -->
-    <insert id="registVideo" parameterType="Video">
+    <insert id="insertVideo" parameterType="Video">
         INSERT INTO Video(video_id, trainer_id, video_title, video_url, price)
-        VALUES(#{video_id}, #{trainer_id}, #{video_title}, #{video_url}, #{price}s)
+        VALUES(#{video_id}, #{trainer_id}, #{video_title}, #{video_url}, #{price})
     </insert>
     
     <!-- 비디오 전체 조회 -->
-    <select id ="getvideoList" resultType="Video">
+    <select id ="selectAll" resultType="Video">
         SELECT *
         FROM Video
     </select>
     
     <!-- 게시글 상세 조회 -->
-    <select id ="selectVideo" resultMap="videoMap" parameterType="int">
+    <select id ="selectOne" resultType="Video" parameterType="int">
         SELECT *
         FROM Video
         WHERE video_id = #{video_id};
@@ -28,5 +28,19 @@
         DELETE FROM Video
         WHERE video_id = #{video_id};
     </delete>
+    
+    <!-- 비디오 수정 -->
+    <update id="updateVideo" parameterType="Video">
+        UPDATE Video
+        SET video_title = #{video_title}, video_url = #{video_url}, price = #{price}
+        WHERE video_id = #{video_id};
+    </update>
+    
+    <!-- 조회수 증가 -->
+    <update id="updateViewCnt" parameterType="int">
+		UPDATE Video
+		SET view_cnt = view_cnt+1
+		WHERE video_id = #{video_id}
+	</update>
     
 </mapper>

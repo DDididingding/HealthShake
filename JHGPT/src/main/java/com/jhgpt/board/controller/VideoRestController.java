@@ -18,6 +18,7 @@ import com.jhgpt.board.model.service.VideoService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
 @RequestMapping("/api")
@@ -42,7 +43,7 @@ public ResponseEntity<?> getVideoList() {
 // insert(CREATE)
 @PostMapping("/video")
 @ApiOperation(value = "video 객체를 저장한다.", response = Integer.class)
-public ResponseEntity<?> registVideo(Video video) throws Exception, IOException {
+public ResponseEntity<?> registVideo(@RequestBody Video video) throws Exception, IOException {
     videoService.registVideo(video);
 
     return new ResponseEntity<Video>(video, HttpStatus.CREATED);
@@ -70,8 +71,8 @@ public ResponseEntity<?> deleteVideo(@PathVariable int video_id) {
     return new ResponseEntity<Void>(HttpStatus.OK);
 }
 
-//private ResponseEntity<String> exceptionHandling(Exception e) {
-//    e.printStackTrace();
-//    return new ResponseEntity<String>("sorry: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-//}
+private ResponseEntity<String> exceptionHandling(Exception e) {
+    e.printStackTrace();
+    return new ResponseEntity<String>("sorry: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+}
 }

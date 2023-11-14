@@ -5,7 +5,7 @@
 <mapper namespace="com.jhgpt.board.model.dao.UserDao">
 
     <!-- User 목록 가져오기 -->
-    <select id="getUserList" resultType="User">
+    <select id="selectAll" resultType="User">
         SELECT * 
         FROM User;
     </select>
@@ -23,10 +23,11 @@
         WHERE user_id=#{user_id}
     </delete>
     
-    <!-- 로그인로그아웃은 매퍼에서 안해줘도 된대 도하님께서  ㅇㅋㅇㅋㅇ-->
-    
-
-
+    <!-- user 등록 -->
+    <insert id="inserUser" parameterType="User">
+        INSERT INTO User(user_id, username, email, password, role)
+        VALUES(#{video_id}, #{username}, #{email}, #{password}, #{role})
+    </insert>
 
 
 </mapper>

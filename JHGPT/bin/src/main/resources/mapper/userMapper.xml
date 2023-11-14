@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jhgpt.board.model.dao.UserDao">
+
+    <!-- User 목록 가져오기 -->
+    <select id="getUserList" resultType="User">
+        SELECT * 
+        FROM User;
+    </select>
+
+    <!-- User 정보를 조회한다. -->
+    <select id="selectOne" parameterType="int" resultType="User">
+            select * 
+            from User 
+            where user_id=#{user_id}
+    </select>
+    
+    <!-- User 삭제 -->
+    <delete id="deleteUser" parameterType="int">
+        DELETE FROM User
+        WHERE user_id=#{user_id}
+    </delete>
+    
+    <!-- 로그인로그아웃은 매퍼에서 안해줘도 된대 도하님께서  ㅇㅋㅇㅋㅇ-->
+    
+
+
+
+
+</mapper>

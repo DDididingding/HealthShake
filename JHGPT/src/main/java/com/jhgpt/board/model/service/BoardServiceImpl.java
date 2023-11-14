@@ -26,8 +26,6 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public Board getBoard(int id) {
-		// 조회수를 증가시키고
-		boardDao.updateViewCnt(id);
 		//하나 골라서 가져온다
 		return boardDao.selectOne(id);
 	}

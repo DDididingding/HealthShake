@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jhgpt.board.model.dao.BoardDao">
+
+    <!-- 게시글 등록 -->
+    <insert id="writeBoard" parameterType="Board">
+        INSERT INTO Board (board_id, author_id, post_content, post_time)
+        VALUES(#{board_id}, #{author_id}, #{post_content}, #{post_time})
+    </insert>
+    
+    <!-- 게시글 전체 조회 -->
+    <select id ="getList" resultType="Board">
+        SELECT *
+        FROM Board
+    </select>
+    
+    <!-- 게시글 상세 조회 -->
+    <select id ="getBoard" resultMap="boardMap" parameterType="int">
+        SELECT *
+        FROM Board
+        WHERE board_id = #{board_id};
+    </select>
+    
+    <!-- 게시글 수정 -->
+    <update id="updateBoard" parameterType="board">
+        UPDATE Board
+        SET post_content = #{post_content}, post_time = now()
+        WHERE board_id = #{board_id};
+    </update>
+    
+    <!-- 게시글 삭제 -->
+    <delete id="deleteBoard" parameterType="int">
+        DELETE FROM Board
+        WHERE board_id = #{board_id};
+    </delete>
+    
+</mapper>
