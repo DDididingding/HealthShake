@@ -1,9 +1,9 @@
 <template>
-    <div style="text-align: center;">
-      <h1>어떤 회원으로 가입하시겠습니깡</h1>
+    <div>
+      <h1 style="text-align: center;">마이페이지 멀로할지 정하는 페이지임</h1>
       <div class="buttons-container">
-        <RouterLink class="btn" :to="{ name: 'TrainerRegist' }">트레이너 회원가입</RouterLink>
-        <RouterLink class="btn" :to="{ name: 'UserRegist' }">유저 회원가입</RouterLink>
+        <RouterLink class="btn" :to="{ name: 'TrainerMypage' }">트레이너 마이페이지</RouterLink>
+        <RouterLink class="btn" :to="{ name: 'UserMypage' }">유저 마이페이지</RouterLink>
       </div>
       <RouterView/>
     </div>
@@ -11,8 +11,8 @@
   
   <script setup>
   import { RouterLink, RouterView } from "vue-router";
-  import TrainerRegist from "@/components/trainer/TrainerRegist.vue";
-  import UserRegist from "@/components/user/UserRegist.vue";
+  import TrainerMypage from "@/components/mypage/TrainerMypage.vue";
+  import UserMypage from "@/components/mypage/UserMypage.vue";
   </script>
   
   <style scoped>

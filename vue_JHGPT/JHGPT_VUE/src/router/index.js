@@ -1,9 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Login from '@/components/user/LoginForm.vue'
 import Register from '@/components/user/RegistPage.vue'
-import Mypage from '@/components/mypage/UserMypage.vue'
+import Mypage from '@/components/common/Mypage.vue'
 import TrainerRegist from '@/components/trainer/TrainerRegist.vue'
 import UserRegist from '@/components/user/UserRegist.vue'
+import TrainerMypage from '@/components/mypage/TrainerMypage.vue'
+import UserMypage from '@/components/mypage/UserMypage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +34,16 @@ const router = createRouter({
       path:'/userRegist',
       name:'UserRegist',
       component: UserRegist
+    },
+    {
+      path:'/trainerMypage',
+      name:'TrainerMypage',
+      component: TrainerMypage
+    },
+    {
+      path:'/userMypage',
+      name:'UserMypage',
+      component: UserMypage
     }
 
     
