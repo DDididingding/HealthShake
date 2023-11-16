@@ -123,12 +123,51 @@ public class MemberRestController {
 	        return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
+	// UpdateMapping
+	// put(PUT)
+	@PostMapping("/member/{member_code}")
+	@ApiOperation(value = "멤버 객체를 수정한다.", response = Integer.class)
+	public ResponseEntity<Void> updateMember(@PathVariable int member_code, Member member) {
+	    Member tmp = memberService.selectOneMember(member_code);
+		if(tmp == null){
+	        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+	    }
+
+	    memberService.updateMember(member);
+	    return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+
+	@PostMapping("/user/{member_code}")
+	@ApiOperation(value = "유저 객체를 수정한다.", response = Integer.class)
+	public ResponseEntity<Void> updateUser(@PathVariable int member_code, User user) {
+	    User tmp = memberService.selectOneUser(member_code);
+		if(tmp == null){
+	        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+	    }
+
+	    memberService.updateUser(user);
+	    return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+
+	@PostMapping("/trainer/{member_code}")
+	@ApiOperation(value = "트레이너 객체를 수정한다.", response = Integer.class)
+	public ResponseEntity<Void> updateTrainer(@PathVariable int member_code, Trainer trainer) {
+	    Trainer tmp = memberService.selectOneTrainer(member_code);
+		if(tmp == null){
+	        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+	    }
+
+	    memberService.updateTrainer(trainer);
+	    return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+
+
 	// DeleteMapping
 	// delete(DELETE)
-	@DeleteMapping("/member/{member_id}")
+	@DeleteMapping("/member/{member_code}")
 	@ApiOperation(value = "멤버 객체를 삭제한다.", response = Integer.class)
-	public ResponseEntity<Void> deleteUser(@PathVariable int member_id) {
-	    memberService.deleteMember(member_id);
+	public ResponseEntity<Void> deleteUser(@PathVariable int member_code) {
+	    memberService.deleteMember(member_code);
 	    return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	

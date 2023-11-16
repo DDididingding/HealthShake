@@ -44,5 +44,12 @@ public interface MemberService {
 	//유저 삭제
 	public void deleteMember(int member_code);
 
+	//멤버 정보 수정
+	public void updateMember(Member member);
+
+	//유저 정보 수정
+	public void updateUser(User user);
 	
+	//트레이너 정보 수정
+	public void updateTrainer(Trainer trainer);
 }

@@ -102,6 +102,20 @@ public class MemberServiceImpl implements MemberService {
 		}
 	}
 
+	@Override
+	public void updateMember(Member member) {
+		memberDao.updateMember(member);
+	}
+
+	@Override
+	public void updateUser(User user) {
+		userDao.updateUser(user);
+	}
+
+	@Override
+	public void updateTrainer(Trainer trainer) {
+		trainerDao.updateTrainer(trainer);
+	}
 
 	
 
