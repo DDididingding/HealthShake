@@ -14,13 +14,13 @@ public class BoardServiceImpl implements BoardService{
 	private BoardDao boardDao;
 	@Override
 	public List<Board> getList() {
-		// TODO Auto-generated method stub
+		
 		return boardDao.selectAllBoards();
 	}
 
 	@Override
 	public void writeBoard(Board board) {
-		// TODO Auto-generated method stub
+		
 		boardDao.insertBoard(board);
 	}
 
@@ -39,20 +39,26 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public void removeBoard(int board_code) {
-		// TODO Auto-generated method stub
+		
 		boardDao.deleteBoard(board_code);
 		
 	}
 
 	@Override
 	public List<Board> getListByCode(int member_code) {
-		// TODO Auto-generated method stub
+		
 		return boardDao.selectMeberBoards(member_code);
 	}
 
 	@Override
+	public List<Board> getListByTrainer(int member_code) {
+		
+		return boardDao.selectTrainerBoards(member_code);
+	}
+
+	@Override
 	public List<Board> getStatusList(int member_status) {
-		// TODO Auto-generated method stub
+		
 		return boardDao.selectAllBoardsByStatus(member_status);
 	}
 	

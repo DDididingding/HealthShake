@@ -4,51 +4,53 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.jhgpt.model.dao.ReviewDao;
-import com.jhgpt.model.dto.Board;
 import com.jhgpt.model.dto.Review;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
 
-    @Autowired
     private ReviewDao reviewDao;
 
-    @Override
-    public List<Review> getReviewList() {
-        return reviewDao.selectAll();
+    @Autowired
+    public ReviewServiceImpl(ReviewDao reviewDao) {
+        this.reviewDao = reviewDao;
     }
 
     @Override
-    public Review selectReview(int review_id) {
-        // Update view count and then retrieve the review
-        return reviewDao.selectOne(review_id);
+    public List<Review> getAllReviews() {
+        return reviewDao.selectAllReviews();
     }
 
-    @Transactional
     @Override
-    public void modifyReview(Review review) {
+    public List<Review> getReviewsByMember(int member_code) {
+        return reviewDao.selectReviewsByMember(member_code);
+    }
+
+    @Override
+    public List<Review> getReviewsByWriter(int writer_code) {
+        return reviewDao.selectReviewsByWriter(writer_code);
+    }
+
+    @Override
+    public Review selectOneReview(int review_code) {
+        return reviewDao.selectOneReview(review_code);
+    }
+
+
+    @Override
+    public void addReview(Review review) {
+        reviewDao.insertReview(review);
+    }
+
+    @Override
+    public void deleteReview(int review_code) {
+        reviewDao.deleteReview(review_code);
+    }
+
+    @Override
+    public void updateReview(Review review) {
         reviewDao.updateReview(review);
     }
-
-    @Override
-    public void deleteReview(int review_id) {
-        reviewDao.deleteReview(review_id);
-    }
-
-	@Override
-	public List<Review> getReviewsForVideo(int video_id) {
-		// TODO Auto-generated method stub
-		return reviewDao.selectReviewsForVideo(video_id);
-	}
-
-	@Override
-	public void writeReview(Review review) {
-	    reviewDao.insertReview(review);
-	}
-
 }
-
-	

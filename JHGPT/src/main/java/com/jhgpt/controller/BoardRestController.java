@@ -41,9 +41,9 @@ public class BoardRestController {
 	}
 
 	// 2. 상세보기
-	@GetMapping("/board/{id}")
-	public ResponseEntity<?> detail(@PathVariable int id) {
-		Board board = boardService.getBoard(id);
+	@GetMapping("/board/{board_code}")
+	public ResponseEntity<?> detail(@PathVariable int board_code) {
+		Board board = boardService.getBoard(board_code);
 		// 정석이라면 게시글 제목을 클릭해서 상세보기로 들어갈 거니까 여기서 매무리 해도 된다.
 		// 꼬옥 주소창을 통해 접근하려고 하는 악의무리가 있기 때문에 만약 없는 값을 보냈을때... 처리를 해주어라.
 		if (board == null)

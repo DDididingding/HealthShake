@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.jhgpt.board.model.dao.MemberDao">
+<mapper namespace="com.jhgpt.model.dao.MemberDao">
 
     <!-- Member 목록 가져오기 -->
     <select id="selectAllMembers" resultType="Member">

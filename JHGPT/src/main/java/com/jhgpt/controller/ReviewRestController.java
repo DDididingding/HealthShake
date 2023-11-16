@@ -21,52 +21,62 @@ public class ReviewRestController {
     @Autowired
     private ReviewService reviewService; // Update to use ReviewService
 
-    // 1. 리뷰 목록 조회
-    @GetMapping("/video/{video_id}/reviews")
-    @ApiOperation(value = "비디오에 대한 리뷰 조회", notes = "비디오별 리뷰 목록을 가져옵니다.")
-    public ResponseEntity<?> listReviews(@PathVariable int video_id) {
-        List<Review> list = reviewService.getReviewsForVideo(video_id);
-        if (list.size() == 0)
+    // 1. 트레이너별 리뷰 목록 조회
+    @GetMapping("/trainer/{member_code}/review")
+    public ResponseEntity<?> reviewListByTrainer(@PathVariable int member_code) {
+        List<Review> list = reviewService.getReviewsByMember(member_code);
+        if (list.isEmpty())
             return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+
+        return new ResponseEntity<List<Review>>(list, HttpStatus.OK);
+    }
+    //멤버가 쓴 리뷰 모아보기
+    @GetMapping("/review/{review_writer}")
+    public ResponseEntity<?> reviewListByWriter(@PathVariable int review_writer) {
+        List<Review> list = reviewService.getReviewsByWriter(review_writer);
+        if (list.isEmpty())
+            return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+
         return new ResponseEntity<List<Review>>(list, HttpStatus.OK);
     }
 
-    // 2. 리뷰 상세보기
-    @GetMapping("/review/{review_id}")
-    public ResponseEntity<?> reviewDetail(@PathVariable int review_id) {
-        Review review = reviewService.selectReview(review_id);
+
+    // 리뷰 상세보기
+    @GetMapping("/review/{review_code}")
+    public ResponseEntity<?> reviewDetail(@PathVariable int review_code) {
+        Review review = reviewService.selectOneReview(review_code);
         if (review == null)
             return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 
         return new ResponseEntity<Review>(review, HttpStatus.OK);
     }
 
-    // 3. 리뷰 등록
-    @PostMapping("/video/{video_id}/review")
-    public ResponseEntity<?> writeReview(@PathVariable int video_id, @RequestBody Review review) {
-        reviewService.writeReview(review);
-        return new ResponseEntity<Review>(review, HttpStatus.CREATED);
+
+    // 3. 트레이너에 대한 리뷰 등록
+    // 리뷰는 냅다 등록하고, 보여줄 때만 트레이너에 대한 리뷰만 보여주기
+    @PostMapping("/review")
+    @ApiOperation(value = "리뷰 등록", notes = "리뷰 등록")
+    public ResponseEntity<?> addReview(@RequestBody Review review) {
+        reviewService.addReview(review);
+        return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
     // 4. 리뷰 삭제
-    @DeleteMapping("/review/{review_id}")
-    public ResponseEntity<Void> deleteReview(@PathVariable int review_id) {
-        Review review = reviewService.selectReview(review_id);
-        if (review == null)
-            return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-
-        reviewService.deleteReview(review_id);
+    @DeleteMapping("/review/{review_code}")
+    @ApiOperation(value = "리뷰 삭제", notes = "리뷰 삭제")
+    public ResponseEntity<?> deleteReview(@PathVariable int review_code) {
+        reviewService.deleteReview(review_code);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
+    
 
     // 5. 리뷰 수정
-    @PutMapping("/review")
-    public ResponseEntity<Void> updateReview(@RequestBody Review review) {
-        Review existingReview = reviewService.selectReview(review.getReview_id());
-        if (existingReview == null)
-            return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-
-        reviewService.modifyReview(review);
+    @PutMapping("/review/{review_code}")
+    @ApiOperation(value = "리뷰 수정", notes = "리뷰 수정")
+    public ResponseEntity<?> updateReview(@PathVariable int review_code, Review review){
+        //없을 때 처리 해야함. 삭제도 마찬가지
+        reviewService.updateReview(review);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
+    
 }

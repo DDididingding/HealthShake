@@ -25,6 +25,9 @@ public interface BoardService {
 	
 	//멤버 코드로 게시글 가져오기
 	List<Board> getListByCode(int member_code);
+
+	//트레이너 코드로 게시글 가져오기
+	List<Board> getListByTrainer(int member_code);
 	
 	//멤버 유형별로 게시글 가져오기
 	List<Board> getStatusList(int member_status);

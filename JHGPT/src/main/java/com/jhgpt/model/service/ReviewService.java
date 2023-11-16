@@ -2,23 +2,21 @@ package com.jhgpt.model.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import com.jhgpt.model.dto.Review;
 
-@Service
 public interface ReviewService {
-	
-	public List<Review> getReviewList();
-	
-	public Review selectReview(int review_id);
-	
-	public void modifyReview(Review review);
-	
-	public void deleteReview(int review_id);
 
-	public List<Review> getReviewsForVideo(int video_id);
+    List<Review> getAllReviews();
 
-	public void writeReview(Review review);
+    List<Review> getReviewsByMember(int member_code);
 
+    List<Review> getReviewsByWriter(int review_writer);
+
+    Review selectOneReview(int review_code);
+
+    void addReview(Review review);
+
+    void deleteReview(int review_code);
+
+    void updateReview(Review review);
 }

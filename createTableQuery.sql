@@ -1,3 +1,5 @@
+DROP DATABASE IF EXISTS jhgpt_db;
+
 -- Create the database
 CREATE DATABASE IF NOT EXISTS jhgpt_db;
 
@@ -77,3 +79,9 @@ CREATE TABLE IF NOT EXISTS Review (
     review_dislike INT DEFAULT 0,
     FOREIGN KEY (member_code) REFERENCES Member(member_code)
 );
+
+ALTER TABLE Review
+ADD COLUMN review_writer INT,
+ADD CONSTRAINT fk_review_writer
+    FOREIGN KEY (review_writer)
+    REFERENCES Member (member_code);

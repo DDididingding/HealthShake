@@ -31,7 +31,7 @@ private VideoService videoService;
 @GetMapping("/video")
 @ApiOperation(value = "등록된 모든 비디오 정보 반환.", response = Video.class)
 public ResponseEntity<?> getVideoList() {
-    List<Video> list = videoService.getVideoList();
+    List<Video> list = videoService.getAllVideos()();
     if (list == null || list.size() == 0) {
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
