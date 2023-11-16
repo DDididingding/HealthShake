@@ -60,14 +60,14 @@ public class MemberServiceImpl implements MemberService {
     }
 
 	@Override
-	public int Signup(User user) {
+	public int signup(User user) {
 		
 		userDao.insertUser(user);
 		return 1; //성공
 	}
 
 	@Override
-	public int Signup(Trainer trainer) {
+	public int signup(Trainer trainer) {
 		
 		trainerDao.insertTrainer(trainer);
 		return 1;

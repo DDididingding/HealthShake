@@ -30,10 +30,10 @@ public interface MemberService {
 	public Trainer selectOneTrainer(int Member_code);
 	
 	//유저 회원가입
-	public int Signup(User user);
+	public int signup(User user);
 	
 	//트레이너 회원가입 //오버로딩 구현
-	public int Signup(Trainer trainer);
+	public int signup(Trainer trainer);
 	
 	//로그인
 	public Member login(Member member);
