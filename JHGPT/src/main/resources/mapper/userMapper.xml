@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jhgpt.model.dao.UserDao">
+
+    <!-- User 목록 가져오기 (Member와 Join) -->
+    <select id="selectAllUsers" resultType="User">
+        SELECT M.*, U.prefer_part, U.prefer_gender, U.prefer_style, U.prefer_goal, U.user_readme, U.buy_list
+        FROM Member M
+        JOIN User U ON M.member_code = U.member_code;
+    </select>
+
+    <!-- User 정보를 조회한다. (Member와 Join) -->
+    <select id="selectOneUser" parameterType="int" resultType="User">
+        SELECT M.*, U.prefer_part, U.prefer_gender, U.prefer_style, U.prefer_goal, U.user_readme, U.buy_list
+        FROM Member M
+        JOIN User U ON M.member_code = U.member_code
+        WHERE M.member_code=#{member_code};
+    </select>
+
+    <!-- User 등록 -->
+    <insert id="insertUser" parameterType="User">
+        INSERT INTO User(member_code, prefer_part, prefer_gender, prefer_style, prefer_goal, user_readme, buy_list)
+        VALUES(#{member_code}, #{prefer_part}, #{prefer_gender}, #{prefer_style}, #{prefer_goal}, #{user_readme}, #{buy_list})
+    </insert>
+
+    <!-- User 삭제 -->
+    <delete id="deleteUser" parameterType="int">
+        DELETE FROM User
+        WHERE member_code=#{member_code}
+    </delete>
+
+    <!-- User 수정 -->
+    <update id="updateUser" parameterType="User">
+        UPDATE User
+        SET prefer_part=#{prefer_part}, prefer_gender=#{prefer_gender}, prefer_style=#{prefer_style},
+            prefer_goal=#{prefer_goal}, user_readme=#{user_readme}, buy_list=#{buy_list}
+        WHERE member_code=#{member_code}
+    </update>
+
+</mapper>

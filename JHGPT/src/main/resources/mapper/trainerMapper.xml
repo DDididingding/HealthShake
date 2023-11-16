@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jhgpt.model.dao.TrainerDao">
+
+    <!-- Trainer 목록 가져오기 (Member와 Join) -->
+    <select id="selectAllTrainers" resultType="Trainer">
+        SELECT M.*, T.provide_part, T.provide_style, T.provide_goal, T.video_list, T.trainer_readme, T.trainer_price, T.trainer_review, T.trainer_rating
+        FROM Member M
+        JOIN Trainer T ON M.member_code = T.member_code;
+    </select>
+
+    <!-- Trainer 정보를 조회한다. (Member와 Join) -->
+    <select id="selectOneTrainer" parameterType="int" resultType="Trainer">
+        SELECT M.*, T.provide_part, T.provide_style, T.provide_goal, T.video_list, T.trainer_readme, T.trainer_price, T.trainer_review, T.trainer_rating
+        FROM Member M
+        JOIN Trainer T ON M.member_code = T.member_code
+        WHERE M.member_code=#{member_code};
+    </select>
+
+    <!-- Trainer 등록 -->
+    <insert id="insertTrainer" parameterType="Trainer">
+        INSERT INTO Trainer(member_code, provide_part, provide_style, provide_goal, video_list, trainer_readme, trainer_price, trainer_review, trainer_rating)
+        VALUES(#{member_code}, #{provide_part}, #{provide_style}, #{provide_goal}, #{video_list}, #{trainer_readme}, #{trainer_price}, #{trainer_review}, #{trainer_rating})
+    </insert>
+
+    <!-- Trainer 삭제 -->
+    <delete id="deleteTrainer" parameterType="int">
+        DELETE FROM Trainer
+        WHERE member_code=#{member_code}
+    </delete>
+
+    <!-- Trainer 수정 -->
+    <update id="updateTrainer" parameterType="Trainer">
+        UPDATE Trainer
+        SET provide_part=#{provide_part}, provide_style=#{provide_style}, provide_goal=#{provide_goal},
+            video_list=#{video_list}, trainer_readme=#{trainer_readme}, trainer_price=#{trainer_price},
+            trainer_review=#{trainer_review}, trainer_rating=#{trainer_rating}
+        WHERE member_code=#{member_code}
+    </update>
+
+</mapper>

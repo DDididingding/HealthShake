@@ -42,25 +42,33 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public User selectOneUser(int member_code) {
-        return userDao.selectOneUser(member_code);
+		Member tmp = memberDao.selectOneMember(member_code);
+		if(tmp.getMember_status() == 1) {
+			return userDao.selectOneUser(member_code);
+		}
+		return null;
+			
     }
 
     @Override
     public Trainer selectOneTrainer(int member_code) {
-    	// TODO Auto-generated method stub
-    	return trainerDao.selectOneTrainer(member_code);
+		Member tmp = memberDao.selectOneMember(member_code);
+		if(tmp.getMember_status() == 2) {
+    		return trainerDao.selectOneTrainer(member_code);
+		}
+		return null;
     }
 
 	@Override
 	public int Signup(User user) {
-		// TODO Auto-generated method stub
+		
 		userDao.insertUser(user);
-		return 1;
+		return 1; //성공
 	}
 
 	@Override
 	public int Signup(Trainer trainer) {
-		// TODO Auto-generated method stub
+		
 		trainerDao.insertTrainer(trainer);
 		return 1;
 	}
@@ -75,13 +83,13 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public Member logout(int member_code) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	@Override
 	public void deleteMember(int member_code) {
-		// TODO Auto-generated method stub
+		
 		Member tmp = memberDao.selectOneMember(member_code);
 		if(tmp.getMember_status() == 1) {
 			userDao.deleteUser(member_code);
