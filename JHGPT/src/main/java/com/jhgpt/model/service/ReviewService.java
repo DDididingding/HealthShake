@@ -2,8 +2,11 @@ package com.jhgpt.model.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.jhgpt.model.dto.Review;
 
+@Service
 public interface ReviewService {
 
     List<Review> getAllReviews();

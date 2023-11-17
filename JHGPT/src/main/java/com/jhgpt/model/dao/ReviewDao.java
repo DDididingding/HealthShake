@@ -9,10 +9,10 @@ public interface ReviewDao {
     // 전체 리뷰 목록 가져오기
     List<Review> selectAllReviews();
 
-    // 작성자를 기준으로 리뷰 목록 가져오기
+    // 트레이너를 기준으로 리뷰 목록 가져오기
     List<Review> selectReviewsByMember(int member_code);
 
-    // 트레이너를 기준으로 리뷰 목록 가져오기
+    // 작성자를 기준으로 리뷰 목록 가져오기
     List<Review> selectReviewsByWriter(int review_writer); 
        
     // 리뷰 하나 가져오기

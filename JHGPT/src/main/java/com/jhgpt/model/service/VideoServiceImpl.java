@@ -2,7 +2,7 @@ package com.jhgpt.model.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import com.jhgpt.model.dao.VideoDao;
@@ -11,12 +11,8 @@ import com.jhgpt.model.dto.Video;
 @Service
 public class VideoServiceImpl implements VideoService {
 
-    private final VideoDao videoDao;
+    private VideoDao videoDao;
 
-    @Autowired
-    public VideoServiceImpl(VideoDao videoDao) {
-        this.videoDao = videoDao;
-    }
 
     @Override
     public List<Video> getAllVideos() {

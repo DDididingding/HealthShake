@@ -2,7 +2,6 @@ package com.jhgpt.model.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jhgpt.model.dao.ReviewDao;
@@ -12,11 +11,6 @@ import com.jhgpt.model.dto.Review;
 public class ReviewServiceImpl implements ReviewService {
 
     private ReviewDao reviewDao;
-
-    @Autowired
-    public ReviewServiceImpl(ReviewDao reviewDao) {
-        this.reviewDao = reviewDao;
-    }
 
     @Override
     public List<Review> getAllReviews() {
