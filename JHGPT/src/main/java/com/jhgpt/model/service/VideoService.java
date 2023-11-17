@@ -8,7 +8,7 @@ public interface VideoService {
     
     List<Video> getAllVideos();
     
-    Video getVideoById(int video_code);
+    Video getVideoByCode(int video_code);
     
     void addVideo(Video video);
     

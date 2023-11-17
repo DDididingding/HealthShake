@@ -8,13 +8,13 @@ public interface VideoDao {
 	
 	List<Video> selectTrainerVideos(int member_code);
 
-	Video selectOneVideo(int video_id);
+	Video selectOneVideo(int video_code);
 
 	void insertVideo(Video video);
 
-	void deleteVideo(int video_id);
+	void deleteVideo(int video_code);
 
 	void updateVideo(Video video);
 
-	void updateViewCnt(int video_id);
+	void updateViewCnt(int video_code);
 }

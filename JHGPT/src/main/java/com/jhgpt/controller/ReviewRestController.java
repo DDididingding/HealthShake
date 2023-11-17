@@ -73,8 +73,9 @@ public class ReviewRestController {
     // 5. 리뷰 수정
     @PutMapping("/review/{review_code}")
     @ApiOperation(value = "리뷰 수정", notes = "리뷰 수정")
-    public ResponseEntity<?> updateReview(@PathVariable int review_code, Review review){
+    public ResponseEntity<?> updateReview(@RequestBody Review review){
         //없을 때 처리 해야함. 삭제도 마찬가지
+    	//좀 더 구혀해야 함
         reviewService.updateReview(review);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }

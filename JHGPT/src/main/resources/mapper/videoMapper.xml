@@ -15,7 +15,7 @@
 
     <!-- 비디오 상세 조회 -->
     <select id="selectOneVideo" parameterType="int" resultType="Video">
-        SELECT * FROM Video WHERE video_code = #{video_id};
+        SELECT * FROM Video WHERE video_code = #{video_code};
     </select>
 
     <!-- 비디오 등록 -->
@@ -26,7 +26,7 @@
 
     <!-- 비디오 삭제 -->
     <delete id="deleteVideo" parameterType="int">
-        DELETE FROM Video WHERE video_code = #{video_id};
+        DELETE FROM Video WHERE video_code = #{video_code};
     </delete>
 
     <!-- 비디오 수정 -->
