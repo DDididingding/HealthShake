@@ -22,6 +22,7 @@ import com.jhgpt.model.service.MemberService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
 @RequestMapping("/api")
@@ -32,7 +33,7 @@ public class MemberRestController {
 	private MemberService memberService;
 	
 	//전체멤버가져오기
-	@GetMapping("/Member")
+	@GetMapping("/member")
 	public ResponseEntity<?> getMemberList() {
 		
 		List<Member> list = memberService.getAllMember();
@@ -41,7 +42,7 @@ public class MemberRestController {
 	}
 
 	//전체유저가져오기
-	@GetMapping("/User")
+	@GetMapping("/user")
 	public ResponseEntity<?> getUserList() {
 		
 		List<User> list = memberService.getAllUser();
@@ -50,7 +51,7 @@ public class MemberRestController {
 	}
 
 	//전체트레이너가져오기
-	@GetMapping("/Trainer")
+	@GetMapping("/trainer")
 	public ResponseEntity<?> getTrainerList() {
 		
 		List<Trainer> list = memberService.getAllTrainer();
@@ -84,7 +85,7 @@ public class MemberRestController {
 	
 	//회원가입을 해보자 form 태그 형식으로 넘어왔다.
 	@PostMapping("signup/user")
-	public ResponseEntity<Integer> userSignup(User user) {
+	public ResponseEntity<Integer> userSignup(@RequestBody User user) {
 	    int result = memberService.signup(user);
 	    
 	    //result 가 0이면 등록 x
@@ -93,7 +94,7 @@ public class MemberRestController {
 	}
 
 	@PostMapping("signup/trainer")
-	public ResponseEntity<Integer> trainerSignup(Trainer trainer) {
+	public ResponseEntity<Integer> trainerSignup(@RequestBody Trainer trainer) {
 	    int result = memberService.signup(trainer);
 	    
 	    //result 가 0이면 등록 x
@@ -102,7 +103,7 @@ public class MemberRestController {
 	}
 	
 	@PostMapping("login")
-	public ResponseEntity<?> login(Member member, HttpSession session) {
+	public ResponseEntity<?> login(@RequestBody Member member, HttpSession session) {
 	    Member tmp = memberService.login(member);
 	    //로그인 실패 (잘못했어)
 	    if(tmp == null)
@@ -127,7 +128,7 @@ public class MemberRestController {
 	// put(PUT)
 	@PostMapping("/member/{member_code}")
 	@ApiOperation(value = "멤버 객체를 수정한다.", response = Integer.class)
-	public ResponseEntity<Void> updateMember(@PathVariable int member_code, Member member) {
+	public ResponseEntity<Void> updateMember(@PathVariable int member_code,@RequestBody Member member) {
 	    Member tmp = memberService.selectOneMember(member_code);
 		if(tmp == null){
 	        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
@@ -139,7 +140,7 @@ public class MemberRestController {
 
 	@PostMapping("/user/{member_code}")
 	@ApiOperation(value = "유저 객체를 수정한다.", response = Integer.class)
-	public ResponseEntity<Void> updateUser(@PathVariable int member_code, User user) {
+	public ResponseEntity<Void> updateUser(@PathVariable int member_code,@RequestBody User user) {
 	    User tmp = memberService.selectOneUser(member_code);
 		if(tmp == null){
 	        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
@@ -151,7 +152,7 @@ public class MemberRestController {
 
 	@PostMapping("/trainer/{member_code}")
 	@ApiOperation(value = "트레이너 객체를 수정한다.", response = Integer.class)
-	public ResponseEntity<Void> updateTrainer(@PathVariable int member_code, Trainer trainer) {
+	public ResponseEntity<Void> updateTrainer(@PathVariable int member_code,@RequestBody Trainer trainer) {
 	    Trainer tmp = memberService.selectOneTrainer(member_code);
 		if(tmp == null){
 	        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);

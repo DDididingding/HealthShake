@@ -25,7 +25,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("준현지팀 restapi")
-                .description("무려 하루도 안걸려서 완성한 서버입니다")
+                .description("다양한 기능을 구현해보자")
                 .version("0.2")
                 .build();
     }
