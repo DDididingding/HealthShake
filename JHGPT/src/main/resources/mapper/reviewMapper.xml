@@ -27,8 +27,8 @@
 
     <!-- 리뷰 등록 -->
     <insert id="insertReview" parameterType="Review">
-        INSERT INTO Review(member_code, review_writer, review_rating, review_content, review_uploadtime, review_like, review_dislike)
-        VALUES(#{member_code}, #{review_writer}, #{review_rating}, #{review_content}, #{review_uploadtime}, #{review_like}, #{review_dislike});
+        INSERT INTO Review(member_code, review_writer, review_rating, review_content)
+        VALUES(#{member_code}, #{review_writer}, #{review_rating}, #{review_content});
     </insert>
 
     <!-- 리뷰 삭제 -->
@@ -39,8 +39,7 @@
     <!-- 리뷰 수정 -->
     <update id="updateReview" parameterType="Review">
         UPDATE Review
-        SET review_rating=#{review_rating}, review_content=#{review_content}, review_uploadtime=#{review_uploadtime},
-            review_like=#{review_like}, review_dislike=#{review_dislike}
+        SET review_rating=#{review_rating}, review_content=#{review_content}
         WHERE review_code=#{review_code};
     </update>
 
