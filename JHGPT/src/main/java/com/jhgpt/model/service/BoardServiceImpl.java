@@ -2,6 +2,7 @@ package com.jhgpt.model.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,6 +12,7 @@ import com.jhgpt.model.dto.Board;
 @Service
 public class BoardServiceImpl implements BoardService{
 
+	@Autowired
 	private BoardDao boardDao;
 	@Override
 	public List<Board> getList() {

@@ -2,6 +2,7 @@ package com.jhgpt.model.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jhgpt.model.dao.MemberDao;
@@ -13,9 +14,14 @@ import com.jhgpt.model.dto.User;
 
 @Service
 public class MemberServiceImpl implements MemberService {
-
+	
+	@Autowired
     private MemberDao memberDao;
+	
+	@Autowired
     private UserDao userDao;
+	
+	@Autowired
     private TrainerDao trainerDao;
 
     // 다른 메서드들과 마찬가지로 각각의 DAO에서 데이터를 가져오는 로직을 작성해주세요.
