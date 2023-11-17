@@ -19,5 +19,7 @@ public interface BoardDao {
 	List<Board> selectTrainerBoards(int member_code); //트레이너 코드로 게시글 가져오기
 
     List<Board> selectAllBoardsByStatus(int member_status); // 멤버 타입에 따른 게시글 가져오기
+
+	List<Board> selectAllBoardsBySearch(String searchType, String searchValue); // 검색 조건에 따른 게시글 가져오기
 	
 }

@@ -48,4 +48,8 @@
         SELECT * FROM Board WHERE member_code = #{member_code} AND board_modify_status = 0;
     </select>
 
+    <!-- 검색 조건에 따른 결과 가져오기 -->
+    <select id="selectAllBoardsBySearch" parameterType="String" resultType="com.jhgpt.model.dto.Board">
+        SELECT * FROM Board WHERE ${searchType} LIKE CONCAT('%', #{searchValue}, '%');
+    </select>
 </mapper>
