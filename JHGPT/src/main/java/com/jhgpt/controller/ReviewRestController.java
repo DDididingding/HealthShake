@@ -44,6 +44,7 @@ public class ReviewRestController {
     
     // 1. 트레이너별 리뷰 목록 조회
     @GetMapping("/trainer/{member_code}/review")
+    @ApiOperation(value = "트레이너별 리뷰 목록 조회", notes = "트레이너별 리뷰 목록 조회")
     public ResponseEntity<?> reviewListByTrainer(@PathVariable int member_code) {
         List<Review> list = reviewService.getReviewsByMember(member_code);
         if (list.isEmpty())
@@ -53,6 +54,7 @@ public class ReviewRestController {
     }
     //멤버가 쓴 리뷰 모아보기
     @GetMapping("/review/{review_writer}")
+    @ApiOperation(value = "멤버가 쓴 리뷰 모아보기", notes = "멤버가 쓴 리뷰 모아보기")
     public ResponseEntity<?> reviewListByWriter(@PathVariable int review_writer) {
         List<Review> list = reviewService.getReviewsByWriter(review_writer);
         if (list.isEmpty())

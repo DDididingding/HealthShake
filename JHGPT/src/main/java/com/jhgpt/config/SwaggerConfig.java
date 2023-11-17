@@ -21,12 +21,12 @@ public class SwaggerConfig {
                 .build()
                 .apiInfo(apiInfo());
     }
-
+    
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("준현지팀 restapi")
                 .description("다양한 기능을 구현해보자")
-                .version("0.2")
+                .version("1.2")
                 .build();
     }
 }
