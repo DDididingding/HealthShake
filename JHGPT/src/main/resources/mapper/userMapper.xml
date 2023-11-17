@@ -21,8 +21,10 @@
 
     <!-- User 등록 -->
     <insert id="insertUser" parameterType="User">
-        INSERT INTO User(member_code, prefer_part, prefer_gender, prefer_style, prefer_goal, user_readme, buy_list)
-        VALUES(#{member_code}, #{prefer_part}, #{prefer_gender}, #{prefer_style}, #{prefer_goal}, #{user_readme}, #{buy_list})
+        INSERT INTO User(member_code, prefer_part, prefer_gender, prefer_style, prefer_goal, user_readme)
+        VALUES(#{member_code}, #{prefer_part}, #{prefer_gender}, #{prefer_style}, #{prefer_goal}, #{user_readme});
+
+        UPDATE Member SET member_status=1 WHERE member_code=${member_code};
     </insert>
 
     <!-- User 삭제 -->
@@ -35,7 +37,7 @@
     <update id="updateUser" parameterType="User">
         UPDATE User
         SET prefer_part=#{prefer_part}, prefer_gender=#{prefer_gender}, prefer_style=#{prefer_style},
-            prefer_goal=#{prefer_goal}, user_readme=#{user_readme}, buy_list=#{buy_list}
+            prefer_goal=#{prefer_goal}, user_readme=#{user_readme}
         WHERE member_code=#{member_code}
     </update>
 

@@ -32,59 +32,74 @@ public class MemberRestController {
 	@Autowired
 	private MemberService memberService;
 	
-	//전체멤버가져오기
 	@GetMapping("/member")
+	@ApiOperation(value = "멤버 전체 조회", notes = "멤버 전체 조회")
 	public ResponseEntity<?> getMemberList() {
 		
 		List<Member> list = memberService.getAllMember();
+
+		//리스트가 비어있을 때 204 No Content 반환
+		if(list.isEmpty())
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		
 		return new ResponseEntity<List<Member>>(list, HttpStatus.OK);
 	}
 
 	//전체유저가져오기
 	@GetMapping("/user")
+	@ApiOperation(value = "유저 전체 조회", notes = "유저 전체 조회")
 	public ResponseEntity<?> getUserList() {
 		
 		List<User> list = memberService.getAllUser();
+
+		//리스트가 비어있을 때 204 No Content 반환
+		if(list.isEmpty())
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		
 		return new ResponseEntity<List<User>>(list, HttpStatus.OK);
 	}
 
 	//전체트레이너가져오기
 	@GetMapping("/trainer")
+	@ApiOperation(value = "트레이너 전체 조회", notes = "트레이너 전체 조회")
 	public ResponseEntity<?> getTrainerList() {
 		
 		List<Trainer> list = memberService.getAllTrainer();
+
+		//리스트가 비어있을 때 204 No Content 반환
+		if(list.isEmpty())
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		
 		return new ResponseEntity<List<Trainer>>(list, HttpStatus.OK);
 	}
 
 	
 	// search(READ)
-	@GetMapping("/user/{member_id}")
-	@ApiOperation(value = "{member_id}에 해당하는 유저 정보를 반환한다.", response = User.class)
-	public ResponseEntity<?> selectUser(@PathVariable int member_id) {
+	@GetMapping("/user/{member_code}")
+	@ApiOperation(value = "{member_code}에 해당하는 유저 정보를 반환한다.", response = User.class)
+	public ResponseEntity<?> selectUser(@PathVariable int member_code) {
 	    
-	    User user = memberService.selectOneUser(member_id);
+	    User user = memberService.selectOneUser(member_code);
 	    if(user==null) {
 	        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	    }
 	    return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 
-	@GetMapping("/trainer/{member_id}")
-	@ApiOperation(value = "{member_id}에 해당하는 트레이너 정보를 반환한다.", response = Trainer.class)
-	public ResponseEntity<?> selectTrainer(@PathVariable int member_id) {
+	@GetMapping("/trainer/{member_code}")
+	@ApiOperation(value = "{member_code}에 해당하는 트레이너 정보를 반환한다.", response = Trainer.class)
+	public ResponseEntity<?> selectTrainer(@PathVariable int member_code) {
 	    
-	    Trainer trainer = memberService.selectOneTrainer(member_id);
+	    Trainer trainer = memberService.selectOneTrainer(member_code);
 	    if(trainer==null) {
 	        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	    }
 	    return new ResponseEntity<Trainer>(trainer, HttpStatus.OK);
 	}
 	
-	//회원가입을 해보자 form 태그 형식으로 넘어왔다.
+
 	@PostMapping("signup/user")
+	@ApiOperation(value = "유저 객체를 등록한다.", response = Integer.class)
 	public ResponseEntity<Integer> userSignup(@RequestBody User user) {
 	    int result = memberService.signup(user);
 	    

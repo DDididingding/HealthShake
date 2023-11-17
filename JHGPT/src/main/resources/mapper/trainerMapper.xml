@@ -21,7 +21,9 @@
     <!-- Trainer 등록 -->
     <insert id="insertTrainer" parameterType="Trainer">
         INSERT INTO Trainer(member_code, provide_part, provide_style, provide_goal, video_list, trainer_readme, trainer_price, trainer_review, trainer_rating)
-        VALUES(#{member_code}, #{provide_part}, #{provide_style}, #{provide_goal}, #{video_list}, #{trainer_readme}, #{trainer_price}, #{trainer_review}, #{trainer_rating})
+        VALUES(#{member_code}, #{provide_part}, #{provide_style}, #{provide_goal}, #{video_list}, #{trainer_readme}, #{trainer_price}, #{trainer_review}, #{trainer_rating});
+
+        UPDATE Member SET member_status=2 WHERE member_code=${member_code};
     </insert>
 
     <!-- Trainer 삭제 -->

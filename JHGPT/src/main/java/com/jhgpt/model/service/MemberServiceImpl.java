@@ -67,6 +67,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int signup(User user) {
+		memberDao.insertMember(user);
 		
 		userDao.insertUser(user);
 		return 1; //성공

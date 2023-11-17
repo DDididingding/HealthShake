@@ -19,8 +19,8 @@
 
     <!-- Member 등록 -->
     <insert id="insertMember" parameterType="Member">
-        INSERT INTO Member(member_id, member_name, member_nickname, member_age, member_gender, member_status)
-        VALUES(#{member_id}, #{member_name}, #{member_nickname}, #{member_age}, #{member_gender}, #{member_status})
+        INSERT INTO Member(member_id, member_name, member_nickname, member_age, member_gender, member_password)
+        VALUES(#{member_id}, #{member_name}, #{member_nickname}, #{member_age}, #{member_gender}, #{member_password})
     </insert>
 
     <!-- Member 삭제 -->
