@@ -42,7 +42,7 @@
     <update id="updateViewCnt" parameterType="int">
         UPDATE Video
         SET video_viewcnt = video_viewcnt + 1
-        WHERE video_code = #{video_id};
+        WHERE video_code = #{video_code};
     </update>
 
 </mapper>

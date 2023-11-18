@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,16 +40,6 @@ public ResponseEntity<?> getVideoList() {
     return new ResponseEntity<List<Video>>(list, HttpStatus.OK);
 }
 
-// PostMapping
-// insert(CREATE)
-@PostMapping("/video")
-@ApiOperation(value = "video 객체를 저장한다.", response = Integer.class)
-public ResponseEntity<?> registVideo(@RequestBody Video video) throws Exception, IOException {
-    videoService.addVideo(video);
-
-    return new ResponseEntity<Video>(video, HttpStatus.CREATED);
-}
-
 // GetMapping
 // select(READ)
 @GetMapping("/video/{video_code}")
@@ -62,6 +53,28 @@ public ResponseEntity<?> selectVideo(@PathVariable int video_code) {
     return new ResponseEntity<Video>(video, HttpStatus.OK);
 }
 
+@GetMapping("/video/trainer/{member_code}")
+@ApiOperation(value = "{member_code}인 trainer의 video들 가져오기.", response = Video.class)
+public ResponseEntity<?> selectTrainerVideo(@PathVariable int member_code) {
+    List<Video> list = videoService.getTrainerVideos(member_code);
+    if (list == null || list.size() == 0) {
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
+
+    return new ResponseEntity<List<Video>>(list, HttpStatus.OK);
+}
+
+// PostMapping
+// insert(CREATE)
+@PostMapping("/video")
+@ApiOperation(value = "video 객체를 저장한다.", response = Integer.class)
+public ResponseEntity<?> registVideo(@RequestBody Video video) throws Exception, IOException {
+    videoService.addVideo(video);
+
+    return new ResponseEntity<Video>(video, HttpStatus.CREATED);
+}
+
+
 // DeleteMapping
 // delete(DELETE)
 @DeleteMapping("/video/{video_code}")
@@ -70,6 +83,34 @@ public ResponseEntity<?> deleteVideo(@PathVariable int video_code) {
     videoService.deleteVideo(video_code);
     return new ResponseEntity<Void>(HttpStatus.OK);
 }
+
+// PutMapping
+// update(UPDATE)
+@PutMapping("/video/{video_code}")
+@ApiOperation(value = "video 객체를 수정한다.", response = Integer.class)
+public ResponseEntity<?> updateVideo(@PathVariable int video_code, @RequestBody Video video) {
+    Video originVideo = videoService.getVideoByCode(video_code);
+    if (originVideo == null) {
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
+    video.setVideo_code(video_code);
+    videoService.updateVideo(video);
+    return new ResponseEntity<Void>(HttpStatus.OK);
+}
+
+//putMapping
+//update(UPDATE)
+@PutMapping("/video/view/{video_code}")
+@ApiOperation(value = "video 객체의 조회수를 증가시킨다.", response = Integer.class)
+public ResponseEntity<?> updateViewCnt(@PathVariable int video_code) {
+    Video originVideo = videoService.getVideoByCode(video_code);
+    if (originVideo == null) {
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
+    videoService.updateViewCnt(video_code);
+    return new ResponseEntity<Void>(HttpStatus.OK);
+}
+
 
 private ResponseEntity<String> exceptionHandling(Exception e) {
     e.printStackTrace();
