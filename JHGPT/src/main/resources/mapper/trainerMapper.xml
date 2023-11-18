@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.jhgpt.dao.TrainerDao">
+<mapper namespace="com.jhgpt.model.dao.TrainerDao">
 
     <!-- Trainer 목록 가져오기 (Member와 Join) -->
     <select id="selectAllTrainers" resultType="Trainer">

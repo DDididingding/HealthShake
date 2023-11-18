@@ -37,3 +37,42 @@ INSERT INTO Review (member_code, review_rating, review_content)
 VALUES
     (1, 5, '피트니스 프로그램 A 정말 좋아요!'),
     (2, 4, '트레이너가 친절하게 가르쳐주셔서 좋았어요!');
+  
+  
+ -- 유저 더미 데이터 삽입
+INSERT INTO Member (member_id, member_password, member_name, member_nickname, member_age, member_gender, member_status)
+VALUES
+  ('user1', 'password1', 'User 1', 'Nickname1', 25, 'Male', 1),
+  ('user2', 'password2', 'User 2', 'Nickname2', 28, 'Female', 1),
+  ('user3', 'password3', 'User 3', 'Nickname3', 22, 'Male', 1),
+  ('user4', 'password4', 'User 4', 'Nickname4', 30, 'Female', 1),
+  ('user5', 'password5', 'User 5', 'Nickname5', 26, 'Male', 1);
+
+-- 트레이너 더미 데이터 삽입
+INSERT INTO Member (member_id, member_password, member_name, member_nickname, member_age, member_gender, member_status)
+VALUES
+  ('trainer1', 'password1', 'Trainer 1', 'T-Nickname1', 35, 'Male', 2),
+  ('trainer2', 'password2', 'Trainer 2', 'T-Nickname2', 32, 'Female', 2),
+  ('trainer3', 'password3', 'Trainer 3', 'T-Nickname3', 29, 'Male', 2),
+  ('trainer4', 'password4', 'Trainer 4', 'T-Nickname4', 27, 'Female', 2),
+  ('trainer5', 'password5', 'Trainer 5', 'T-Nickname5', 33, 'Male', 2); 
+    
+    
+    -- 나머지 User 더미 데이터 삽입
+INSERT INTO User (member_code, prefer_part, prefer_gender, prefer_style, prefer_goal, user_readme, buy_list)
+VALUES
+    (6, '하체', '남성', '스트렝스', '다이어트', '운동을 즐기고 싶어요!', '피트니스 프로그램 C 구매'),
+    (7, '상체', '여성', '요가', '체력 향상', '새로운 운동에 도전해보고 싶어요!', '피트니스 프로그램 D 구매'),
+    (8, '전신', '남성', '헬스', '근육 증가', '다양한 헬스 프로그램을 경험하고 싶어요!', '피트니스 프로그램 E 구매'),
+    (9, '하체', '여성', '스트렝스', '체력 향상', '스트렝스 운동에 관심이 있어요!', '피트니스 프로그램 F 구매'),
+    (10, '상체', '남성', '요가', '다이어트', '요가로 몸을 가볍게 만들어요!', '피트니스 프로그램 G 구매');
+
+-- 나머지 Trainer 더미 데이터 삽입
+INSERT INTO Trainer (member_code, provide_part, provide_style, provide_goal, video_list, trainer_readme, trainer_price, trainer_review, trainer_rating)
+VALUES
+    (11, '하체', '스트렝스', '다이어트', 'video7,video8,video9', '고객의 목표를 달성시키기 위해 노력합니다!', 60, '매우 성실한 트레이너!', 4.7),
+    (12, '상체', '요가', '체력 향상', 'video10,video11,video12', '다양한 운동으로 건강을 책임집니다!', 80, '최고의 트레이너!', 4.9),
+    (13, '전신', '스트렝스', '근육 증가', 'video13,video14,video15', '고객의 목표에 맞춘 트레이닝을 제공합니다!', 70, '정말 친절한 트레이너!', 4.6),
+    (14, '하체', '요가', '체력 향상', 'video16,video17,video18', '체력 향상을 위한 다양한 운동을 가르칩니다!', 90, '매우 만족스러운 트레이너!', 4.9),
+    (15, '상체', '스트렝스', '다이어트', 'video19,video20,video21', '다양한 운동으로 목표를 달성하는데 도움을 드립니다!', 75, '좋은 트레이너!', 4.8);
+
