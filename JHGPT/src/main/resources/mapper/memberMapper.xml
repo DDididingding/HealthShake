@@ -26,14 +26,14 @@
 
     <!-- User Member 등록 -->
     <insert id="insertMemberU" parameterType="User">
-        INSERT INTO Member (member_id, member_password, member_name, member_nickname, member_age, member_gender, member_status)
-        VALUES (#{member_id}, #{member_password}, #{member_name}, #{member_nickname}, #{member_age}, #{member_gender}, 1);
+        INSERT INTO Member (member_id, member_password, member_name, member_nickname, member_age, member_gender, member_profile_pic, member_status)
+        VALUES (#{member_id}, #{member_password}, #{member_name}, #{member_nickname}, #{member_age}, #{member_gender}, #{member_profile_pic}, 1);
     </insert>
 
     <!-- Trainer Member 등록 -->
     <insert id="insertMemberT" parameterType="Trainer">
-        INSERT INTO Member (member_id, member_password, member_name, member_nickname, member_age, member_gender, member_status)
-        VALUES (#{member_id}, #{member_password}, #{member_name}, #{member_nickname}, #{member_age}, #{member_gender}, 2);
+        INSERT INTO Member (member_id, member_password, member_name, member_nickname, member_age, member_gender,  member_profile_pic, member_status)
+        VALUES (#{member_id}, #{member_password}, #{member_name}, #{member_nickname}, #{member_age}, #{member_gender}, #{member_profile_pic}, 2);
     </insert>
 
     <!-- Member 삭제 -->
@@ -46,7 +46,7 @@
     <update id="updateMember" parameterType="Member">
         UPDATE Member
         SET member_name=#{member_name}, member_nickname=#{member_nickname}, member_age=#{member_age},
-            member_gender=#{member_gender}, member_status=#{member_status}
+            member_gender=#{member_gender}, member_profile_pic = #{member_profile_pic},member_status=#{member_status}
         WHERE member_code=#{member_code}
     </update>
 

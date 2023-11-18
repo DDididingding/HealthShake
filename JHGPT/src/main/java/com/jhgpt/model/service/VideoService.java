@@ -18,8 +18,6 @@ public interface VideoService {
     void deleteVideo(int video_code);
     
     void updateVideo(Video video);
-    
-//    List<Video> getVideosByUploader(int video_uploader_code);
 
 	List<Video> getTrainerVideos(int member_code);
 
