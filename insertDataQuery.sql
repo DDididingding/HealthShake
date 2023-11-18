@@ -1,11 +1,11 @@
 -- Member 테이블 예시 데이터 삽입
-INSERT INTO Member (member_id, member_password, member_name, member_nickname, member_age, member_gender, member_status)
+INSERT INTO Member (member_id, member_password, member_name, member_nickname, member_age, member_gender, member_profile_pic ,member_status)
 VALUES
-    ('user1', 'user1pass', 'User One', 'U1', 25, '남성', 1),
-    ('user2', 'user2pass', 'User Two', 'U2', 30, '여성', 1),
-    ('trainer1', 'trainer1pass', 'Trainer One', 'T1', 28, '남성', 2),
-    ('admin', 'adminpass', 'Admin', 'Admin', NULL, NULL, 0),
-    ('trainer2', 'trainer2pass', 'Trainer Two', 'T1', 28, '남성', 2);
+    ('user1', 'user1pass', 'User One', 'U1', 25, '남성', 'profile_pic1.jpg', 1),
+    ('user2', 'user2pass', 'User Two', 'U2', 30, '여성', 'profile_pic2.jpg', 1),
+    ('trainer1', 'trainer1pass', 'Trainer One', 'T1', 28, '남성', 'profile_pic3.jpg', 2),
+    ('admin', 'adminpass', 'Admin', 'Admin', NULL, NULL, 'profile_pic4.jpg', 0),
+    ('trainer2', 'trainer2pass', 'Trainer Two', 'T1', 28, '남성', 'profile_pic5.jpg' ,2);
 
 -- User 테이블 예시 데이터 	삽입
 INSERT INTO User (member_code, prefer_part, prefer_gender, prefer_style, prefer_goal, user_readme, buy_list)
@@ -23,7 +23,7 @@ VALUES
 INSERT INTO Video (video_title, video_readme, video_url, video_uploader)
 VALUES
     ('상체 강화 프로그램', '상체 근육을 강화하는 운동 프로그램', 'https://video-url1.com', 3),
-    ('요가 기초 강의', '요가의 기초 자세 및 움직임', 'https://video-url2.com', 4),
+    ('요가 기초 강의', '요가의 기초 자세 및 움직임', 'https://video-url2.com', 5),
     ('다이어트 루틴', '체중 감량을 위한 다양한 운동 루틴', 'https://video-url3.com', 3);
 
 -- Board 테이블 예시 데이터 삽입
@@ -33,10 +33,10 @@ VALUES
     (2, '질문 글', '요가를 시작하려고 하는데 어떤 운동이 좋을까요?', 2);
 
 -- Review 테이블 예시 데이터 삽입
-INSERT INTO Review (member_code, review_rating, review_content)
+INSERT INTO Review (member_code, review_writer,review_rating, review_content)
 VALUES
-    (1, 5, '피트니스 프로그램 A 정말 좋아요!'),
-    (2, 4, '트레이너가 친절하게 가르쳐주셔서 좋았어요!');
+    (3, 1, 4.3, '피트니스 프로그램 A 정말 좋아요!'),
+    (5, 2, 4.2, '트레이너가 친절하게 가르쳐주셔서 좋았어요!');
   
   
  -- 유저 더미 데이터 삽입
