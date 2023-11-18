@@ -82,6 +82,16 @@ public class BoardRestController {
 		return new ResponseEntity<Board>(board, HttpStatus.OK);
 	}
 
+	//멤버 코드로 게시글 조회
+	@GetMapping("/board/{member_code}")
+	public ResponseEntity<?> getBoardsByTrainer(@PathVariable int member_code) {
+		List<Board> list = boardService.getListByTrainer(member_code);
+		if (list == null || list.size() == 0)
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+
+		return new ResponseEntity<List<Board>>(list, HttpStatus.OK);
+	}
+
 	// 3. 등록
 	@PostMapping("/board")
 	public ResponseEntity<Board> write(@RequestBody Board board) {
