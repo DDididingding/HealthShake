@@ -21,4 +21,6 @@ public interface MemberDao {
 	void deleteMember(int member_code);
 
 	void updateMember(Member member);
+
+	
 }

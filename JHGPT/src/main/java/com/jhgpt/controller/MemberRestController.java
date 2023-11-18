@@ -39,7 +39,6 @@ public class MemberRestController {
 		
 		List<Member> list = memberService.getAllMember();
 
-		//리스트가 비어있을 때 204 No Content 반환
 		if(list.isEmpty())
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		
@@ -53,7 +52,6 @@ public class MemberRestController {
 		
 		List<User> list = memberService.getAllUser();
 
-		//리스트가 비어있을 때 204 No Content 반환
 		if(list.isEmpty())
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		
@@ -118,6 +116,28 @@ public class MemberRestController {
 	    return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 
+	@GetMapping("/Mypage/{member_code}/user")
+	@ApiOperation(value = "{member_code}에 해당하는 유저의 마이페이지", response = User.class)
+	public ResponseEntity<?> selectUserMypage(@PathVariable int member_code) {
+	    
+	    User user = memberService.selectOneUser(member_code);
+	    if(user==null || user.getMember_status() != 1) {
+	        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+	    }
+	    return new ResponseEntity<User>(user, HttpStatus.OK);
+	}
+
+	@GetMapping("/Mypage/{member_code}/trainer")
+	@ApiOperation(value = "{member_code}에 해당하는 트레이너의 마이페이지", response = Trainer.class)
+	public ResponseEntity<?> selectTrainerMypage(@PathVariable int member_code) {
+	    
+	    Trainer trainer = memberService.selectOneTrainer(member_code);
+	    if(trainer==null || trainer.getMember_status() != 2) {
+	        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+	    }
+	    return new ResponseEntity<Trainer>(trainer, HttpStatus.OK);
+	}
+	
 
 	@PostMapping("signup/user")
 	@ApiOperation(value = "유저 객체를 등록한다.", response = Integer.class)
@@ -190,7 +210,7 @@ public class MemberRestController {
 	@ApiOperation(value = "유저 객체를 수정한다.", response = Integer.class)
 	public ResponseEntity<Void> updateUser(@PathVariable int member_code, @RequestBody User user) {
 		User tmp = memberService.selectOneUser(member_code);
-		if (tmp == null) {
+		if (tmp == null || tmp.getMember_status() != 1) {
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		}
 
@@ -202,7 +222,7 @@ public class MemberRestController {
 	@ApiOperation(value = "트레이너 객체를 수정한다.", response = Integer.class)
 	public ResponseEntity<Void> updateTrainer(@PathVariable int member_code, @RequestBody Trainer trainer) {
 		Trainer tmp = memberService.selectOneTrainer(member_code);
-		if (tmp == null) {
+		if (tmp == null || tmp.getMember_status() != 2) {
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		}
 
@@ -216,7 +236,16 @@ public class MemberRestController {
 	@DeleteMapping("/member/{member_code}")
 	@ApiOperation(value = "멤버 객체를 삭제한다.", response = Integer.class)
 	public ResponseEntity<Void> deleteUser(@PathVariable int member_code) {
-	    memberService.deleteMember(member_code);
+	    Member member = memberService.selectOneMember(member_code);
+		if(member == null) {
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		}
+		if(member.getMember_status() == 0) {
+			System.out.println("삭제 불가한 회원입니다.");
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
+
+		memberService.deleteMember(member_code);
 	    return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
