@@ -67,15 +67,14 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int signup(User user) {
-		memberDao.insertMember(user);
-		
+		memberDao.insertMemberU(user);
 		userDao.insertUser(user);
 		return 1; //성공
 	}
 
 	@Override
 	public int signup(Trainer trainer) {
-		
+		memberDao.insertMemberT(trainer);
 		trainerDao.insertTrainer(trainer);
 		return 1;
 	}

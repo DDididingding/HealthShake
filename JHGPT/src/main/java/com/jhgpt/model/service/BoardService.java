@@ -33,7 +33,7 @@ public interface BoardService {
 	List<Board> getStatusList(int member_status);
 
 	//검색 조건에 따른 글 목록 가져오기
-	List<Board> getListBySearch(String searchType, String searchValue);
+	// List<Board> getListBySearch(String searchType, String searchValue);
 
 
 }

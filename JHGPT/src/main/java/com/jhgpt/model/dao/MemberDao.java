@@ -3,6 +3,8 @@ package com.jhgpt.model.dao;
 import java.util.List;
 
 import com.jhgpt.model.dto.Member;
+import com.jhgpt.model.dto.Trainer;
+import com.jhgpt.model.dto.User;
 
 public interface MemberDao {
 
@@ -10,7 +12,9 @@ public interface MemberDao {
 
 	Member selectOneMember(int member_code);
 
-	void insertMember(Member member);
+	void insertMemberU(User user);
+
+	void insertMemberT(Trainer trainer);
 
 	void deleteMember(int member_code);
 

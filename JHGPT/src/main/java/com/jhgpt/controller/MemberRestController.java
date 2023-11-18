@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -101,7 +102,8 @@ public class MemberRestController {
 	@PostMapping("signup/user")
 	@ApiOperation(value = "유저 객체를 등록한다.", response = Integer.class)
 	public ResponseEntity<Integer> userSignup(@RequestBody User user) {
-	    int result = memberService.signup(user);
+	    
+		int result = memberService.signup(user);
 	    
 	    //result 가 0이면 등록 x
 	    //result 가 1이면 등록 o
@@ -141,40 +143,40 @@ public class MemberRestController {
 	
 	// UpdateMapping
 	// put(PUT)
-	@PostMapping("/member/{member_code}")
+	@PutMapping("/member/{member_code}")
 	@ApiOperation(value = "멤버 객체를 수정한다.", response = Integer.class)
-	public ResponseEntity<Void> updateMember(@PathVariable int member_code,@RequestBody Member member) {
-	    Member tmp = memberService.selectOneMember(member_code);
-		if(tmp == null){
-	        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-	    }
+	public ResponseEntity<Void> updateMember(@PathVariable int member_code, @RequestBody Member member) {
+		Member tmp = memberService.selectOneMember(member_code);
+		if (tmp == null) {
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		}
 
-	    memberService.updateMember(member);
-	    return new ResponseEntity<Void>(HttpStatus.OK);
+		memberService.updateMember(member);
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
-	@PostMapping("/user/{member_code}")
+	@PutMapping("/user/{member_code}")
 	@ApiOperation(value = "유저 객체를 수정한다.", response = Integer.class)
-	public ResponseEntity<Void> updateUser(@PathVariable int member_code,@RequestBody User user) {
-	    User tmp = memberService.selectOneUser(member_code);
-		if(tmp == null){
-	        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-	    }
+	public ResponseEntity<Void> updateUser(@PathVariable int member_code, @RequestBody User user) {
+		User tmp = memberService.selectOneUser(member_code);
+		if (tmp == null) {
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		}
 
-	    memberService.updateUser(user);
-	    return new ResponseEntity<Void>(HttpStatus.OK);
+		memberService.updateUser(user);
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
-	@PostMapping("/trainer/{member_code}")
+	@PutMapping("/trainer/{member_code}")
 	@ApiOperation(value = "트레이너 객체를 수정한다.", response = Integer.class)
-	public ResponseEntity<Void> updateTrainer(@PathVariable int member_code,@RequestBody Trainer trainer) {
-	    Trainer tmp = memberService.selectOneTrainer(member_code);
-		if(tmp == null){
-	        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-	    }
+	public ResponseEntity<Void> updateTrainer(@PathVariable int member_code, @RequestBody Trainer trainer) {
+		Trainer tmp = memberService.selectOneTrainer(member_code);
+		if (tmp == null) {
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		}
 
-	    memberService.updateTrainer(trainer);
-	    return new ResponseEntity<Void>(HttpStatus.OK);
+		memberService.updateTrainer(trainer);
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
 

@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS Member (
     member_nickname VARCHAR(255) NOT NULL,
     member_age INT,
     member_gender VARCHAR(10),
-    member_status INT
+    member_status INT DEFAULT 3
 );
 
 -- Create the User table
