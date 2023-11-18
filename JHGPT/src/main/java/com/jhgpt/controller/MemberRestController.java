@@ -98,6 +98,26 @@ public class MemberRestController {
 	    return new ResponseEntity<Trainer>(trainer, HttpStatus.OK);
 	}
 	
+	@GetMapping("/Mypage/{member_code}")
+	@ApiOperation(value = "{member_code}에 해당하는 멤버의 마이페이지", response = Member.class)
+	public ResponseEntity<?> selectMypage(@PathVariable int member_code) {
+	    
+	    Member member = memberService.selectOneMember(member_code);
+	    if(member==null) {
+	        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+	    }
+		if(member.getMember_status() == 1){
+			User user = memberService.selectOneUser(member_code);
+			return new ResponseEntity<User>(user, HttpStatus.OK);
+		}
+		else if(member.getMember_status() == 2){
+			Trainer trainer = memberService.selectOneTrainer(member_code);
+			return new ResponseEntity<Trainer>(trainer, HttpStatus.OK);
+		}
+
+	    return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+	}
+
 
 	@PostMapping("signup/user")
 	@ApiOperation(value = "유저 객체를 등록한다.", response = Integer.class)
