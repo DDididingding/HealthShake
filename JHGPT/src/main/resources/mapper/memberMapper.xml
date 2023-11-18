@@ -17,6 +17,13 @@
         WHERE member_code=#{member_code}
     </select>
 
+    <!-- Member 정보를 아이디로 조회한다. -->
+    <select id="selectOneMemberById" parameterType="String" resultType="Member">
+        SELECT *
+        FROM Member
+        WHERE member_id=#{member_id}
+    </select>
+
     <!-- User Member 등록 -->
     <insert id="insertMemberU" parameterType="User">
         INSERT INTO Member (member_id, member_password, member_name, member_nickname, member_age, member_gender, member_status)

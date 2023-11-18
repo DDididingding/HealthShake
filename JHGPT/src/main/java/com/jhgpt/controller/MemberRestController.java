@@ -102,7 +102,11 @@ public class MemberRestController {
 	@PostMapping("signup/user")
 	@ApiOperation(value = "유저 객체를 등록한다.", response = Integer.class)
 	public ResponseEntity<Integer> userSignup(@RequestBody User user) {
-	    
+	    Member member = memberService.selectOneMemberById(user.getMember_id());
+		if(member != null) {
+			return new ResponseEntity<Integer>(0, HttpStatus.BAD_REQUEST);
+		}
+
 		int result = memberService.signup(user);
 	    
 	    //result 가 0이면 등록 x
@@ -112,10 +116,17 @@ public class MemberRestController {
 
 	@PostMapping("signup/trainer")
 	public ResponseEntity<Integer> trainerSignup(@RequestBody Trainer trainer) {
-	    int result = memberService.signup(trainer);
+		//result 가 0이면 등록 x
+		//result 가 1이면 등록 o
+		//result 가 2이면 아이디 중복
+
+	    Member member = memberService.selectOneMemberById(trainer.getMember_id());
+		if(member != null) {
+			return new ResponseEntity<Integer>(0, HttpStatus.BAD_REQUEST);
+		}
+
+		int result = memberService.signup(trainer);
 	    
-	    //result 가 0이면 등록 x
-	    //result 가 1이면 등록 o
 	    return new ResponseEntity<Integer>(result, HttpStatus.CREATED);
 	}
 	

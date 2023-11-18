@@ -22,6 +22,9 @@ public interface MemberService {
 	
 	//멤버 고르기
 	public Member selectOneMember(int Member_code);
+
+	//아이디로 멤버 고르기
+	public Member selectOneMemberById(String Member_id);
 	
 	//유저 고르기
 	public User selectOneUser(int Member_code);

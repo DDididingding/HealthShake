@@ -12,6 +12,8 @@ public interface MemberDao {
 
 	Member selectOneMember(int member_code);
 
+	Member selectOneMemberById(String member_id);
+
 	void insertMemberU(User user);
 
 	void insertMemberT(Trainer trainer);
