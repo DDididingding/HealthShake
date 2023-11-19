@@ -82,15 +82,28 @@ public class BoardRestController {
 		return new ResponseEntity<Board>(board, HttpStatus.OK);
 	}
 
-	//멤버 코드로 게시글 조회
-	@GetMapping("/board/{member_code}")
+	//멤버 코드 트레이너에 대한 게시글 조회
+	@GetMapping("/board/trainer/{member_code}")
+	@ApiOperation(value = "트레이너에 대한 게시글 조회", notes = "트레이너에 대한 게시글 조회")
 	public ResponseEntity<?> getBoardsByTrainer(@PathVariable int member_code) {
-		List<Board> list = boardService.getListByTrainer(member_code);
+		List<Board> list = boardService.getBoardListByTrainer(member_code);
 		if (list == null || list.size() == 0)
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 
 		return new ResponseEntity<List<Board>>(list, HttpStatus.OK);
 	}
+
+	//작성자 코드에 대한 게시글 조회
+	@GetMapping("/board/writer/{board_uploader}")
+	@ApiOperation(value = "작성자에 따른 게시글 조회", notes = "작성자에 따른 게시글 조회")
+	public ResponseEntity<?> getBoardsByWriter(@PathVariable int board_uploader) {
+		List<Board> list = boardService.getBoardListByUploader(board_uploader);
+		if (list == null || list.size() == 0)
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+
+		return new ResponseEntity<List<Board>>(list, HttpStatus.OK);
+	}
+
 
 	// 3. 등록
 	@PostMapping("/board")

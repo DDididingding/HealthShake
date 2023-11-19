@@ -47,21 +47,17 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<Board> getListByCode(int member_code) {
+	public List<Board> getBoardListByUploader(int board_uploader) {
 		
-		return boardDao.selectMeberBoards(member_code);
+		return boardDao.selectWriterBoards(board_uploader);
 	}
 
+
 	@Override
-	public List<Board> getListByTrainer(int member_code) {
+	public List<Board> getBoardListByTrainer(int member_code) {
 		
 		return boardDao.selectTrainerBoards(member_code);
 	}
 
-	@Override
-	public List<Board> getStatusList(int member_status) {
-		
-		return boardDao.selectAllBoardsByStatus(member_status);
-	}
 	
 }
