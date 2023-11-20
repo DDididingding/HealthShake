@@ -95,25 +95,31 @@ export const useBoardStore = defineStore("board", () => {
     })
 
     // //게시물 삭제
-    // const deleteBoard = ((board_code) => {
-    //     axios
-    //         .delete("https://localhost:9999/api/board/${board_code}")
-    //         .then(() => {
-    //             console.log("deleteBoard 성공");
-    //             router.push({ name: "BoardList" })
-    //         })
-    //         .catch(() => {
-    //         console.log("deleteUser 실패");
-    //     })
-    // })
+    const deleteBoard = ((board_code) => {
+        axios
+            .delete("https://localhost:9999/api/board/${board_code}")
+            .then(() => {
+                console.log("deleteBoard 성공");
+                router.push({ name: "BoardList" })
+            })
+            .catch(() => {
+            console.log("deleteUser 실패");
+        })
+    })
 
     // //게시물 수정
-    const updateBoard = (() => {
+    const updateBoard = ((board) => {
+        const board_code = trainer.board_code;
         axios
-            .put("")
-            .then(() => {
-                router.push({name: 'Home'}) //추후 수정
+        .put(`http://localhost:9999/api/trainer/${board_code}/update`)//수정 필요함
+        .then(() => {
+            console.log("updateBoard 성공");
+            router.push({ name: "Home" })
+        })
+        .catch(() => {
+                console.log("updateBoard 실패");
             })
+
     })
     // //추후 추가
 

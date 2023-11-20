@@ -71,5 +71,19 @@ export const useVideoStore = defineStore('video', () => {
           router.push({ name: "Home" })
       })
   })
-   return { VideoListByTrainer, videoList, video, registVideo, selectVideo, deleteVideo, getVideoList }
+
+  const updateVideo = ((video) => {
+    const video_code = video.video_code;
+    axios
+      .put(`http://localhost:9999/api/video/${video_code}`)//수정 링크
+      .then(() => {
+          console.log("updateVideo 성공");
+          router.push({ name: "trainerMypage" })
+      })
+      .catch(() => {
+            console.log("updateVideo 실패");
+        })
+  })
+
+   return { VideoListByTrainer, videoList, video, registVideo, selectVideo, deleteVideo, getVideoList, updateVideo }
 })

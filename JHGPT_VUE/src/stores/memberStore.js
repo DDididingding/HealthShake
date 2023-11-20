@@ -65,7 +65,7 @@ export const useMemberStore = defineStore("member", () => {
 
   const selectUser = ((member_code) => {
     axios
-      .get(`http://localhost:9999/api/member/${member_code}`)
+      .get(`http://localhost:9999/api/user/${member_code}`)
       .then((resp) => {
         console.log("유저 선택 성공")
         const responseData = resp.data;
@@ -76,7 +76,15 @@ export const useMemberStore = defineStore("member", () => {
           name: responseData.member_name,
           nickname: responseData.member_nickname,
           readme: responseData.user_readme,
+          age : responseData.member_age,
+          password : responseData.member_password,
+          preferPart: responseData.prefer_part,
+          preferGoal: responseData.prefer_goal,
+          preferGender: responseData.prefer_gender,
+          preferStyle: responseData.prefer_style,
+
           };
+
       })
       .catch(() => {
         console.log("유저 선택 실패");
@@ -130,21 +138,31 @@ export const useMemberStore = defineStore("member", () => {
         })
   })
 
-  const updateTrainerMy = (() => {
+  const updateTrainerMy = ((trainer) => {
+    const member_code = trainer.member_code;
     axios
-      .put("")//수정 링크
+      .put(`http://localhost:9999/api/trainer/${member_code}/update`)//수정 링크
       .then(() => {
-        router.push({name: 'trainerMy'})
+          console.log("updateTrainer 성공");
+          router.push({ name: "trainerMypage" })
       })
+      .catch(() => {
+            console.log("updateUser 실패");
+        })
 
   })
 
-  const updateUserMy = (() => {
+  const updateUserMy = ((user) => {
+    const member_code = user.member_code;
     axios
-      .put("")//수정 링크
+      .put(`http://localhost:9999/api/user/${member_code}/update`)//수정 링크
       .then(() => {
-        router.push({name: 'trainerMy'})
+          console.log("updateUser 성공");
+          router.push({ name: "userMypage" })
       })
+      .catch(() => {
+            console.log("updateUser 실패");
+        })
   })
 
   // 로그인

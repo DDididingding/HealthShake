@@ -20,20 +20,33 @@
 
 
 <script setup>
+import { ref, onMounted } from 'vue';
 import {useBoardStore} from "@/stores/boardStore";
 const boardStore = useBoardStore();
 
-const title = ref(boardStore.board.title);
-const content = ref(boardStore.board.content);
+const route = useRoute();
+const board = ref({});
+const isBoardLoaded = ref(false);
 
-const updateBoard = function () {
+onMounted(async () =>  {
+    try {
+        const board_code = route.params.board_code;
+        await boardStore.selectUser(board_code);
+        board.value = { ...boardStore.video }; // 기존 유저 정보 복사
+        isBoardLoaded.value = true;
+  } catch (error) {
+    console.error("게시물 정보를 불러오는 동안 오류가 발생했습니다:", error);
+  }
+});
 
-    const updatedBoard = {
-        title : title.value,
-        content : content.value,
+const updateBoard = () => {
+
+    board.value = {
+        title: board.value.title,
+        content : board.value.content,
     };
-
-    boardStore.updateBoard(updatedBoard);
+    boardStore.updateBoard(board.value);
 };
+
 
 </script>

@@ -24,25 +24,31 @@
   
   
   <script setup>
-  import { ref } from 'vue';
+  import { ref, onMounted } from 'vue';
   import { useReviewStore } from "@/stores/reviewStore";
   
   const reviewStore = useReviewStore();
-  const review = ref({
-    title: '',
-    content: '',
-    rating: 1 // 기본값 설정
-  });
+  const review = ref({});
+  const isReviewLoaded = ref(false);
+
+  onMounted(async () => {
+    try{
+      const review_code = route.params.review_code;
+      await reviewStore.selectReview(review_code);
+      review.value = { ...reviewStore.review};
+      isReviewLoaded.value = true;
+    }
+    catch(error) {
+      console.error("리뷰 정보를 불러오는 동안 오류가 발생했습니다:", error);
+    }
+  })
   
   const updateReview = () => {
-    if (
-      review.value.title === "" ||
-      review.value.content === "" ||
-      review.value.rating < 1 || review.value.rating > 5
-    ) {
-      alert("모든 내용을 입력하고 유효한 평점을 입력해주세요 (1부터 5까지)");
-      return;
-    }
+    review.value = {
+      title: review.value.title,
+      content: review.value.content,
+      rating : review.value.rating,
+    };
   
     reviewStore.updateReview(review.value);
   };

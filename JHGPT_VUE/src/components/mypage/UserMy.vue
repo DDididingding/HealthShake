@@ -25,8 +25,9 @@
           <VideoList :memberCode="route.params.member_code" v-if="isBoardLoaded" />
           <p v-else>게시물을 로딩 중입니다...</p>
         </div>
+        <!--각 게시물에 할당되도록 수정 필요-->
         <div class="edit-button">
-            <button @click="$router.push('/boardUpdate')">수정</button>
+            <button @click="$router.push({name :'/boardUpdate', params: {board_code : boardCode}})">수정</button>
         </div>
 
       </div>
@@ -55,6 +56,7 @@
   const isBoardLoaded = ref(false);  
   const boards = ref([null]);
   const sessionMember = JSON.parse(sessionStorage.getItem('loginMember'));
+  const boardCord = ref(null);
 
   onMounted(async () => {
     try {
@@ -73,6 +75,7 @@
       await boardStore.BoardListByMember(member_code);
       boards.value = boardStore.boardList;
       isBoardLoaded.value = true;
+      boardCord = boards.board_cord;
 
       // await reviewStore.ReviewListByUser(member_code);
       // reviews.value = reviewStore.reviewList;

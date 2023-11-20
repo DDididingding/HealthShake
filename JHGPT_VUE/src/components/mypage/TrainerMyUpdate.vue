@@ -3,46 +3,34 @@
     <h4>트레이너 프로필 수정</h4>
     <fieldset>
       <legend>수정</legend>
+     
       <div>
-        <label for="id">아이디 :</label>
-        <input
-          type="text"
-          id="id"
-          v-model="memberStore.trainer.member_id"
-          disabled
-        />
-      </div>
-      <!-- <div>
-          <label for="password">비밀번호 :</label>
-          <input type="password" id="password" v-model="memberStore.user.member_password">
+          <label for="name">이름 :</label>
+          <input type="text" id="name" v-model="trainer.name" disabled>
         </div>
-        <div class="mb-3">
-          <label for="password2">비밀번호 확인:</label>
-          <input type="password" id="password2" v-model="password2" class="form-control" required />
-        </div> -->
-      <!-- ... 이전의 나머지 코드들 ... -->
-      <!-- 추가된 부분 -->
-      <div>
-        <label class="form-label">성별:</label>
         <div>
-          <label>
-            <input
-              type="radio"
-              v-model="memberStore.user.gender"
-              value="male"
-            />
-            남성
-          </label>
-          <label>
-            <input
-              type="radio"
-              v-model="memberStore.user.gender"
-              value="female"
-            />
-            여성
-          </label>
+          <label for="email">이메일 :</label>
+          <input type="text" id="email" v-model="trainer.email">
         </div>
-      </div>
+        <div>
+          <label for="age">나이 :</label>
+          <input type="number" id="age" v-model="trainer.age">
+        </div>
+        <div>
+          <label class="form-label">성별:</label>
+          <div>
+            <label>
+              <input type="radio" v-model="trainer.gender" value="male"> 남성
+            </label>
+            <label>
+              <input type="radio" v-model="trainer.gender" value="female"> 여성
+            </label>
+          </div>
+        </div>
+        <div>
+          <label for="nickname">닉네임:</label>
+          <input type="text" id="nickname" v-model="trainer.nickname">
+        </div>
       <div>
         <label for="providePart">제공하는 부위 :</label>
         <input type="text" id="providePart" v-model="providePart" />
@@ -64,10 +52,6 @@
         ></textarea>
       </div>
       <div>
-        <label for="trainerPrice">트레이너 비용 :</label>
-        <input type="number" id="trainerPrice" v-model="trainerPrice" />
-      </div>
-      <div>
         <button @click="updateTrainer">수정</button>
       </div>
     </fieldset>
@@ -77,49 +61,46 @@
 <script setup>
 import { ref } from "vue";
 import { useMemberStore } from "@/stores/memberStore";
+import { useRoute } from "vue-router";
+import router from "@/router";
+import axios from 'axios';
 
+const route = useRoute();
 const memberStore = useMemberStore();
+const trainer = ref({});
+const isTrainerLoaded = ref(false);
 
-// 추가된 변수들
-const trainer = ref(null);
-const member_code = route.params.member_code;
-await memberStore.selectTrainer(member_code);
 
-const password2 = ref("");
-const providePart = ref("");
-const provideStyle = ref("");
-const provideGoal = ref("");
-const trainerReadme = ref("");
-const trainerPrice = ref(0);
-const gender = ref("");
-// 아이디, 비밀번호 추가
-const id = ref("");
-const password = ref("");
-
-trainer.value = memberStore.trainer;
-providePart.value = trainer.providePart;
-provideStyle.value = trainer.provideStyle;
-provideGoal.value = trainer.provideGoal;
-trainerReadme.value = trainer.trainerReadme;
-trainerPrice.value = trainer.trainerPrice;
-
-const updateTrainer = () => {
-  if (memberStore.user.member_password !== password2.value) {
-    alert("비밀번호가 일치하지 않습니다.");
-    return;
+onMounted(async () => {
+  try {
+    const member_code = route.params.member_code;
+    await memberStore.selectTrainer(member_code);
+    trainer.value = { ...memberStore.trainer }; // 기존 유저 정보 복사
+    isTrainerLoaded.value = true;
+  } catch (error) {
+    console.error("트레이너 정보를 불러오는 동안 오류가 발생했습니다:", error);
   }
+});
 
-  const updatedTrainerProfile = {
-    id: id.value,
-    password: password.value,
-    providePart: providePart.value,
-    provideStyle: provideStyle.value,
-    provideGoal: provideGoal.value,
-    trainerReadme: trainerReadme.value,
-    trainerPrice: trainerPrice.value,
-    gender: gender.value,
+const updateProfile = () => {
+  // 사용자가 입력한 내용을 기존 유저 정보에 반영
+  trainer.value = {
+    id: trainer.value.id, // 아이디는 disabled 속성이므로 그대로 유지
+    member_code: trainer.value.code,
+    name: trainer.value.name, // 이름은 disabled 속성이므로 그대로 유지
+    email: trainer.value.email,
+    age: trainer.value.age,
+    gender: trainer.value.gender,
+    nickname: trainer.value.nickname,
+    readme: trainer.value.readme,
+    providePart: trainer.value.providePart,
+    provideStyle: trainer.value.provideStyle,
+    provideGoal: trainer.value.provideGoal,
+    password: trainer.value.password,
   };
 
-  memberStore.updateTrainer(updatedTrainerProfile);
+  // memberStore의 updateUser 함수를 호출하여 실제 업데이트 수행
+  memberStore.updateTrainerMy(trainer.value);
 };
+
 </script>

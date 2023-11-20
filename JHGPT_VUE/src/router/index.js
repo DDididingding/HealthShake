@@ -19,7 +19,9 @@ import Home from '@/components/common/HomeStart.vue'
 import ReviewList from '@/components/review/ReviewList.vue'
 import HomeUser from '@/components/common/HomeUser.vue'
 import UserBuylist from '@/components/user/UserBuylist.vue'
-
+import UpdateBoard from '@/components/board/BoardUpdate.vue'
+import UpdateReview from '@/components/review/ReviewUpdate.vue'
+import UpdateVideo from '@/components/video/VideoUpdate.vue'
 
 
 
@@ -130,7 +132,22 @@ const router = createRouter({
       path: '/userBuylist/:member_code',
       name: 'UserBuylist',
       component: UserBuylist
-    },       
+    }, 
+    {
+      path: '/updateVideo/:video_code',
+      name : 'UpdateVideo',
+      component: UpdateVideo
+    },
+    {
+      path: '/updateReview/:review_code',
+      name : 'UpdateReview',
+      component: UpdateReview
+    },   
+    {
+      path: '/updateBoard/:board_code',
+      name : 'UpdateBoard',
+      component: UpdateBoard
+    }         
   ]
 })
 
