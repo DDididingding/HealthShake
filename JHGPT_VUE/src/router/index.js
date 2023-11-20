@@ -62,7 +62,7 @@ const router = createRouter({
       component: TrainerMypage
     },
     {
-      path: '/trainerMypageUpdate/',
+      path: '/trainerMypageUpdate/:member_code',
       name: 'trainerMypageUpdate',
       component: TrainerMypageUpdate
     },
