@@ -72,7 +72,7 @@ const router = createRouter({
       component: UserMypage
     },
     {
-      path: '/userMypageUpdate/',
+      path: '/userMypageUpdate/:member_code',
       name: 'userMypageUpdate',
       component: UserMypageUpdate
     },
@@ -127,7 +127,7 @@ const router = createRouter({
       component: HomeUser
     },  
     {
-      path: '/userBuylist',
+      path: '/userBuylist/:member_code',
       name: 'UserBuylist',
       component: UserBuylist
     },       

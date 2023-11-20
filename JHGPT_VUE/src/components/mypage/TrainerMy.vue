@@ -55,7 +55,6 @@ import VideoList from "@/components/video/VideoList.vue";
 import { useUserStore } from "@/stores/userStore";
 import router from "@/router";
 
-const userStore = useUserStore();
 const memberStore = useMemberStore();
 const videoStore = useVideoStore();
 const boardStore = useBoardStore();

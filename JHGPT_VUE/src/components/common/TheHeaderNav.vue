@@ -15,12 +15,10 @@
       </header>
 
       <header v-else-if="isLoggedin && userType === 1"> <!-- 유저가 로그인 했을 때 -->
-        <router-link to="/homeUser" class="nav-link" :class="{ 'active-link': $route.path === '/homeUser' }">
-          <h1>JHGPT</h1>
-        </router-link>
-        <router-link to="/userBuylist" class="nav-link" :class="{ 'active-link': $route.path === '/userBuylist' }">구매 목록</router-link>
-        <router-link to="/userMypage" class="nav-link" :class="{ 'active-link': $route.path === '/userMypage' }">userMypage</router-link>
-        <button @click="handleLogout" class="nav-link">Logout</button>
+      <router-link to="/homeUser" class="nav-link" :class="{ 'active-link': $route.path === '/homeUser' }"><h1>JHGPT</h1></router-link>
+      <router-link :to="{ name: 'UserBuylist', params: { member_code: member_code } }" class="nav-link" :class="{ 'active-link': $route.name === 'UserBuylist' }">구매 목록</router-link>
+      <router-link :to="{ name: 'userMypage', params: { member_code: member_code } }" class="nav-link" :class="{ 'active-link': $route.name === 'userMypage' }">userMypage</router-link>
+      <button @click="handleLogout" class="nav-link">Logout</button>
       </header>
 
       <header v-else-if="isLoggedin && userType === 2"> <!-- 트레이너가 로그인 했을 때 -->

@@ -68,7 +68,15 @@ export const useMemberStore = defineStore("member", () => {
       .get(`http://localhost:9999/api/member/${member_code}`)
       .then((resp) => {
         console.log("유저 선택 성공")
-        user.value = resp.data
+        const responseData = resp.data;
+        
+        user.value = {
+          code: responseData.member_code,
+          id: responseData.member_id,
+          name: responseData.member_name,
+          nickname: responseData.member_nickname,
+          readme: responseData.user_readme,
+          };
       })
       .catch(() => {
         console.log("유저 선택 실패");

@@ -13,7 +13,7 @@
             <p><strong>구매한 프로그램:</strong> {{ user.purchasedPrograms }}</p>
           </div>
           <div class="edit-button">
-            <button @click="$router.push('/userMypageUpdate')">수정</button>
+            <button @click="goToUserMypageUpdate">수정</button>
           </div>
         </div>
         <hr>
@@ -42,6 +42,7 @@
   import { ref, onMounted } from "vue";
   import { useRoute } from "vue-router";
   import VideoList from "@/components/video/VideoList.vue";
+  import router from "@/router";
 
   const memberStore = useMemberStore();
   const videoStore = useVideoStore();
@@ -53,6 +54,7 @@
   const isReviewLoaded = ref(false);  
   const isBoardLoaded = ref(false);  
   const boards = ref([null]);
+  const sessionMember = JSON.parse(sessionStorage.getItem('loginMember'));
 
   onMounted(async () => {
     try {
@@ -61,6 +63,8 @@
       await memberStore.selectUser(member_code);
       user.value = memberStore.user;
       isUserLoaded.value = true;
+      console.log(isUserLoaded.value);
+      console.log(user.value);
 
       // await videoStore.VideoListBy(member_code);
       // videos.value = videoStore.videoList;
@@ -78,6 +82,18 @@
       console.error("유저 정보를 불러오는 동안 오류가 발생했습니다:", error);
     }
   });
+
+  const goToUserMypageUpdate = () => {
+    const memberCode = sessionMember ? sessionMember.member_code : null;
+    console.log('memberCode: ', memberCode);
+    if (memberCode) {
+      router.push({ name: 'userMypageUpdate', params: { member_code: memberCode } });
+    } else {
+      // Handle the case where member_code is not available
+      console.error('Member code not available');
+    }
+  };
+
 
   </script>
   
