@@ -206,7 +206,7 @@ public class MemberRestController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
-	@PutMapping("/user/{member_code}")
+	@PutMapping("/user/{member_code}/update")
 	@ApiOperation(value = "유저 객체를 수정한다.", response = Integer.class)
 	public ResponseEntity<Void> updateUser(@PathVariable int member_code, @RequestBody User user) {
 		User tmp = memberService.selectOneUser(member_code);
@@ -218,7 +218,7 @@ public class MemberRestController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
-	@PutMapping("/trainer/{member_code}")
+	@PutMapping("/trainer/{member_code}/update")
 	@ApiOperation(value = "트레이너 객체를 수정한다.", response = Integer.class)
 	public ResponseEntity<Void> updateTrainer(@PathVariable int member_code, @RequestBody Trainer trainer) {
 		Trainer tmp = memberService.selectOneTrainer(member_code);
@@ -233,7 +233,7 @@ public class MemberRestController {
 
 	// DeleteMapping
 	// delete(DELETE)
-	@DeleteMapping("/member/{member_code}")
+	@DeleteMapping("/member/{member_code}/delete")
 	@ApiOperation(value = "멤버 객체를 삭제한다.", response = Integer.class)
 	public ResponseEntity<Void> deleteUser(@PathVariable int member_code) {
 	    Member member = memberService.selectOneMember(member_code);
