@@ -1,6 +1,6 @@
 <template>
     <div id="container">
-      <header v-if="!getUser"> <!-- 로그인 안된 상태의 헤더 요소 -->
+      <header v-if="!isLoggedin"> <!-- 로그인 안된 상태의 헤더 요소 -->
       <router-link to="/home" class="nav-link" :class="{ 'active-link': $route.path === '/home' }">
         <h1>JHGPT</h1>
       </router-link>
@@ -8,24 +8,26 @@
       <router-link to="/login" class="nav-link" :class="{ 'active-link': $route.path === '/login' }">Login</router-link>
       <router-link to="/register" class="nav-link" :class="{ 'active-link': $route.path === '/register' }">Register</router-link>
       <router-link to="/reviewList" class="nav-link" :class="{ 'active-link': $route.path === '/reviewList' }">reviewList</router-link>
-      <router-link to="/trainerMypage" class="nav-link" :class="{ 'active-link': $route.path === '/trainerMypage' }">trainerMypage</router-link>
-      <router-link to="/userMypage" class="nav-link" :class="{ 'active-link': $route.path === '/userMypage' }">userMypage</router-link>
+      
+      
       </header>
 
-    <header v-else-if="getUser && userType === 'user'"> <!-- 유저가 로그인 했을 때 -->
+    <header v-else-if="isLoggedin && userType === 1"> <!-- 유저가 로그인 했을 때 -->
       <router-link to="/homeUser" class="nav-link" :class="{ 'active-link': $route.path === '/homeUser' }">
         <h1>JHGPT</h1>
       </router-link>
       <router-link to="/userBuylist" class="nav-link" :class="{ 'active-link': $route.path === '/userBuylist' }">구매 목록</router-link>
-      <router-link to="/userMypage" class="nav-link" :class="{ 'active-link': $route.path === '/userMypage' }">My Page</router-link>
+      <router-link to="/userMypage" class="nav-link" :class="{ 'active-link': $route.path === '/userMypage' }">userMypage</router-link>
+      <button @click="handleLogout" class="nav-link">Logout</button>
     </header>
 
-    <header v-else-if="getUser && userType === 'trainer'"> <!-- 트레이너가 로그인 했을 때 -->
+    <header v-else-if="isLoggedin && userType === 2"> <!-- 트레이너가 로그인 했을 때 -->
       <router-link to="/ptDetail" class="nav-link" :class="{ 'active-link': $route.path === '/ptDetail' }">
         <h1>JHGPT</h1>
       </router-link>
-      <router-link to="/trainerMypage" class="nav-link" :class="{ 'active-link': $route.path === '/trainerMypage' }">My Page</router-link>
       <router-link to="/ptDetail" class="nav-link" :class="{ 'active-link': $route.path === '/ptDetail' }">운영중인 pt</router-link>
+      <router-link to="/trainerMypage" class="nav-link" :class="{ 'active-link': $route.path === '/trainerMypage' }">trainerMypage</router-link>
+      <button @click="handleLogout" class="nav-link">Logout</button>
         <!--이 밑으로는 테스트 용-->
         <!-- <nav> -->
           <!-- <router-link to="/boardregist" class="nav-link" :class="{ 'active-link': $route.path === '/board_regist' }">테스트용임보드등록</router-link>
@@ -52,7 +54,22 @@
   //   userStore.setLogout();
   // };
 
-  // const getUser = computed(() => (userStore.loginUser ? true : false));
+  const isLoggedin = computed(() => {
+    const loginMember = sessionStorage.getItem("loginMember");
+    return loginMember ? true : false;
+  });
+
+  const userType = computed(() => {
+    const loginMember = sessionStorage.getItem("loginMember");
+    //지금은 멤버의 상태코드를 반환해준다
+    return loginMember ? JSON.parse(loginMember).member_status : "";
+  });
+
+  const handleLogout = () => {
+    sessionStorage.removeItem("loginMember");
+    router.push({ name: "Home" });
+  };
+
 </script>
 
   <style scoped>
