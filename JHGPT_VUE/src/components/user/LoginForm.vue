@@ -24,10 +24,13 @@ const memberStore = useMemberStore();
 const id = ref("");
 const password = ref("");
 
+const defineEmits = defineEmits(["login"]);
+
 const handleLogin = async () => {
   // Perform any necessary validation on 'id' and 'password' here
   console.log("id: ", id.value);
   console.log("password: ", password.value);
+  
   // Call your login function in the store
   const loginResult = await memberStore.setLoginMember({
     member_id: id.value,
@@ -36,7 +39,8 @@ const handleLogin = async () => {
 
   // Check the result and handle accordingly
   if (loginResult) {
-    // Login successful, you can perform any additional actions here
+  
+    emits("login" /* 추가 데이터 전달 가능 */);
     console.log("로그인 성공");
   } else {
     // Login failed, you can display an error message or perform other actions

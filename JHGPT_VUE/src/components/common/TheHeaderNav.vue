@@ -1,5 +1,7 @@
 <template>
+    
     <div id="container">
+      <LoginForm @login="handleLoginSuccess" />
       <header v-if="!isLoggedin"> <!-- 로그인 안된 상태의 헤더 요소 -->
       <router-link to="/home" class="nav-link" :class="{ 'active-link': $route.path === '/home' }">
         <h1>JHGPT</h1>
@@ -12,34 +14,32 @@
       
       </header>
 
-    <header v-else-if="isLoggedin && userType === 1"> <!-- 유저가 로그인 했을 때 -->
-      <router-link to="/homeUser" class="nav-link" :class="{ 'active-link': $route.path === '/homeUser' }">
-        <h1>JHGPT</h1>
-      </router-link>
-      <router-link to="/userBuylist" class="nav-link" :class="{ 'active-link': $route.path === '/userBuylist' }">구매 목록</router-link>
-      <router-link to="/userMypage" class="nav-link" :class="{ 'active-link': $route.path === '/userMypage' }">userMypage</router-link>
-      <button @click="handleLogout" class="nav-link">Logout</button>
-    </header>
+      <header v-else-if="isLoggedin && userType === 1"> <!-- 유저가 로그인 했을 때 -->
+        <router-link to="/homeUser" class="nav-link" :class="{ 'active-link': $route.path === '/homeUser' }">
+          <h1>JHGPT</h1>
+        </router-link>
+        <router-link to="/userBuylist" class="nav-link" :class="{ 'active-link': $route.path === '/userBuylist' }">구매 목록</router-link>
+        <router-link to="/userMypage" class="nav-link" :class="{ 'active-link': $route.path === '/userMypage' }">userMypage</router-link>
+        <button @click="handleLogout" class="nav-link">Logout</button>
+      </header>
 
-    <header v-else-if="isLoggedin && userType === 2"> <!-- 트레이너가 로그인 했을 때 -->
-      <router-link to="/ptDetail" class="nav-link" :class="{ 'active-link': $route.path === '/ptDetail' }">
-        <h1>JHGPT</h1>
-      </router-link>
-      <router-link to="/ptDetail" class="nav-link" :class="{ 'active-link': $route.path === '/ptDetail' }">운영중인 pt</router-link>
-      <router-link to="/trainerMypage" class="nav-link" :class="{ 'active-link': $route.path === '/trainerMypage' }">trainerMypage</router-link>
-      <button @click="handleLogout" class="nav-link">Logout</button>
-        <!--이 밑으로는 테스트 용-->
-        <!-- <nav> -->
-          <!-- <router-link to="/boardregist" class="nav-link" :class="{ 'active-link': $route.path === '/board_regist' }">테스트용임보드등록</router-link>
-           <router-link to="/reviewregist" class="nav-link" :class="{ 'active-link': $route.path === '/review_regist' }">테스트용리뷰등록</router-link>
-          <router-link to="/reviewregist" class="nav-link" :class="{ 'active-link': $route.path === '/review_regist' }">테스트용리뷰등록</router-link>
-          <router-link to="/trainerRegist" class="nav-link" :class="{ 'active-link': $route.path === '/trainer_regist' }">트레이너등록</router-link>
-          <router-link to="/trainerMypage" class="nav-link" :class="{ 'active-link': $route.path === '/trainer_mypage' }">트레이너마이페이지</router-link>
-          <router-link to="/trainerDetail" class="nav-link" :class="{ 'active-link': $route.path === '/trainer_Detail' }">트레이너디테일</router-link>
-          <router-link to="/ptDetail" class="nav-link" :class="{ 'active-link': $route.path === '/ptDetail' }">피티디테일</router-link>
-          <router-link to="/videoDetail" class="nav-link" :class="{ 'active-link': $route.path === '/videoDetail' }">비디오디테일</router-link>
-          <router-link to="/videoList" class="nav-link" :class="{ 'active-link': $route.path === '/videoList' }">비디오리스트</router-link> -->
-       <!-- </nav> -->
+      <header v-else-if="isLoggedin && userType === 2"> <!-- 트레이너가 로그인 했을 때 -->
+        <router-link :to="{ name: 'PtDetail', params: { member_code: member_code } }" class="nav-link" :class="{ 'active-link': $route.name === 'PtDetail' }">  <h1>JHGPT</h1></router-link>
+        <router-link :to="{ name: 'PtDetail', params: { member_code: member_code } }" class="nav-link" :class="{ 'active-link': $route.name === 'PtDetail' }">운영중인 pt</router-link>
+        <router-link :to="{ name: 'trainerMypage', params: { member_code: member_code } }" class="nav-link" :class="{ 'active-link': $route.name === 'trainerMypage' }">trainerMypage</router-link>
+        <button @click="handleLogout" class="nav-link">Logout</button>
+          <!--이 밑으로는 테스트 용-->
+          <!-- <nav> -->
+            <!-- <router-link to="/boardregist" class="nav-link" :class="{ 'active-link': $route.path === '/board_regist' }">테스트용임보드등록</router-link>
+            <router-link to="/reviewregist" class="nav-link" :class="{ 'active-link': $route.path === '/review_regist' }">테스트용리뷰등록</router-link>
+            <router-link to="/reviewregist" class="nav-link" :class="{ 'active-link': $route.path === '/review_regist' }">테스트용리뷰등록</router-link>
+            <router-link to="/trainerRegist" class="nav-link" :class="{ 'active-link': $route.path === '/trainer_regist' }">트레이너등록</router-link>
+            <router-link to="/trainerMypage" class="nav-link" :class="{ 'active-link': $route.path === '/trainer_mypage' }">트레이너마이페이지</router-link>
+            <router-link to="/trainerDetail" class="nav-link" :class="{ 'active-link': $route.path === '/trainer_Detail' }">트레이너디테일</router-link>
+            <router-link to="/ptDetail" class="nav-link" :class="{ 'active-link': $route.path === '/ptDetail' }">피티디테일</router-link>
+            <router-link to="/videoDetail" class="nav-link" :class="{ 'active-link': $route.path === '/videoDetail' }">비디오디테일</router-link>
+            <router-link to="/videoList" class="nav-link" :class="{ 'active-link': $route.path === '/videoList' }">비디오리스트</router-link> -->
+        <!-- </nav> -->
       </header>
     </div>
   </template>
@@ -53,21 +53,33 @@
   // const logout = () => {
   //   userStore.setLogout();
   // };
+  const loginMember = ref(JSON.parse(sessionStorage.getItem("loginMember")));
+
+
 
   const isLoggedin = computed(() => {
-    const loginMember = sessionStorage.getItem("loginMember");
-    return loginMember ? true : false;
+    return loginMember.value !== null;
   });
 
+  // userType을 computed 속성으로 정의합니다.
   const userType = computed(() => {
-    const loginMember = sessionStorage.getItem("loginMember");
-    //지금은 멤버의 상태코드를 반환해준다
-    return loginMember ? JSON.parse(loginMember).member_status : "";
+    return loginMember.value ? loginMember.value.member_status : "";
+  });
+
+  const member_code = computed(() => {
+    return loginMember.value ? loginMember.value.member_code : "";
   });
 
   const handleLogout = () => {
     sessionStorage.removeItem("loginMember");
+    loginMember.value = null; // ref 값을 갱신하여 반응성을 유도합니다.
     router.push({ name: "Home" });
+  };
+
+  //요놈이 안됨
+  const handleLoginSuccess = () => {
+    loginMember.value = JSON.parse(sessionStorage.getItem("loginMember"));
+    console.log("너는 되고잇니?");
   };
 
 </script>

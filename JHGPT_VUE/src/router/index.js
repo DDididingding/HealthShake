@@ -82,7 +82,7 @@ const router = createRouter({
       component: TrainerDetail
     },
     {
-      path: '/ptDetail',
+      path: '/ptDetail/:member_code',
       name: 'PtDetail',
       component: PtDetail
     },
@@ -125,7 +125,7 @@ const router = createRouter({
       path: '/homeUser',
       name: 'HomeUser',
       component: HomeUser
-    },   
+    },  
     {
       path: '/userBuylist',
       name: 'UserBuylist',

@@ -158,7 +158,14 @@ export const useMemberStore = defineStore("member", () => {
 
           sessionStorage.setItem("loginMember", JSON.stringify(responseMember));
 
-          router.push({ name: "Home" });
+          const memberStatus = responseMember.member_status;
+
+          if (memberStatus === 1) {
+            router.push({ name: "HomeUser" });
+          } else if (memberStatus === 2) {
+            router.push({ name: "PtDetail" ,params: { member_code : responseMember.member_code }});
+          }
+          
           return true; // 로그인 성공을 나타냄
         } else {
           alert("비밀번호가 올바르지 않습니다");
