@@ -191,7 +191,7 @@ public class MemberRestController {
 	    
 		//로그인 성공
 		//세션에 로그인한 유저의 이름을 저장한다.	
-	    session.setAttribute("loginMember", tmp.getMember_id());
+	    session.setAttribute("loginMember", tmp);
 		//로그인한 유저의 이름을 반환한다.
 	    return new ResponseEntity<Member>(tmp, HttpStatus.OK);
 	}
