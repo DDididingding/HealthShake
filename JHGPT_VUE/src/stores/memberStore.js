@@ -3,6 +3,7 @@ import { ref } from "vue";
 import { defineStore } from "pinia";
 import router from "@/router";
 import axios from 'axios';
+import { useUserStore } from "@/stores/userStore";
 
 export const useMemberStore = defineStore("member", () => {
   
@@ -142,6 +143,7 @@ export const useMemberStore = defineStore("member", () => {
   const setLoginMember = async (inputMember) => {
     console.log("로그인 시도", inputMember);
     try {
+      const userStore = useUserStore();
       const resp = await axios.post("http://localhost:9999/api/login/", inputMember);
   
       const responseMember = resp.data;
@@ -151,6 +153,8 @@ export const useMemberStore = defineStore("member", () => {
           // console.log("로그인 성공");
           // const loggedInUser = resp.data;
           // console.log("Logged in user:", loggedInUser);
+          userStore.setLoginMember(responseMember);
+
 
           sessionStorage.setItem("loginMember", JSON.stringify(responseMember));
 
