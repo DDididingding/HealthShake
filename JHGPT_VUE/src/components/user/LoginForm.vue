@@ -31,9 +31,7 @@ const handleLogin = async () => {
   // Call your login function in the store
   const loginResult = await memberStore.setLoginMember({
     member_id: id.value,
-    member_password: password.value,
-    member_name : "t",
-    member_nickname : "t"
+    member_password: password.value
   });
 
   // Check the result and handle accordingly

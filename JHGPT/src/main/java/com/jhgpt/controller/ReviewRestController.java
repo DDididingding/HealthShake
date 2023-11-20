@@ -87,7 +87,7 @@ public class ReviewRestController {
     // 5. 리뷰 수정
     @PutMapping("/review/{review_code}")
     @ApiOperation(value = "리뷰 수정", notes = "리뷰 수정")
-    public ResponseEntity<?> updateReview(@RequestBody Review review){
+    public ResponseEntity<?> updateReview(@PathVariable int review_code, @RequestBody Review review){
         Review temp = reviewService.selectOneReview(review.getReview_code());
         if(temp == null){
             return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);

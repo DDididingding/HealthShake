@@ -123,9 +123,9 @@ public class BoardRestController {
 	}
 
 	// 5. 수정
-	@ApiIgnore
 	@PutMapping("/board") // JSON 형태의 데이터로 넘어왔을 떄 처리하고 싶은데?
 	public ResponseEntity<Void> update(@RequestBody Board board) {
+		//작성자외의 사람이 접근하면 수정 ㄴㄴ
 		boardService.modifyBoard(board);
 		// 위와같은 상황 대비
 

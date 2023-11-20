@@ -148,12 +148,12 @@ export const useMemberStore = defineStore("member", () => {
 
       if (responseMember !== null) {
         if (responseMember.member_password === inputMember.member_password) {
-          console.log("로그인 성공");
-          const loggedInUser = resp.data;
-          console.log("Logged in user:", loggedInUser);
+          // console.log("로그인 성공");
+          // const loggedInUser = resp.data;
+          // console.log("Logged in user:", loggedInUser);
 
           sessionStorage.setItem("loginMember", JSON.stringify(responseMember));
-          
+
           router.push({ name: "Home" });
           return true; // 로그인 성공을 나타냄
         } else {
