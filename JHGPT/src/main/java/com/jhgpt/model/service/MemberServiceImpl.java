@@ -86,10 +86,10 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public Member login(Member member) {
-		Member tmp = memberDao.selectOneMember(member.getMember_code());
-		if(tmp != null && tmp.getMember_password() == member.getMember_password())
+		Member tmp = memberDao.selectOneMemberById(member.getMember_id());
+		 if(tmp != null && tmp.getMember_password().equals(member.getMember_password()))
 			return tmp;
-		return null;
+		 return null;
 	}
 
 	@Override

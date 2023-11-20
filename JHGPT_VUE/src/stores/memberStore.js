@@ -139,28 +139,32 @@ export const useMemberStore = defineStore("member", () => {
   })
 
   // 로그인
-  const setLoginMember = ((inputMember) => {
-    axios
-        .get(`http://localhost:9999/api/login/`)
-        .then((resp) => {
-            const responseMember = resp.data
-            
-            if (responseMember !== null) {
-                if (responseMember.member_password === inputMember.member_password) {
-                    console.log("setLoginUser 성공");
-                    loginMember.value = responseMember
-                    router.push({ name: "Home" })
-                } else {
-                    alert("비밀번호가 올바르지 않습니다")
-                }
-            } else {
-                alert("존재하지 않는 아이디입니다")
-            }
-        })
-        .catch(() => {
-            console.log("setLoginUser 실패");
-        })
-  })
+  const setLoginMember = async (inputMember) => {
+    console.log("로그인 시도", inputMember);
+    try {
+      const resp = await axios.post("http://localhost:9999/api/login/", inputMember);
+  
+      const responseMember = resp.data;
+
+      if (responseMember !== null) {
+        if (responseMember.member_password === inputMember.member_password) {
+          console.log("로그인 성공");
+          // loginMember.value = responseMember;
+          router.push({ name: "Home" });
+          return true; // 로그인 성공을 나타냄
+        } else {
+          alert("비밀번호가 올바르지 않습니다");
+        }
+      } else {
+        alert("존재하지 않는 아이디입니다");
+      }
+    } catch (error) {
+      console.log("로그인 실패", error);
+    }
+  
+    return false; // 로그인 실패를 나타냄
+  };
+  
 
 
   //로그아웃 추후 구현

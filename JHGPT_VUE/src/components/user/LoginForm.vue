@@ -24,7 +24,27 @@ const memberStore = useMemberStore();
 const id = ref("");
 const password = ref("");
 
-// memberStore.setLoginMember(member);
+const handleLogin = async () => {
+  // Perform any necessary validation on 'id' and 'password' here
+  console.log("id: ", id.value);
+  console.log("password: ", password.value);
+  // Call your login function in the store
+  const loginResult = await memberStore.setLoginMember({
+    member_id: id.value,
+    member_password: password.value,
+    member_name : "t",
+    member_nickname : "t"
+  });
+
+  // Check the result and handle accordingly
+  if (loginResult) {
+    // Login successful, you can perform any additional actions here
+    console.log("로그인 성공");
+  } else {
+    // Login failed, you can display an error message or perform other actions
+    console.log("로그인 실패!");
+  }
+};
 
 </script>
 

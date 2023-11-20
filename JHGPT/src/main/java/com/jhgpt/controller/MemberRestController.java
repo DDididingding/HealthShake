@@ -96,6 +96,17 @@ public class MemberRestController {
 	    return new ResponseEntity<Trainer>(trainer, HttpStatus.OK);
 	}
 	
+	@GetMapping("/member/{member_id}")
+	@ApiOperation(value = "{member_id}에 해당하는 멤버 정보를 반환한다.", response = Member.class)
+	public ResponseEntity<?> selectMember(@PathVariable String member_id) {
+	    
+	    Member member = memberService.selectOneMemberById(member_id);
+	    if(member==null) {
+	        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+	    }
+	    return new ResponseEntity<Member>(member, HttpStatus.OK);
+	}
+
 	@GetMapping("/Mypage/{member_code}")
 	@ApiOperation(value = "{member_code}에 해당하는 멤버의 마이페이지", response = Member.class)
 	public ResponseEntity<?> selectMypage(@PathVariable int member_code) {
@@ -174,14 +185,15 @@ public class MemberRestController {
 	public ResponseEntity<?> login(@RequestBody Member member, HttpSession session) {
 	    Member tmp = memberService.login(member);
 	    //로그인 실패 (잘못했어)
-	    if(tmp == null)
-	        return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
+	    if(tmp == null){
+	        return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
 	    
 		//로그인 성공
 		//세션에 로그인한 유저의 이름을 저장한다.	
 	    session.setAttribute("loginMember", tmp.getMember_id());
 		//로그인한 유저의 이름을 반환한다.
-	    return new ResponseEntity<String>(tmp.getMember_id(), HttpStatus.OK);
+	    return new ResponseEntity<Member>(tmp, HttpStatus.OK);
 	}
 	
 	@GetMapping("logout")

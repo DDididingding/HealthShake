@@ -42,20 +42,20 @@ VALUES
  -- 유저 더미 데이터 삽입
 INSERT INTO Member (member_id, member_password, member_name, member_nickname, member_age, member_gender, member_status)
 VALUES
-  ('user1', 'password1', 'User 1', 'Nickname1', 25, 'Male', 1),
-  ('user2', 'password2', 'User 2', 'Nickname2', 28, 'Female', 1),
-  ('user3', 'password3', 'User 3', 'Nickname3', 22, 'Male', 1),
-  ('user4', 'password4', 'User 4', 'Nickname4', 30, 'Female', 1),
-  ('user5', 'password5', 'User 5', 'Nickname5', 26, 'Male', 1);
+  ('user11', 'password1', 'User 1', 'Nickname1', 25, 'Male', 1),
+  ('user12', 'password2', 'User 2', 'Nickname2', 28, 'Female', 1),
+  ('user13', 'password3', 'User 3', 'Nickname3', 22, 'Male', 1),
+  ('user14', 'password4', 'User 4', 'Nickname4', 30, 'Female', 1),
+  ('user15', 'password5', 'User 5', 'Nickname5', 26, 'Male', 1);
 
 -- 트레이너 더미 데이터 삽입
 INSERT INTO Member (member_id, member_password, member_name, member_nickname, member_age, member_gender, member_status)
 VALUES
-  ('trainer1', 'password1', 'Trainer 1', 'T-Nickname1', 35, 'Male', 2),
-  ('trainer2', 'password2', 'Trainer 2', 'T-Nickname2', 32, 'Female', 2),
-  ('trainer3', 'password3', 'Trainer 3', 'T-Nickname3', 29, 'Male', 2),
-  ('trainer4', 'password4', 'Trainer 4', 'T-Nickname4', 27, 'Female', 2),
-  ('trainer5', 'password5', 'Trainer 5', 'T-Nickname5', 33, 'Male', 2); 
+  ('trainer11', 'password1', 'Trainer 1', 'T-Nickname1', 35, 'Male', 2),
+  ('trainer12', 'password2', 'Trainer 2', 'T-Nickname2', 32, 'Female', 2),
+  ('trainer13', 'password3', 'Trainer 3', 'T-Nickname3', 29, 'Male', 2),
+  ('trainer14', 'password4', 'Trainer 4', 'T-Nickname4', 27, 'Female', 2),
+  ('trainer15', 'password5', 'Trainer 5', 'T-Nickname5', 33, 'Male', 2); 
     
     
     -- 나머지 User 더미 데이터 삽입

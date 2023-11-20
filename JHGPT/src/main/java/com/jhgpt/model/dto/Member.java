@@ -6,10 +6,10 @@ public class Member {
 	String member_password;
 	String member_name;
 	String member_nickname;
-	Integer member_age;
+	int member_age;
 	String member_gender;
 	String member_profile_pic;
-	Integer member_status;
+	int member_status;
 
 	public int getMember_code() {
 		return member_code;
