@@ -17,6 +17,7 @@
           </tr>
         </thead>
         <tbody>
+          <!--전체 비디오리스트를 비디오 코드를 키값으로 가져옴-->
           <tr v-for="video in videos" :key="video.code">
             <td>{{ video.title }}</td>
             <td>{{ video.readme }}</td>

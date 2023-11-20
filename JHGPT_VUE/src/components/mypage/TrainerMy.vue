@@ -107,6 +107,7 @@ const goToTrainerMypageUpdate = () => {
   const memberCode = sessionMember ? sessionMember.member_code : null;
   console.log('memberCode: ', memberCode);
   if (memberCode) {
+    //트레이너 마이페이지에, 인자로 membercode를 담아서 보냄
     router.push({ name: 'trainerMypageUpdate', params: { member_code: memberCode } });
   } else {
     // Handle the case where member_code is not available

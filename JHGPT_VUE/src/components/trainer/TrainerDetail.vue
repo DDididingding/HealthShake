@@ -12,21 +12,21 @@
         </div>
 
         <hr>
-
+        <!-- 비디오 목록이 있다면 -->
         <div v-if="isVideoLoaded && videos" class="videos">
           <h2>비디오</h2>
           <VideoList :memberCode="route.params.member_code" />
         </div>
 
         <hr>
-
+        <!--보드 목록이 있다면-->
         <div v-if="isBoardLoaded && boards" class="boards">
           <h2>게시판</h2>
           <BoardList :memberCode="route.params.member_code" />
         </div>
 
         <hr>
-
+        <!--리뷰 목록이 있다면-->
         <div v-if="isReviewLoaded && reviews" class="reviews">
           <h2>리뷰 리스트</h2>
           <ReviewList :memberCode="route.params.member_code" />

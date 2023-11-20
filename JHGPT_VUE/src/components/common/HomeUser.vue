@@ -1,5 +1,6 @@
 <template>
 <!--로그인 한 상태의 유저 홈화면 -->
+<!--로그인 안한 상태랑 다르게 추천 트레이너 목록 띄워보자-->
 <!--추천 트레이너 목록 받아서 띄워주고 싶은데...흐음 일단은 전체 트레이너-->
 <div class="popular-trainers" v-if="trainersLoaded">
     <div class="trainer-card-container">
@@ -24,7 +25,7 @@ import { ref, onMounted } from "vue";
 
 const memberStore = useMemberStore();
 const trainers = ref([]);
-const trainersLoaded = ref(false);
+const trainersLoaded = ref(false); //home start와 동일
 
 onMounted(async () => {
   if (!memberStore.trainers.length) {

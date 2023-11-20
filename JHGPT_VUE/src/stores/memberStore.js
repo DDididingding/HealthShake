@@ -185,6 +185,7 @@ export const useMemberStore = defineStore("member", () => {
           sessionStorage.setItem("loginMember", JSON.stringify(responseMember));
 
           const memberStatus = responseMember.member_status;
+          //여기서 headernav를 바꿔줘야함
 
           if (memberStatus === 1) {
             router.push({ name: "HomeUser" });

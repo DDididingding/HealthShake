@@ -1,6 +1,7 @@
 <template>
     <div>
       <h4>리뷰 수정</h4>
+      <!-- 유저 수정과 비슷하게 가야할 듯-->
       <fieldset>
         <legend>수정</legend>
         <div>
@@ -16,6 +17,7 @@
           <input type="number" id="rating" v-model="review.rating" min="1" max="5">
         </div>
         <div>
+          <!-- 여기는 클릭 이벤트 알맞게 들어간 듯-->
           <button @click="updateReview">수정</button>
         </div>
       </fieldset>

@@ -26,6 +26,7 @@
             <td>{{ board.writercode }}</td>
             <td>{{ board.category }}</td>
             <td>
+              <!-- 누르면 해당하는 보드 디테일 나옴옴-->
               <RouterLink :to="`/board/${board.code}`">{{ board.content }}</RouterLink>
             </td>
             <td>{{ board.uploadtime }}</td>

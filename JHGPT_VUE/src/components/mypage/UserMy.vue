@@ -56,7 +56,7 @@
   const isBoardLoaded = ref(false);  
   const boards = ref([null]);
   const sessionMember = JSON.parse(sessionStorage.getItem('loginMember'));
-  const boardCord = ref(null);
+  const boardCode = ref(null);
 
   onMounted(async () => {
     try {
@@ -75,7 +75,7 @@
       await boardStore.BoardListByMember(member_code);
       boards.value = boardStore.boardList;
       isBoardLoaded.value = true;
-      boardCord = boards.board_cord;
+      boardCode = boards.board_code;
 
       // await reviewStore.ReviewListByUser(member_code);
       // reviews.value = reviewStore.reviewList;

@@ -24,9 +24,9 @@
 import { useMemberStore } from "@/stores/memberStore";
 import { ref, onMounted } from "vue";
 
-const memberStore = useMemberStore();
-const trainers = ref([]);
-const trainersLoaded = ref(false);
+const memberStore = useMemberStore();//멤버스토어 사용
+const trainers = ref([]);//트레이너 리스트 반응형
+const trainersLoaded = ref(false); //트레이너 리스트 로딩여부 반응형
 
 onMounted(async () => {
   if (!memberStore.trainers.length) {

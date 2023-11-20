@@ -129,6 +129,7 @@ const regist = () => {
     return;
   }
 
+  //특수문자검사
   var specialRule = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
   if(
     !specialRule.test(password.value)

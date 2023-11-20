@@ -7,6 +7,7 @@
         <label for="title">제목</label>
         <input type="text" id="title" v-model="review.title" class="form-control" required>
       </div>
+      <!-- 입력된 내용들을 각각의 review.___에 저장-->
 
       <div class="form-group">
         <label for="content">내용</label>
@@ -17,7 +18,8 @@
         <label for="rating">평점 (1~5점)</label>
         <input type="number" id="rating" v-model="review.rating" min="1" max="5" class="form-control" required>
       </div>
-
+      
+      <!-- 버튼에 액션 추가 필요-->
       <button type="submit" class="btn btn-primary">등록</button>
     </form>
   </div>

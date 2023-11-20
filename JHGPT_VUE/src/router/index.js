@@ -28,6 +28,7 @@ import UpdateVideo from '@/components/video/VideoUpdate.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    //member_code를 사용하여 동적인 세그먼트를 나타냄
     {
       path:'/login',
       name:'Login',

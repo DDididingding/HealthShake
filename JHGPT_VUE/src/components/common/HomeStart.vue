@@ -2,6 +2,7 @@
 <!--로그인 안한상태의 홈화면-->
   <div class="popular-trainers" v-if="trainersLoaded">
     <div class="trainer-card-container">
+      <!-- 트레이너 목록에 대하여 반복-->
       <div v-for="trainer in trainers" :key="trainer.code" class="trainer-card">
         <router-link :to="{ name: 'TrainerDetail', params: { member_code: trainer.code } }"><h3>{{ trainer.name }}</h3>
         </router-link>

@@ -1,6 +1,7 @@
 <template>
     <div>
         <h4>게시물 수정</h4>
+        <!-- 여기도 유저 정보 수정과 비슷하게 구현하면 되겠구만-->
         <fieldset>
             <legend>등록</legend>
             <div>
@@ -28,9 +29,9 @@ const route = useRoute();
 const board = ref({});
 const isBoardLoaded = ref(false);
 
-onMounted(async () =>  {
+onMounted(async () =>  {//페이지로 처음 접근하면
     try {
-        const board_code = route.params.board_code;
+        const board_code = route.params.board_code;//파라미터로 받은 board_code
         await boardStore.selectUser(board_code);
         board.value = { ...boardStore.video }; // 기존 유저 정보 복사
         isBoardLoaded.value = true;
