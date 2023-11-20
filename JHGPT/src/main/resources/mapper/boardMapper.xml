@@ -39,6 +39,7 @@
     </select>
 
     <!-- 트레이너의 게시글 목록 가져오기 -->
+    <!-- 트레이너가 아니면 게시글 안가져오도록 코드 추가-->
     <select id="selectTrainerBoards" parameterType="int" resultType="com.jhgpt.model.dto.Board">
         SELECT * FROM Board WHERE member_code = #{member_code};
     </select>
