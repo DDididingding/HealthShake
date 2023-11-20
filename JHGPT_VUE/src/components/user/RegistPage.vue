@@ -35,7 +35,7 @@
     width: 80%; /* 버튼 너비를 80%로 조절 */
     padding: 20px; /* 내부 여백을 조절하여 정사각형으로 만듭니다. */
     border: none;
-    background-color: lightcoral;
+    background-color: mediumaquamarine;
     color: white;
     border-radius: 5px;
     text-align: center;
@@ -46,7 +46,7 @@
   }
   
   .btn:hover {
-    background-color: lightcoral; /* 마우스 호버 시 더 어두운 회색으로 변경 */
+    background-color: mediumaquamarine; /* 마우스 호버 시 더 어두운 회색으로 변경 */
   }
   </style>
   

@@ -16,22 +16,16 @@
 </template>
 
 <script setup>
-// import { ref } from "vue";
-// import { useUserStore } from "@/stores/userStore";
+import { ref } from "vue";
+import { useMemberStore } from "@/stores/memberStore";
 
-// const userStore = useUserStore();
+const memberStore = useMemberStore();
 
-// const id = ref("");
-// const password = ref("");
+const id = ref("");
+const password = ref("");
 
-// const handleLogin = () => {
-//   const user = {
-//     user_id: id.value,
-//     user_password: password.value,
-//   };
+// memberStore.setLoginMember(member);
 
-//   userStore.handleLogin(user);
-// };
 </script>
 
 <style scoped>
@@ -46,7 +40,7 @@
 
 h2 {
   text-align: center;
-  color:  lightcoral; 
+  color:  mediumaquamarine; 
 }
 
 .form-group {
@@ -79,12 +73,12 @@ label {
   font-size: 16px;
   border: none;
   border-radius: 4px;
-  background-color: lightcoral; 
+  background-color: mediumaquamarine; 
   color: #fff;
   cursor: pointer;
 }
 
 .btn:hover {
-  background-color: lightcoral;
+  background-color: mediumaquamarine;
 }
 </style>

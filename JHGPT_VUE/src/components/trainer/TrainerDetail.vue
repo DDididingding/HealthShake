@@ -13,17 +13,26 @@
 
         <hr>
 
-        <div class="reviews">
-          <h2>리뷰 리스트</h2>
-          <ReviewList :memberCode="route.params.member_code" />
+        <div v-if="isVideoLoaded && videos" class="videos">
+          <h2>비디오</h2>
+          <VideoList :memberCode="route.params.member_code" />
         </div>
 
         <hr>
 
-        <div class="boards">
+        <div v-if="isBoardLoaded && boards" class="boards">
           <h2>게시판</h2>
           <BoardList :memberCode="route.params.member_code" />
         </div>
+
+        <hr>
+
+        <div v-if="isReviewLoaded && reviews" class="reviews">
+          <h2>리뷰 리스트</h2>
+          <ReviewList :memberCode="route.params.member_code" />
+        </div>
+
+        <hr>   
       </div>
     </div>
 
@@ -35,15 +44,28 @@
 
 <script setup>
 import { useMemberStore } from "@/stores/memberStore";
+import { useVideoStore } from "@/stores/videoStore";
+import { useBoardStore } from "@/stores/boardStore";
+import { useReviewStore } from "@/stores/reviewStore";
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import ReviewList from "@/components/review/ReviewList.vue";
 import BoardList from "@/components/board/BoardList.vue";
+import VideoList from "@/components/video/VideoList.vue";
 
 const memberStore = useMemberStore();
+const videoStore = useVideoStore();
+const boardStore = useBoardStore();
+const reviewStore = useReviewStore();
 const route = useRoute();
 const trainer = ref(null);
 const isTrainerLoaded = ref(false);
+const isVideoLoaded = ref(false);
+const isReviewLoaded = ref(false);
+const isBoardLoaded = ref(false);
+const reviews = ref([null]);
+const boards = ref([null]);
+const videos = ref([null]);
 
 onMounted(async () => {
   try {
@@ -51,10 +73,26 @@ onMounted(async () => {
     await memberStore.selectTrainer(member_code);
     trainer.value = memberStore.trainer;
     isTrainerLoaded.value = true;
+
+    await videoStore.VideoListByTrainer(member_code);
+    videos.value = videoStore.videoList;
+    isVideoLoaded.value = true;
+
+    await boardStore.BoardListByMember(member_code);
+    boards.value = boardStore.boards;
+    isBoardLoaded.value = true;
+
+    await reviewStore.ReviewListByTrainer(member_code);
+    reviews.value = reviewStore.reviewList;
+    isReviewLoaded.value = true;
+
+
   } catch (error) {
     console.error("트레이너 정보를 불러오는 동안 오류가 발생했습니다:", error);
   }
 });
+
+//각각 리스트에 데이터 담기는지 확인
 </script>
 
 <style scoped>

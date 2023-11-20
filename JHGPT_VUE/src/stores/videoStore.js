@@ -16,6 +16,28 @@ export const useVideoStore = defineStore('video', () => {
       })
   }
 
+  const VideoListByTrainer = ((member_code) => {
+    axios
+        .get(`http://localhost:9999/api/video/trainer/${member_code}`)
+        .then((resp) => {
+            console.log("비디오 목록 가져오기 성공");
+            const responseData = resp.data
+
+            videoList.value = responseData.map(item => ({
+                uploadercode : item.video_uploader,
+                code : item.video_code,
+                title : item.video_title,
+                readme : item.video_readme,
+                url : item.video_url,
+                viewcnt : item.video_viewcnt,
+            }))
+        })
+        .catch(() => {
+            console.log("비디오 목록 가져오기 실패");
+        })
+  })
+
+
   //비디오 객체 저장
   const registVideo = ((video) => {
     axios
@@ -49,5 +71,5 @@ export const useVideoStore = defineStore('video', () => {
           router.push({ name: "Home" })
       })
   })
-   return { videoList, video, registVideo, selectVideo, deleteVideo, getVideoList }
+   return { VideoListByTrainer, videoList, video, registVideo, selectVideo, deleteVideo, getVideoList }
 })

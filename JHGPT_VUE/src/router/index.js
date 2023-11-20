@@ -7,14 +7,19 @@ import UserRegist from '@/components/user/UserRegist.vue'
 import BoardRegist from '@/components/board/BoardRegist.vue'
 import ReviewRegist from '@/components/review/ReviewRegist.vue'
 import TrainerMypage from '@/components/mypage/TrainerMy.vue'
+import TrainerMypageUpdate from '@/components/mypage/TrainerMyUpdate.vue'
+import UserMypageUpdate from '@/components/mypage/UserMyUpdate.vue'
 import TrainerDetail from '@/components/trainer/TrainerDetail.vue'
 import PtDetail from '@/components/trainer/PtDetail.vue'
 import VideoDetail from '@/components/video/VideoDetail.vue'
 import VideoRegist from '@/components/video/VideoRegist.vue'
 import BoardList from '@/components/board/BoardList.vue'
 import VideoList from '@/components/video/VideoList.vue'
-import Home from '@/components/common/HOME.vue'
+import Home from '@/components/common/HomeStart.vue'
 import ReviewList from '@/components/review/ReviewList.vue'
+import HomeUser from '@/components/common/HomeUser.vue'
+import UserBuylist from '@/components/user/UserBuylist.vue'
+
 
 
 
@@ -30,11 +35,6 @@ const router = createRouter({
       path:'/register',
       name:'Register',
       component: Register
-    },
-    {
-      path:'/userMypage/',
-      name:'userMypage',
-      component: UserMy
     },
     {
       path:'/trainerRegist',
@@ -59,7 +59,22 @@ const router = createRouter({
     {
       path: '/trainerMypage/:member_code',
       name: 'trainerMypage',
-      component: TrainerMy
+      component: TrainerMypage
+    },
+    {
+      path: '/trainerMypageUpdate/',
+      name: 'trainerMypageUpdate',
+      component: TrainerMypageUpdate
+    },
+    {
+      path: '/userMypage/:member_code',
+      name: 'userMypage',
+      component: UserMypage
+    },
+    {
+      path: '/userMypageUpdate/',
+      name: 'userMypageUpdate',
+      component: UserMypageUpdate
     },
     {
       path: '/trainerDetail/:member_code', // :member_code를 사용하여 동적인 세그먼트를 나타냄
@@ -105,7 +120,17 @@ const router = createRouter({
       path: '/reviewList',
       name: 'ReviewList',
       component: ReviewList
-    },            
+    },      
+    {
+      path: '/homeUser',
+      name: 'HomeUser',
+      component: HomeUser
+    },   
+    {
+      path: '/userBuylist',
+      name: 'UserBuylist',
+      component: UserBuylist
+    },       
   ]
 })
 

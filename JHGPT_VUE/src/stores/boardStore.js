@@ -9,7 +9,7 @@ export const useBoardStore = defineStore("board", () => {
     
     const boards = ref([]);
 
-    const BoardListByTrainer = ((member_code) => {
+    const BoardListByMember = ((member_code) => {
         axios
         .get(`http://localhost:9999/api/board/${member_code}`)
         .then((resp) => {
@@ -30,7 +30,27 @@ export const useBoardStore = defineStore("board", () => {
         })
     })
   
+    //트레이너별 게시물 목록
+    const BoardListByTrainer = ((member_code) => {
+        axios
+        .get(`http://localhost:9999/api/board/trainer/${member_code}`)
+        .then((resp) => {
+            console.log("게시물 목록 가져오기 성공");
+            const responseData = resp.data
 
+            boards.value = responseData.map(item => ({
+                writercode : item.board_uploader,
+                code : item.board_code,
+                title : item.board_title,
+                uploadtime : item.board_uploadtime,
+                content : item.board_content,
+                viewcnt : item.board_viewcnt,
+            }))
+        })
+        .catch(() => {
+            console.log("게시물 목록 가져오기 실패");
+        })
+    })
 
     // //게시물 목록 가져오기
     // const Boardlist = (() => {
@@ -61,18 +81,18 @@ export const useBoardStore = defineStore("board", () => {
     //         })
     // })
 
-    // //게시물 등록
-    // const writeBoard = ((board) => {
-    //     axios
-    //         .post("https://localhost:9999/api/board")
-    //         .then(() => {
-    //             console.log("게시물 등록 성공");
-    //             router.push({name:"Home"})
-    //         })
-    //         .catch(() => {
-    //             console.log("게시물 등록 실패");
-    //     })
-    // })
+    //게시물 등록
+    const registBoard = ((board) => {
+        axios
+            .post("https://localhost:9999/api/board")
+            .then(() => {
+                console.log("게시물 등록 성공");
+                router.push({name:"Home"})
+            })
+            .catch(() => {
+                console.log("게시물 등록 실패");
+        })
+    })
 
     // //게시물 삭제
     // const deleteBoard = ((board_code) => {
@@ -88,10 +108,18 @@ export const useBoardStore = defineStore("board", () => {
     // })
 
     // //게시물 수정
+    const updateBoard = (() => {
+        axios
+            .put("")
+            .then(() => {
+                router.push({name: 'Home'}) //추후 수정
+            })
+    })
     // //추후 추가
 
+
     return{
-        BoardListByTrainer, boards,
+        BoardListByMember, boards,registBoard,updateBoard, BoardListByTrainer
     };
 
     //  Boardlist, Boarddetail, writeBoard, deleteBoard, boards, board, board_code

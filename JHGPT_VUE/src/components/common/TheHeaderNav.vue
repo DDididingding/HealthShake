@@ -4,6 +4,7 @@
       <router-link to="/home" class="nav-link" :class="{ 'active-link': $route.path === '/home' }">
         <h1>JHGPT</h1>
       </router-link>
+       <router-link to="/reviewregist" class="nav-link" :class="{ 'active-link': $route.path === '/review_regist' }">테스트용리뷰등록</router-link>
       <router-link to="/login" class="nav-link" :class="{ 'active-link': $route.path === '/login' }">Login</router-link>
       <router-link to="/register" class="nav-link" :class="{ 'active-link': $route.path === '/register' }">Register</router-link>
       <router-link to="/reviewList" class="nav-link" :class="{ 'active-link': $route.path === '/reviewList' }">reviewList</router-link>
@@ -12,23 +13,23 @@
       </header>
 
     <header v-else-if="getUser && userType === 'user'"> <!-- 유저가 로그인 했을 때 -->
-      <router-link to="/home" class="nav-link" :class="{ 'active-link': $route.path === '/home' }">
+      <router-link to="/homeUser" class="nav-link" :class="{ 'active-link': $route.path === '/homeUser' }">
         <h1>JHGPT</h1>
       </router-link>
-      <router-link to="/mypage" class="nav-link" :class="{ 'active-link': $route.path === '/mypage' }">My Page</router-link>
-      <!-- 추가: 구매한 트레이너의 비디오리스트, 구매한 트레이너의 보드리스트 -->
+      <router-link to="/userBuylist" class="nav-link" :class="{ 'active-link': $route.path === '/userBuylist' }">구매 목록</router-link>
+      <router-link to="/userMypage" class="nav-link" :class="{ 'active-link': $route.path === '/userMypage' }">My Page</router-link>
     </header>
 
     <header v-else-if="getUser && userType === 'trainer'"> <!-- 트레이너가 로그인 했을 때 -->
-      <router-link to="/home" class="nav-link" :class="{ 'active-link': $route.path === '/home' }">
+      <router-link to="/ptDetail" class="nav-link" :class="{ 'active-link': $route.path === '/ptDetail' }">
         <h1>JHGPT</h1>
       </router-link>
-      <router-link to="/mypage" class="nav-link" :class="{ 'active-link': $route.path === '/mypage' }">My Page</router-link>
-      <router-link to="/videoRegist" class="nav-link" :class="{ 'active-link': $route.path === '/videoDetail' }">비디오등록</router-link>
-      <router-link to="/boardList" class="nav-link" :class="{ 'active-link': $route.path === '/boardList' }">보드리스트</router-link>
+      <router-link to="/trainerMypage" class="nav-link" :class="{ 'active-link': $route.path === '/trainerMypage' }">My Page</router-link>
+      <router-link to="/ptDetail" class="nav-link" :class="{ 'active-link': $route.path === '/ptDetail' }">운영중인 pt</router-link>
         <!--이 밑으로는 테스트 용-->
         <!-- <nav> -->
           <!-- <router-link to="/boardregist" class="nav-link" :class="{ 'active-link': $route.path === '/board_regist' }">테스트용임보드등록</router-link>
+           <router-link to="/reviewregist" class="nav-link" :class="{ 'active-link': $route.path === '/review_regist' }">테스트용리뷰등록</router-link>
           <router-link to="/reviewregist" class="nav-link" :class="{ 'active-link': $route.path === '/review_regist' }">테스트용리뷰등록</router-link>
           <router-link to="/trainerRegist" class="nav-link" :class="{ 'active-link': $route.path === '/trainer_regist' }">트레이너등록</router-link>
           <router-link to="/trainerMypage" class="nav-link" :class="{ 'active-link': $route.path === '/trainer_mypage' }">트레이너마이페이지</router-link>
@@ -64,7 +65,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    background-color: lightcoral; 
+    background-color: mediumaquamarine; 
     color: #fff; /*흰색 텍스트*/
   }
 
@@ -91,6 +92,6 @@
   }
 
   .active-link {
-    color: #1d3ac8; /* 선택된 항목은 다른 색으로 강조 */
+    color: yellow; /* 선택된 항목은 다른 색으로 강조 */
   }
   </style>

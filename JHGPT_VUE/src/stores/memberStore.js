@@ -10,7 +10,7 @@ export const useMemberStore = defineStore("member", () => {
 
   const getMemberList = (() => {
     axios
-      .get("http://localhost:9999/api/Member")
+      .get("http://localhost:9999/api/member")
       .then((resp) => {
         console.log("멤버 목록 가져오기 성공");
         members.value = resp.data
@@ -64,7 +64,7 @@ export const useMemberStore = defineStore("member", () => {
 
   const selectUser = ((member_code) => {
     axios
-      .get("http://localhost:9999/api/member/{member_code}")
+      .get(`http://localhost:9999/api/member/${member_code}`)
       .then((resp) => {
         console.log("유저 선택 성공")
         user.value = resp.data
@@ -121,7 +121,47 @@ export const useMemberStore = defineStore("member", () => {
         })
   })
 
-  //로그인 추후 구현
+  const updateTrainerMy = (() => {
+    axios
+      .put("")//수정 링크
+      .then(() => {
+        router.push({name: 'trainerMy'})
+      })
+
+  })
+
+  const updateUserMy = (() => {
+    axios
+      .put("")//수정 링크
+      .then(() => {
+        router.push({name: 'trainerMy'})
+      })
+  })
+
+  // 로그인
+  const setLoginMember = ((inputMember) => {
+    axios
+        .get(`http://localhost:9999/api/login/`)
+        .then((resp) => {
+            const responseMember = resp.data
+            
+            if (responseMember !== null) {
+                if (responseMember.member_password === inputMember.member_password) {
+                    console.log("setLoginUser 성공");
+                    loginMember.value = responseMember
+                    router.push({ name: "Home" })
+                } else {
+                    alert("비밀번호가 올바르지 않습니다")
+                }
+            } else {
+                alert("존재하지 않는 아이디입니다")
+            }
+        })
+        .catch(() => {
+            console.log("setLoginUser 실패");
+        })
+  })
+
 
   //로그아웃 추후 구현
 
@@ -129,5 +169,5 @@ export const useMemberStore = defineStore("member", () => {
 
   //멤버 삭제
 
-  return {users, user, getMemberList, getTrainerList, getUserList, trainerSignup, trainers, trainer, userSignup, selectTrainer, selectUser}
+  return {users, user, setLoginMember, getMemberList, getTrainerList, getUserList, updateTrainerMy, updateUserMy, trainerSignup, trainers, trainer, userSignup, selectTrainer, selectUser}
 }, { persist: true });

@@ -50,11 +50,11 @@ const reviewStore = useReviewStore();
 const reviews = ref([]);
 const reviewsLoaded = ref(false);
 
-onMounted(async () => {
-  await reviewStore.reviewListByTrainer(params.member_code);
-  reviews.value = reviewStore.reviewList;
-  reviewsLoaded.value = true;
-});
+// onMounted(async () => {
+//   await reviewStore.ReviewListByTrainer(params.member_code);
+//   reviews.value = reviewStore.reviewList;
+//   reviewsLoaded.value = true;
+// });
 </script>
 
 <style scoped>

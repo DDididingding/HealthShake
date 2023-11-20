@@ -9,21 +9,32 @@
       <label for="content">내용:</label>
       <textarea id="content" v-model="board.content" required></textarea>
 
-      <button type="submit">등록하기</button>
+      <button @click="createBoard">등록하기</button>
     </form>
     </div>
   </template>
   
   <script setup>
   import { ref } from 'vue';
+  import { useBoardStore } from "@/stores/boardStore";
 
-const board = {
-  title: '',
-  content: '',
-};
+  const boardStore = useBoardStore();
+
+  const submitBoard = () => {
+    const board = {
+    title: '',
+    content: '',
+  };
   
-  const submitForm = () => {
-    console.log('게시물 정보:', board);
+    if (
+      title.value ==="" ||
+      content.value === ""
+    ){
+    alert("모든 내용을 입력해주세요");
+    return;
+     }
+    emit("create-board", board);
+    boardStore.registBoard(board);
   };
   </script>
   

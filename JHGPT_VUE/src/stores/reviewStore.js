@@ -10,7 +10,7 @@ const REST_REVIEW_API = `http://localhost:9999/api/review`//수정필요
 export const useReviewStore = defineStore('review', () => {
   const reviewList = ref([])
 
-  const reviewListByTrainer = ((member_code) => {
+  const ReviewListByTrainer = ((member_code) => {
     axios
       .get(`http://localhost:9999/api/trainer/${member_code}/review`)
       .then((resp) => {
@@ -36,7 +36,7 @@ export const useReviewStore = defineStore('review', () => {
 
   async(member_code) => {
     try {
-      const response = await axios.get('http://localhost:9999/trainer/${member_code}/review')
+      const response = await axios.get(`http://localhost:9999/trainer/${member_code}/review`)
       const responseData = response.data;
 
       reviewList.value = res
@@ -49,7 +49,7 @@ export const useReviewStore = defineStore('review', () => {
     }
   };
 
-  const reviewListByWriter = async (review_writer) => {
+  const ReviewListByWriter = async (review_writer) => {
     try{
       const response = await axios.get('REST_REVIEW_API/${review_writer}')
       reviewList.value = response.data;
@@ -69,10 +69,23 @@ export const useReviewStore = defineStore('review', () => {
       })
   }
 
+  //리뷰 등록
+  const registReview = ((review) => {
+    axios
+        .post("https://localhost:9999/api/review")
+        .then(() => {
+            console.log("registReview 성공");
+            router.push({ name: "Home" })
+        })
+        .catch(() => {
+            console.log("registReview 실패");
+        })
+  })
+
   //리뷰 삭제
   const deleteReview = (review_code) => {
     axios 
-      .delete("${REST_REVIEW_API}/${review_code}")
+      .delete(`${REST_REVIEW_API}/${review_code}`)
       .then(() => {
         console.log("삭제 성공");
         router.push({name: 'Home'})
@@ -89,5 +102,5 @@ const updateReview = function () {
 
   
 
-  return { review, reviewList, reviewListByWriter, reviewListByTrainer, reviewDetail, deleteReview, updateReview }
+  return { review,registReview, reviewList, ReviewListByWriter, ReviewListByTrainer, reviewDetail, deleteReview, updateReview }
 })

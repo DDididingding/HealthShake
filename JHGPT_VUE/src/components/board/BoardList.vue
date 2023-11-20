@@ -47,11 +47,11 @@ const boardStore = useBoardStore();
 const boards = ref([]);
 const boardsLoaded = ref(false);
 
-onMounted(async () => {
-  await boardStore.BoardListByTrainer(params.member_code);
-  boards.value = boardStore.boards;
-  boardsLoaded.value = true;
-});
+// onMounted(async () => {
+//   await boardStore.BoardListByTrainer(params.member_code);
+//   boards.value = boardStore.boards;
+//   boardsLoaded.value = true;
+// });
 </script>
 
 <style scoped>

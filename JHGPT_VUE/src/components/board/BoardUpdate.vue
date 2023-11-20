@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h4>트레이너 마이페이지 수정</h4>
+        <h4>게시물 수정</h4>
         <fieldset>
             <legend>등록</legend>
             <div>
@@ -27,7 +27,7 @@ import {useMemberStore} from "@/stores/memberStore";
 const memberStore = useMemberStore();
 
 const updateBoard = function () {
-    memberStore.updateUserMy()
+    memberStore.updateBoard()
 }
 
 </script>

@@ -1,4 +1,5 @@
 <template>
+<!--1119구현 완, 근데 테스트는 안해봄-->
   <div class="container">
     <h2 class="mb-4">트레이너 회원 가입</h2>
     <form @submit.prevent="regist" class="needs-validation" novalidate>
@@ -26,6 +27,26 @@
         <label for="age" class="form-label">나이</label>
         <input type="number" id="age" v-model="age" class="form-control" required />
       </div>
+      <div class="mb-3">
+        <label for="providePart" class="form-label">제공하는 부위</label>
+        <input type="text" id="providePart" v-model="providePart" class="form-control" required />
+      </div>
+      <div class="mb-3">
+        <label for="provideStyle" class="form-label">제공하는 스타일</label>
+        <input type="text" id="provideStyle" v-model="provideStyle" class="form-control" required />
+      </div>
+      <div class="mb-3">
+        <label for="provideGoal" class="form-label">목표</label>
+        <input type="text" id="provideGoal" v-model="provideGoal" class="form-control" required />
+      </div>
+      <div class="mb-3">
+        <label for="trainerReadme" class="form-label">트레이너 소개</label>
+        <textarea id="trainerReadme" v-model="trainerReadme" class="form-control" rows="4" required></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="trainerPrice" class="form-label">가격</label>
+        <input type="number" id="trainerPrice" v-model="trainerPrice" class="form-control" required />
+      </div>
       <div class="text-center">
         <button type="submit" class="btn btn-primary">등록</button>
       </div>
@@ -34,12 +55,14 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, computed, onMounted } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
+import { useMemberStore } from "@/stores/memberStore";
 
 const router = useRouter();
 const emit = defineEmits(["create-user"]);
+const memberStore = useMemberStore;
 
 const id = ref("");
 const password = ref("");
@@ -47,7 +70,16 @@ const password2 = ref("");
 const name = ref("");
 const email = ref("");
 const age = ref(0);
-const users = ref([]);
+const trainers = computed(() => memberStore.trainers);
+const providePart = ref("");
+const provideStyle = ref("");
+const provideGoal = ref("");
+const trainerReadme = ref("");
+const trainerPrice = ref(0);
+
+onMounted(() => {
+  memberStore.getTrainerList();
+});
 
 // email에 @의 포함 여부
 // 비밀번호가 8자리 이상이며 특수문자를 포함했는지 여부
@@ -56,17 +88,22 @@ const users = ref([]);
 const regist = () => {
   // id 중복 여부를 확인해 유효성을 검토하고, 이상이 있을 시 alert로 경고한다.
 
-  const user = {
+  const trainer = {
     id: id.value,
     password: password.value,
     name: name.value,
     email: email.value,
     age: age.value,
+    provideGoal: provideGoal.value,
+    providePart: providePart.value,
+    provideStyle: provideStyle.value,
+    trainerPrice: trainerPrice.value,
+    trainerReadme: trainerReadme.value,
   };
 
 
   if(
-    users.value.some((u) => u.id === user.id)
+    trainers.value.some((u) => u.id === user.id)
     )
     {
       alert("이미 사용 중인 아이디입니다.");
@@ -104,13 +141,19 @@ const regist = () => {
     id.value === "" ||
     password.value === "" ||
     name.value === "" ||
-    email.value === ""
+    email.value === "" ||
+    provideGoal.value === "" ||
+    providePart.value === "" ||
+    provideStyle.value === "" ||
+    trainerPrice.value === "" ||
+    trainerReadme.value === "" 
   ) {
     alert("모든 내용을 입력해주세요");
     return;
   }
-  emit("create-user", user);
+  emit("create-trainer", trainer);
   redirectToHome();
+  memberStore.trainerSignup(trainer);
 };
 
 const redirectToHome = () => {

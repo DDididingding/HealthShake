@@ -1,8 +1,6 @@
 <template>
   <div class="container">
-    <h2>비디오 목록</h2>
-    <h4>등록된 비디오의 수 {{ videoCnt }}</h4>
-    <div v-if="videos.length">
+    <div class="video-card">
       <table class="video-list">
         <colgroup>
           <col style="width: 5%" />
@@ -19,45 +17,71 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="video in store.videoList" :key="video.id">
-                <td>{{ video.id }}</td>
-                <td>
-                    <RouterLink :to="`/video/${video.id}`">{{ video.title }}</RouterLink>
-                </td>
-                <td>{{ video.readme }}</td>
-                <td>{{ video.viewcnt }}</td>
-                <td>{{ video.url }}</td>
-            </tr>
+          <tr v-for="video in videos" :key="video.code">
+            <td>{{ video.title }}</td>
+            <td>{{ video.readme }}</td>
+            <td>{{ video.viewcnt }}</td>
+            <td>{{ video.url }}</td>
+          </tr>
         </tbody>
       </table>
     </div>
-    <div v-else>등록된 리뷰가 없습니다.</div>
   </div>
-
 </template>
 
 <script setup>
-import { ref } from 'vue';
 import { useVideoStore } from "@/stores/videoStore";
-import { onMounted } from "vue";
-const store = useVideoStore()
+import { ref, onMounted } from "vue";
+import { useRoute } from "vue-router";
 
-onMounted(() => {
-    store.getVideoList()
-})
+const { params } = useRoute();
+const videoStore = useVideoStore();
+const videos = ref([]);
+const videosLoaded = ref(false);
 
-
-const video = {
-    post_content:'',
-};
+onMounted(async () => {
+  await videoStore.VideoListByTrainer(params.member_code);
+  videos.value = videoStore.videoList;
+  videosLoaded.value = true;
+});
 </script>
 
 <style scoped>
-/* 필요한 스타일링 추가 */
-.video-box {
-  border: 1px solid #ccc;
+.container {
   padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.board-card {
+  overflow-x: auto;
+}
+
+.board-list {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.board-list th, .board-list td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+.board-list th {
+  background-color: #f2f2f2;
+}
+
+.board-list td {
+  background-color: #fff;
+}
+
+.board-list a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.board-list a:hover {
+  text-decoration: underline;
 }
 </style>
+
