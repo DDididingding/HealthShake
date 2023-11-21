@@ -36,10 +36,8 @@ CREATE TABLE IF NOT EXISTS Trainer (
     provide_part VARCHAR(255),
     provide_style VARCHAR(255),
     provide_goal VARCHAR(255),
-    video_list TEXT,
     trainer_readme TEXT,
     trainer_price INT,
-    trainer_review TEXT,
     trainer_rating FLOAT,
     FOREIGN KEY (member_code) REFERENCES Member(member_code)
 );
