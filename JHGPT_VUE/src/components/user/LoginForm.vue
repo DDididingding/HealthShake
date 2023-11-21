@@ -23,7 +23,7 @@ const memberStore = useMemberStore();
 
 const id = ref("");
 const password = ref("");
-//Emit을 통해서 header에 있는 isLogin을 true로 바꿔줘야함
+
 const defineEmits = defineEmits(["login"]);
 
 const handleLogin = async () => {

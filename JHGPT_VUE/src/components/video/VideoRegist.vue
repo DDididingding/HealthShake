@@ -13,12 +13,8 @@
         <input type="text" id="videoURL" v-model="newVideo.video_url" required>
       </div>
       <div class="form-group">
-        <label for="videoPrice">가격:</label>
-        <input type="number" id="videoPrice" v-model.number="newVideo.price" required>
-      </div>
-      <div class="form-group">
-        <label for="videoViewCnt">조회수:</label>
-        <input type="number" id="videoViewCnt" v-model.number="newVideo.view_cnt" required>
+        <label for="videoReadme">소개글:</label>
+        <input type="text" id="videoReadme" v-model="newVideo.video_readme" required>
       </div>
       <button @click="createVideo">등록</button>
     </form>
@@ -49,8 +45,7 @@ const registVideo = () => {
   const newVideo = ref({
   video_title: '',
   video_url: '',
-  price: 0,
-  view_cnt: 0,
+  video_readme: '',
   });
 
   //유효성 검사 추가하면 좋긴 하겠다..
@@ -58,8 +53,7 @@ const registVideo = () => {
   if (
     video_title.value === "" ||
     video_url.value === "" ||
-    price.value === "" ||
-    view_cnt.value === ""
+    video_readme.value === "" 
   ) {
     alert("모든 내용을 입력해주세요");
     return;

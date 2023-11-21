@@ -16,23 +16,16 @@
             <th>번호</th>
             <th>작성자 아이디</th>
             <th>내용</th>
-            <th>좋아요</th>
-            <th>싫어요</th>
             <th>별점</th>
-            <th>업로드 시간</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="review in reviews" :key="review.id">
-            <td>{{ review.writer }}</td>
             <td>{{ review.writercode }}</td>
             <td>
               <RouterLink :to="`/review/${review.id}`">{{ review.content }}</RouterLink>
             </td>
-            <td>{{ review.like }}</td>
-            <td>{{ review.dislike }}</td>
             <td>{{ review.rating }}</td>
-            <td>{{ review.uploadtime }}</td>
           </tr>
         </tbody>
       </table>

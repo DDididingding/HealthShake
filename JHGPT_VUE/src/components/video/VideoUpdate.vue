@@ -44,6 +44,7 @@ const updateVideo = () => {
     video.value = {
         video_code: video.value.code,
         title: video.value.title,
+        readme: video.value.readme,
         url : video.value.url,
     };
     videoStore.updateVideo(video.value);

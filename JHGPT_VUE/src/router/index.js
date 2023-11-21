@@ -11,7 +11,6 @@ import TrainerMypageUpdate from '@/components/mypage/TrainerMyUpdate.vue'
 import UserMypageUpdate from '@/components/mypage/UserMyUpdate.vue'
 import TrainerDetail from '@/components/trainer/TrainerDetail.vue'
 import PtDetail from '@/components/trainer/PtDetail.vue'
-import VideoDetail from '@/components/video/VideoDetail.vue'
 import VideoRegist from '@/components/video/VideoRegist.vue'
 import BoardList from '@/components/board/BoardList.vue'
 import VideoList from '@/components/video/VideoList.vue'
@@ -28,7 +27,6 @@ import UpdateVideo from '@/components/video/VideoUpdate.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    //member_code를 사용하여 동적인 세그먼트를 나타냄
     {
       path:'/login',
       name:'Login',
@@ -88,11 +86,6 @@ const router = createRouter({
       path: '/ptDetail/:member_code',
       name: 'PtDetail',
       component: PtDetail
-    },
-    {
-      path: '/videoDetail',
-      name: 'VideoDetail',
-      component: VideoDetail
     },
     {
       path: '/videoRegist',

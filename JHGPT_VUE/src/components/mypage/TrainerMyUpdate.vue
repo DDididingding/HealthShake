@@ -52,8 +52,7 @@
         ></textarea>
       </div>
       <div>
-        <!-- 아래 선언해놓은 함수로 변경-->
-        <button @click="updateProfile">수정</button>
+        <button @click="updateTrainer">수정</button>
       </div>
     </fieldset>
   </div>

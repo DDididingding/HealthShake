@@ -55,7 +55,7 @@
 
 
 
-  const isLoggedin = computed(() => {//computed는 값이 바뀔때마다 자동으로 갱신됨
+  const isLoggedin = computed(() => {
     return loginMember.value !== null;
   });
 

@@ -61,6 +61,30 @@ export const useMemberStore = defineStore("member", () => {
       })
   })
 
+  //멤버가 구매한 트레이너리스트
+  const getBuyList = ((member_code) => {
+    axios
+      .get(`http://localhost:9999/api/userbuylist/${member_code}`)
+      .then((resp) => {
+          console.log("구매 목록 가져오기 성공");
+          const responseData = resp.data
+
+          trainers.value = responseData.map(item => ({
+          code : item.member_code,
+          id : item.member_id,
+          name : item.member_name,
+          nickname : item.member_nickname,
+          readme : item.trainer_readme,
+          provide_part : item.provide_part,
+          provide_style : item.provide_style,
+          provide_goal : item.provide_goal,
+        }))
+        })
+        .catch(() => {
+            console.log("구매 목록 가져오기 실패");
+        })
+  })
+
   const user = ref(null);
 
   const selectUser = ((member_code) => {
@@ -185,7 +209,6 @@ export const useMemberStore = defineStore("member", () => {
           sessionStorage.setItem("loginMember", JSON.stringify(responseMember));
 
           const memberStatus = responseMember.member_status;
-          //여기서 headernav를 바꿔줘야함
 
           if (memberStatus === 1) {
             router.push({ name: "HomeUser" });
@@ -215,5 +238,5 @@ export const useMemberStore = defineStore("member", () => {
 
   //멤버 삭제
 
-  return {users, user, setLoginMember, getMemberList, getTrainerList, getUserList, updateTrainerMy, updateUserMy, trainerSignup, trainers, trainer, userSignup, selectTrainer, selectUser}
+  return {users, user, setLoginMember, getMemberList, getTrainerList, getUserList, updateTrainerMy, updateUserMy, trainerSignup, trainers, trainer, userSignup, selectTrainer, selectUser, getBuyList}
 }, { persist: true });
