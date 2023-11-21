@@ -47,7 +47,7 @@
 	</update>
 
 	<select id="selectTrainersByprefer" parameterType="User" resultType="Trainer">
-        SELECT t.*
+        SELECT t.*,m.*
         FROM trainer t
         JOIN member m ON t.member_code = m.member_code
         WHERE
