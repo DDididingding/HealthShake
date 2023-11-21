@@ -27,7 +27,6 @@ CREATE TABLE IF NOT EXISTS User (
     prefer_style VARCHAR(255),
     prefer_goal VARCHAR(255),
     user_readme TEXT,
-    buy_list TEXT,
     FOREIGN KEY (member_code) REFERENCES Member(member_code)
 );
 
@@ -56,6 +55,15 @@ CREATE TABLE IF NOT EXISTS Video (
     FOREIGN KEY (video_uploader) REFERENCES Member(member_code)
 );
 
+-- Create the BuyList table
+CREATE TABLE IF NOT EXISTS BuyList (
+    buylist_code INT PRIMARY KEY AUTO_INCREMENT,
+    user_code INT,
+    video_code INT,
+    FOREIGN KEY (user_code) REFERENCES User(member_code),
+    FOREIGN KEY (video_code) REFERENCES Video(video_code)
+);
+
 -- Create the Board table
 CREATE TABLE IF NOT EXISTS Board (
     board_code INT PRIMARY KEY AUTO_INCREMENT,
@@ -80,9 +88,3 @@ CREATE TABLE IF NOT EXISTS Review (
     review_dislike INT DEFAULT 0,
     FOREIGN KEY (member_code) REFERENCES Member(member_code)
 );
-
-ALTER TABLE Review
-ADD COLUMN review_writer INT,
-ADD CONSTRAINT fk_review_writer
-    FOREIGN KEY (review_writer)
-    REFERENCES Member (member_code);
