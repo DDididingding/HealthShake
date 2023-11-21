@@ -272,6 +272,25 @@ public class MemberRestController {
 	    return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
+	@GetMapping("/prefer/{member_code}")
+	@ApiOperation(value = "{member_code}를 가진 사람과 잘 맞는 트레이너 혹은 유저 top 5 가져오기", response = Integer.class)
+	public ResponseEntity<?> selectPrefer(@PathVariable int member_code) {
+		Member member = memberService.selectOneMember(member_code);
+		if(member == null) {
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		}
+		if(member.getMember_status() == 1) {
+			User user = memberService.selectOneUser(member_code);
+			List<Trainer> list = memberService.GetTrainerListByPrefer(user);
+			return new ResponseEntity<List<Trainer>>(list, HttpStatus.OK);
+		}
+		if(member.getMember_status() == 2) {
+			Trainer trainer = memberService.selectOneTrainer(member_code);
+			List<User> list = memberService.GetUserListByPrefer(trainer);
+			return new ResponseEntity<List<User>>(list, HttpStatus.OK);
+		}
+		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+	}
 	
 }
 

@@ -135,6 +135,18 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.selectPurchasedTrainerList(user_member_code);
 	}
 
+	@Override
+	public List<Trainer> GetTrainerListByPrefer(User user) {
+		// TODO Auto-generated method stub
+		return trainerDao.selectTrainersByprefer(user);
+	}
+
+	@Override
+	public List<User> GetUserListByPrefer(Trainer trainer) {
+		// TODO Auto-generated method stub
+		return userDao.selectUsersByPrefer(trainer);
+	}
+
 	
 
     
