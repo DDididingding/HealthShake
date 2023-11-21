@@ -18,8 +18,10 @@
 <script setup>
 import { ref } from "vue";
 import { useMemberStore } from "@/stores/memberStore";
+import { useUserStore } from "@/stores/userStore";
 
 const memberStore = useMemberStore();
+const userStore = useUserStore();
 
 const id = ref("");
 const password = ref("");
@@ -42,6 +44,9 @@ const handleLogin = async () => {
   
     emits("login" /* 추가 데이터 전달 가능 */);
     console.log("로그인 성공");
+    sessionStorage.setItem("loginMember", JSON.stringify(loginResult));
+    userStore.setLoginMember(loginResult);
+
   } else {
     // Login failed, you can display an error message or perform other actions
     console.log("로그인 실패!");

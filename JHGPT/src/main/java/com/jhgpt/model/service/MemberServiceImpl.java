@@ -109,7 +109,7 @@ public class MemberServiceImpl implements MemberService {
 			trainerDao.deleteTrainer(member_code);
 			memberDao.deleteMember(member_code);
 		}else {
-			//admin은 삭제 불가
+			
 		}
 	}
 
@@ -120,6 +120,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public void updateUser(User user) {
+		memberDao.updateMember(user);
 		userDao.updateUser(user);
 	}
 

@@ -5,9 +5,12 @@ import router from "@/router";
 import axios from 'axios';
 import { useUserStore } from "@/stores/userStore";
 
+import { useRoute } from "vue-router";
+
 export const useMemberStore = defineStore("member", () => {
   
   const members = ref([]);
+  const route = useRoute();
 
   const getMemberList = (() => {
     axios
@@ -109,10 +112,48 @@ export const useMemberStore = defineStore("member", () => {
 
           };
 
+        
+
       })
       .catch(() => {
         console.log("유저 선택 실패");
+        
       })
+  })
+
+  const selectUserPromise = ((member_code) => {
+    return new Promise((resolve, reject)=>{
+      axios
+      .get(`http://localhost:9999/api/user/${member_code}`)
+      .then((resp) => {
+        console.log("유저 선택 성공")
+        const responseData = resp.data;
+        
+        user.value = {
+          code: responseData.member_code,
+          id: responseData.member_id,
+          name: responseData.member_name,
+          nickname: responseData.member_nickname,
+          readme: responseData.user_readme,
+          age : responseData.member_age,
+          password : responseData.member_password,
+          preferPart: responseData.prefer_part,
+          preferGoal: responseData.prefer_goal,
+          preferGender: responseData.prefer_gender,
+          preferStyle: responseData.prefer_style,
+
+          };
+          resolve();
+
+      })
+      .catch(() => {
+        console.log("유저 선택 실패");
+        reject();
+      })
+      
+    })
+
+
   })
 
   const trainer = ref(null);
@@ -177,9 +218,22 @@ export const useMemberStore = defineStore("member", () => {
   })
 
   const updateUserMy = ((user) => {
-    const member_code = user.member_code;
+    console.log('update user my')
+    console.log(user);
+    const member_code = route.params.member_code;
+    console.log(member_code)
+
     axios
-      .put(`http://localhost:9999/api/user/${member_code}/update`)//수정 링크
+      .put(`http://localhost:9999/api/user/${member_code}/update`, {
+        member_code: user.member_code,
+        memeber_name: user.name,
+        member_age: user.age,
+        member_email: user.email,
+        member_id: user.id
+      }
+      
+
+      )//수정 링크
       .then(() => {
           console.log("updateUser 성공");
           router.push({ name: "userMypage" })
@@ -238,5 +292,5 @@ export const useMemberStore = defineStore("member", () => {
 
   //멤버 삭제
 
-  return {users, user, setLoginMember, getMemberList, getTrainerList, getUserList, updateTrainerMy, updateUserMy, trainerSignup, trainers, trainer, userSignup, selectTrainer, selectUser, getBuyList}
+  return {users, user, setLoginMember, getMemberList, getTrainerList, getUserList, updateTrainerMy, updateUserMy, trainerSignup, trainers, trainer, userSignup, selectTrainer, selectUser, selectUserPromise, getBuyList}
 }, { persist: true });

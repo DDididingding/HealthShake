@@ -66,7 +66,7 @@
   
   
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useMemberStore } from "@/stores/memberStore";
 import { useRoute } from "vue-router";
 import router from "@/router";
@@ -77,16 +77,21 @@ const memberStore = useMemberStore();
 const user = ref({});
 const isUserLoaded = ref(false);
 
-onMounted(async () => {
-  try {
+onMounted(() => {
     const member_code = route.params.member_code;
-    await memberStore.selectUser(member_code);
-    user.value = { ...memberStore.user }; // 기존 유저 정보 복사
+    console.log(member_code)
+    memberStore.selectUserPromise(member_code)
+    .then(()=>{
+        user.value = { ...memberStore.user }; // 기존 유저 정보 복사
+        console.log(memberStore.user);
+        isUserLoaded.value = true;
+    });    
+   
+    console.log(memberStore.user);
     isUserLoaded.value = true;
-  } catch (error) {
-    console.error("유저 정보를 불러오는 동안 오류가 발생했습니다:", error);
-  }
 });
+
+
 
 const updateProfile = () => {
   // 사용자가 입력한 내용을 기존 유저 정보에 반영

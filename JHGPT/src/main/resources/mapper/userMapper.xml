@@ -6,14 +6,14 @@
 
     <!-- User 목록 가져오기 (Member와 Join) -->
     <select id="selectAllUsers" resultType="User">
-        SELECT M.*, U.prefer_part, U.prefer_gender, U.prefer_style, U.prefer_goal, U.user_readme, U.buy_list
+        SELECT M.*, U.prefer_part, U.prefer_gender, U.prefer_style, U.prefer_goal, U.user_readme
         FROM Member M
         JOIN User U ON M.member_code = U.member_code;
     </select>
 
     <!-- User 정보를 조회한다. (Member와 Join) -->
     <select id="selectOneUser" parameterType="int" resultType="User">
-        SELECT M.*, U.prefer_part, U.prefer_gender, U.prefer_style, U.prefer_goal, U.user_readme, U.buy_list
+        SELECT M.*, U.prefer_part, U.prefer_gender, U.prefer_style, U.prefer_goal, U.user_readme
         FROM Member M
         JOIN User U ON M.member_code = U.member_code
         WHERE M.member_code=#{member_code};

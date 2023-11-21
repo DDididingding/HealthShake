@@ -44,19 +44,24 @@
   
   <script setup>
   import { ref, computed } from "vue";
-  // import { useUserStore } from "@/stores/userStore";
+  import { useUserStore } from "@/stores/userStore";
+import {useRouter} from "vue-router";
 
-  // const userStore = useUserStore();
+const router = useRouter();
+
+
+  const userStore = useUserStore();
 
   // const logout = () => {
   //   userStore.setLogout();
   // };
-  const loginMember = ref(JSON.parse(sessionStorage.getItem("loginMember")));
-
+  const loginMember = computed(()=>userStore.loginMember)
+  
 
 
   const isLoggedin = computed(() => {
-    return loginMember.value !== null;
+    console.log(userStore.loginMember);
+    return userStore.loginMember !== null;
   });
 
   // userType을 computed 속성으로 정의합니다.
@@ -70,7 +75,8 @@
 
   const handleLogout = () => {
     sessionStorage.removeItem("loginMember");
-    loginMember.value = null; // ref 값을 갱신하여 반응성을 유도합니다.
+    // loginMember.value = null; // ref 값을 갱신하여 반응성을 유도합니다.
+    userStore.setLoginMember(null);
     router.push({ name: "Home" });
   };
 

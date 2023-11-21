@@ -62,6 +62,7 @@
     try {
       //유저 관련으로 수정
       const member_code = route.params.member_code;
+      console.log(member_code);
       await memberStore.selectUser(member_code);
       user.value = memberStore.user;
       isUserLoaded.value = true;
@@ -75,7 +76,7 @@
       await boardStore.BoardListByMember(member_code);
       boards.value = boardStore.boardList;
       isBoardLoaded.value = true;
-      boardCord = boards.board_cord;
+      boardCode = boards.board_code;
 
       // await reviewStore.ReviewListByUser(member_code);
       // reviews.value = reviewStore.reviewList;
