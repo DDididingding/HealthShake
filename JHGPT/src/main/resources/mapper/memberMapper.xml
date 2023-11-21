@@ -23,6 +23,13 @@
         FROM Member
         WHERE member_id=#{member_id}
     </select>
+    
+    <select id="selectPurchasedTrainerList" parameterType ="int" resultType="Trainer">
+        SELECT t.*
+        FROM Trainer t
+        JOIN BuyList b ON t.member_code = b.trainer_member_code
+        WHERE b.user_member_code = #{userMemberCode}
+    </select>
 
     <!-- User Member 등록 -->
     <insert id="insertMemberU" parameterType="User">

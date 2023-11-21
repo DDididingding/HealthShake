@@ -32,6 +32,9 @@ public interface MemberService {
 	//트레이너 고르기
 	public Trainer selectOneTrainer(int Member_code);
 	
+	//유저가 구매한 트레이너 목록 가져오기
+	public List<Trainer> selectPurchasedList(int user_member_code);
+	
 	//유저 회원가입
 	public int signup(User user);
 	

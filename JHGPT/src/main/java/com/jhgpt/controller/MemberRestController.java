@@ -149,6 +149,17 @@ public class MemberRestController {
 	    return new ResponseEntity<Trainer>(trainer, HttpStatus.OK);
 	}
 	
+	@GetMapping("/userbuylist/{user_member_code}")
+	@ApiOperation(value = "{user_member_code}에 해당하는 멤버의 구매내역", response = Member.class)
+	public ResponseEntity<?> selectUserBuyList(@PathVariable int user_member_code) {
+	    
+		List<Trainer> buyList = memberService.selectPurchasedList(user_member_code);
+	    if(buyList==null) {
+	        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+	    }
+	    return new ResponseEntity<List<Trainer>>(buyList, HttpStatus.OK);
+	    
+	}
 
 	@PostMapping("signup/user")
 	@ApiOperation(value = "유저 객체를 등록한다.", response = Integer.class)

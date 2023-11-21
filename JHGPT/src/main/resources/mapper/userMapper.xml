@@ -18,7 +18,14 @@
         JOIN User U ON M.member_code = U.member_code
         WHERE M.member_code=#{member_code};
     </select>
-
+	
+	<select id="selectPurchasedTrainerList" parameterType ="int" resultType="Trainer">
+        SELECT t.*
+        FROM Trainer t
+        JOIN BuyList b ON t.member_code = b.trainer_member_code
+        WHERE b.user_member_code = #{userMemberCode}
+    </select>
+    
     <!-- User 등록 -->
     <insert id="insertUser" parameterType="User">
         INSERT INTO User (member_code, prefer_part, prefer_gender, prefer_style, prefer_goal, user_readme)

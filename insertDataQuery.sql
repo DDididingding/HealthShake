@@ -1,4 +1,3 @@
--- Member 테이블에 대한 샘플 데이터
 INSERT INTO Member (member_id, member_password, member_name, member_nickname, member_age, member_gender, member_profile_pic, member_status) 
 VALUES 
 ('u1', 'u1', '김현지', '유저1김현지', 25, 'female', 'profile1.jpg', 1),
@@ -61,7 +60,7 @@ VALUES
 
 
 -- BuyList 테이블에 대한 샘플 데이터
-INSERT INTO BuyList (user_code, _trainer_code) 
+INSERT INTO BuyList (user_member_code, trainer_member_code) 
 VALUES 
 (1, 7),
 (1, 8),
@@ -82,7 +81,7 @@ VALUES
 INSERT INTO Review (member_code, review_rating, review_content, review_writer) 
 VALUES 
 (7, 4, '좋은 프로그램입니다!', 1),
-(7, 5, '트레이너님 최고!', 3);
+(7, 5, '트레이너님 최고!', 3),
 (7, 4, '좋은 프로그램입니다!', 5),
 (7, 5, '트레이너님 최고!',  6),
 (8, 4, '정말 유용한 정보가 많았어요!', 1),

@@ -128,6 +128,12 @@ public class MemberServiceImpl implements MemberService {
 		trainerDao.updateTrainer(trainer);
 	}
 
+	@Override
+	public List<Trainer> selectPurchasedList(int user_member_code) {
+		
+		return memberDao.selectPurchasedTrainerList(user_member_code);
+	}
+
 	
 
     
