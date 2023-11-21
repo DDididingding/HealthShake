@@ -52,39 +52,33 @@ import { useRoute } from "vue-router";
 import ReviewList from "@/components/review/ReviewList.vue";
 import BoardList from "@/components/board/BoardList.vue";
 import VideoList from "@/components/video/VideoList.vue";
+import { computed } from "vue";
 
 const memberStore = useMemberStore();
 const videoStore = useVideoStore();
 const boardStore = useBoardStore();
 const reviewStore = useReviewStore();
 const route = useRoute();
-const trainer = ref(null);
-const isTrainerLoaded = ref(false);
-const isVideoLoaded = ref(false);
-const isReviewLoaded = ref(false);
-const isBoardLoaded = ref(false);
-const reviews = ref([null]);
-const boards = ref([null]);
-const videos = ref([null]);
+const trainer = computed(() => memberStore.trainer);
+const isTrainerLoaded = computed(() => trainer.value !== null);
+const isVideoLoaded = computed(() => videoStore.videoList !== null);
+const isReviewLoaded = computed(() => reviewStore.reviewList !== null);
+const isBoardLoaded = computed(() => boardStore.boards !== null);
+const reviews = computed(() => reviewStore.reviewList);
+const boards = computed(() => boardStore.boards);
+const videos = computed(() => videoStore.videoList);
 
 onMounted(async () => {
   try {
     const member_code = route.params.member_code;
-    await memberStore.selectTrainer(member_code);
-    trainer.value = memberStore.trainer;
-    isTrainerLoaded.value = true;
-
+    await memberStore.selectTrainerPromise(member_code);
+    
     await videoStore.VideoListByTrainer(member_code);
-    videos.value = videoStore.videoList;
-    isVideoLoaded.value = true;
-
-    await boardStore.BoardListByMember(member_code);
-    boards.value = boardStore.boards;
-    isBoardLoaded.value = true;
+   
+    await boardStore.BoardListByMemberPromise(member_code);
 
     await reviewStore.ReviewListByTrainer(member_code);
-    reviews.value = reviewStore.reviewList;
-    isReviewLoaded.value = true;
+ 
 
 
   } catch (error) {
