@@ -1,7 +1,7 @@
 <template>
 <!--로그인 한 상태의 유저 홈화면 -->
-<!--추천 트레이너 목록 받아서 띄워주고 싶은데...흐음 일단은 전체 트레이너-->
-<div class="popular-trainers" v-if="trainersLoaded">
+<div class="prefer-trainers" v-if="isTrainerLoaded">
+<h1>추천 트레이너</h1>
     <div class="trainer-card-container">
       <div v-for="trainer in trainers" :key="trainer.code" class="trainer-card">
         <router-link :to="{ name: 'TrainerDetail', params: { member_code: trainer.code } }"><h3>{{ trainer.name }}</h3>
@@ -23,6 +23,7 @@
 
 <script setup>
 import { useMemberStore } from "@/stores/memberStore";
+import { useUserStore } from "@/stores/userStore";
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { computed } from "vue";
@@ -30,15 +31,26 @@ import { computed } from "vue";
 const route = useRoute();
 const memberStore = useMemberStore();
 const trainers = computed(() => memberStore.trainers);
-const trainersLoaded = computed(() =>{
-  console.log(trainers.value.length);
-  return trainers.value.length > 0;
-});
 
+const isTrainerLoaded = ref(false);
 
-onMounted( () => {
-  
-  memberStore.getTrainerListPromise();
+onMounted(async () => {
+    try{
+      const sessionMember = JSON.parse(sessionStorage.getItem('loginMember'));
+    
+    if (sessionMember) {
+      const member_code = sessionMember.member_code;
+      
+      await memberStore.getPreferTrainerListPromise(member_code);
+    
+      isTrainerLoaded.value = trainers.value !== null;
+
+    } else {
+      console.error('로그인된 사용자 정보가 없습니다.');
+    }
+  } catch (error) {
+    console.error("트레이너 정보를 불러오는 동안 오류가 발생했습니다:", error);
+  }
 
 });
 </script>

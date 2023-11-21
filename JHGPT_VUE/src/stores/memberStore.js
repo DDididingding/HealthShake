@@ -108,6 +108,37 @@ export const useMemberStore = defineStore("member", () => {
     });
   };
 
+  const getPreferTrainerListPromise = (member_code) => {
+    return new Promise((resolve, reject) => {
+      trainers.value = [];
+      axios
+        .get(`http://localhost:9999/api/prefer/${member_code}`)
+        .then((resp) => {
+          console.log("트레이너 목록 가져오기 성공");
+          const responseData = resp.data;
+  
+          trainers.value = responseData.map((item) => ({
+            code: item.member_code,
+            id: item.member_id,
+            name: item.member_name,
+            nickname: item.member_nickname,
+            readme: item.trainer_readme,
+            provide_part : item.provide_part,
+            provide_style : item.provide_style,
+            provide_goal : item.provide_goal,
+          }));
+  
+          console.log(trainers.value);
+          resolve();
+        })
+        .catch(() => {
+          console.log("트레이너 목록 가져오기 실패");
+          reject();
+        });
+
+    });
+  };
+
   //멤버가 구매한 트레이너리스트
   const getBuyList = ((member_code) => {
     axios
@@ -390,5 +421,5 @@ export const useMemberStore = defineStore("member", () => {
 
   //멤버 삭제
 
-  return {users, user, setLoginMember, getMemberList, getMemberListPromise, getTrainerList, getTrainerListPromise, getUserList, updateTrainerMy, updateUserMy, trainerSignup, selectTrainerPromise, trainers, trainer, userSignup, selectTrainer, selectUser, selectUserPromise, getBuyList, getBuyListPromise}
+  return {getPreferTrainerListPromise, users, user, setLoginMember, getMemberList, getMemberListPromise, getTrainerList, getTrainerListPromise, getUserList, updateTrainerMy, updateUserMy, trainerSignup, selectTrainerPromise, trainers, trainer, userSignup, selectTrainer, selectUser, selectUserPromise, getBuyList, getBuyListPromise}
 }, { persist: true });

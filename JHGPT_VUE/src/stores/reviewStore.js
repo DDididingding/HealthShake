@@ -21,14 +21,14 @@ export const useReviewStore = defineStore('review', () => {
           const responseData = resp.data;
 
           reviewList.value = responseData.map((item) => ({
-            writercode: item.member_code,
+            trainercode: item.member_code,
             code: item.review_code,
-            content: item.content,
-            dislike: item.dislike,
-            like: item.like,
-            rating: item.rating,
-            uploadtime: item.uploadtime,
-            writer: item.writer,
+            content: item.review_content,
+            dislike: item.review_dislike,
+            like: item.review_like,
+            rating: item.review_rating,
+            uploadtime: item.review_uploadtime,
+            writer: item.review_writer,
           }));
 
           resolve();
@@ -51,12 +51,12 @@ export const useReviewStore = defineStore('review', () => {
           reviewList.value = responseData.map((item) => ({
             writercode: item.member_code,
             code: item.review_code,
-            content: item.content,
-            dislike: item.dislike,
-            like: item.like,
-            rating: item.rating,
-            uploadtime: item.uploadtime,
-            writer: item.writer,
+            content: item.review_content,
+            dislike: item.review_dislike,
+            like: item.review_like,
+            rating: item.review_rating,
+            uploadtime: item.review_uploadtime,
+            writer: item.review_writer,
           }));
 
           resolve();

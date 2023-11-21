@@ -5,9 +5,9 @@ import axios from 'axios'
 
 //1117 수정
 
-export const useBoardStore = defineStore("board", () => {
+export const useBoardStore = defineStore('board', () => {
     
-    const boards = ref([]);
+    const boards = ref([])
 
     const BoardListByMember = ((member_code) => {
         axios
@@ -30,25 +30,24 @@ export const useBoardStore = defineStore("board", () => {
         })
     })
 
+    const boardList = ref([])
+
     const BoardListByMemberPromise = (member_code) => {
         return new Promise((resolve, reject) => {
-          // Initialize boards array with an empty value
-          boards.value = [];
-      
           axios
             .get(`http://localhost:9999/api/board/writer/${member_code}`)
             .then((resp) => {
               console.log("게시물 목록 가져오기 성공");
-              const responseData = resp.data;
+              boardList.value = resp.data;
       
-              boards.value = responseData.map((item) => ({
-                writercode: item.board_uploader,
-                code: item.board_code,
-                title: item.board_title,
-                uploadtime: item.board_uploadtime,
-                content: item.board_content,
-                viewcnt: item.board_viewcnt,
-              }));
+            //   boardList.value = responseData.map((item) => ({
+            //     writercode: item.board_uploader,
+            //     code: item.board_code,
+            //     title: item.board_title,
+            //     uploadtime: item.board_uploadtime,
+            //     content: item.board_content,
+            //     viewcnt: item.board_viewcnt,
+            //   }));
       
               resolve();
             })
@@ -57,7 +56,7 @@ export const useBoardStore = defineStore("board", () => {
               reject();
             });
         });
-      };
+    };
   
     //트레이너별 게시물 목록
     const BoardListByTrainer = ((member_code) => {
@@ -80,6 +79,32 @@ export const useBoardStore = defineStore("board", () => {
             console.log("게시물 목록 가져오기 실패");
         })
     })
+
+    const BoardListByTrainerPromise = (member_code) => {
+        return new Promise((resolve, reject) => {
+          axios
+            .get(`http://localhost:9999/api/board/trainer/${member_code}`)
+            .then((resp) => {
+              console.log("게시물 목록 가져오기 성공");
+              boardList.value = resp.data;
+      
+            //   boardList.value = responseData.map((item) => ({
+            //     writercode: item.board_uploader,
+            //     code: item.board_code,
+            //     title: item.board_title,
+            //     uploadtime: item.board_uploadtime,
+            //     content: item.board_content,
+            //     viewcnt: item.board_viewcnt,
+            //   }));
+      
+              resolve();
+            })
+            .catch((error) => {
+              console.log("게시물 목록 가져오기 실패", error);
+              reject();
+            });
+        });
+    };
 
     // //게시물 목록 가져오기
     // const Boardlist = (() => {
@@ -154,7 +179,7 @@ export const useBoardStore = defineStore("board", () => {
 
 
     return{
-        BoardListByMember, BoardListByMemberPromise, boards,registBoard,updateBoard, BoardListByTrainer
+        BoardListByTrainerPromise, BoardListByMember, BoardListByMemberPromise, boardList,registBoard, updateBoard, BoardListByTrainer, deleteBoard, boards
     };
 
     //  Boardlist, Boarddetail, writeBoard, deleteBoard, boards, board, board_code

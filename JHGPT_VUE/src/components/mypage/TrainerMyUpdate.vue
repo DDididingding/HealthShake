@@ -59,7 +59,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useMemberStore } from "@/stores/memberStore";
 import { useRoute } from "vue-router";
 import router from "@/router";

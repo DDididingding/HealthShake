@@ -90,5 +90,9 @@ export const useVideoStore = defineStore('video', () => {
         })
   })
 
-   return { VideoListByTrainer, videoList, video, registVideo, selectVideo, deleteVideo, getVideoList, updateVideo }
+  const computedVideoList = computed(() => videoList.value)
+  const computedVideo = computed(() => video.value)
+
+
+  return { computedVideoList, computedVideo, VideoListByTrainer, videoList, video, registVideo, selectVideo, deleteVideo, getVideoList, updateVideo }
 })

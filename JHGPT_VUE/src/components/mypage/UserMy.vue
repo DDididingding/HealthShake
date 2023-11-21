@@ -7,6 +7,7 @@
         <div class="profile-section">
           <h2>프로필</h2>
           <div class="profile-details">
+             <p><strong>이름:</strong> {{ user.name }}</p>
             <p><strong>나이:</strong> {{ user.age }}</p>
             <p><strong>성별:</strong> {{ user.gender }}</p>
             <p><strong>운동 관심사:</strong> {{ user.preferPart }}</p>
@@ -20,19 +21,76 @@
         <!-- 구매한 비디오 리스트 뜨게 할까..? -->
 
         <!-- 내가 작성한 글목록, 수정, 삭제 -->
-        <div class="boards">
+        <div v-if="isBoardLoaded && boards != null" class="boards">
           <h2>내가 작성한 게시물</h2>
-          <VideoList :memberCode="route.params.member_code" v-if="isBoardLoaded" />
-            <div v-for="board in boards" :key="board.board_code" class="board">
-              <h3>{{ board.title }}</h3>
-              <p>{{ board.content }}</p>
-              <p>{{ board.reg_date }}</p>
-            </div>
+          <div class="board-card">
+            <table class="board-list">
+              <colgroup>
+                <col style="width: 10%" />
+                <col style="width: 25%" />
+                <col style="width: 35%" />
+                <col style="width: 30%" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>번호</th>
+                  <th>작성자</th>
+                  <th>카테고리</th>
+                  <th>내용</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="board in boards" :key="board.code">
+                  <td>{{ board.code }}</td>
+                  <td>{{ board.writercode }}</td>
+                  <td>{{ board.title }}</td>
+                  <td>{{ board.content}}</td>
+                   <!-- <router-link :to="{ name: 'UpdateBoard', params: { board_code: board.code } }">
+                    <button class="btn btn-primary">수정</button>
+                  </router-link> -->
+                </tr>
+              </tbody>
+            </table>
+         </div>
         </div>
         <!--각 게시물에 할당되도록 수정 필요-->
-        <div class="edit-button">
-            <button @click="$router.push({name :'/boardUpdate', params: {board_code : boardCode}})">수정</button>
+
+        <hr>
+        <div v-if="isReviewLoaded && reviews != null" class="reviews">
+          <h2>내가 작성한 리뷰</h2>
+          <div class="review-card">
+          <table class="review-list">
+            <colgroup>
+              <col style="width: 15%" />
+              <col style="width: 15%" />
+              <col style="width: 55%" />
+              <col style="width: 15%" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th>번호</th>
+                <th>작성자</th>
+                <th>내용</th>
+                <th>별점</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="review in reviews" :key="review.code">
+                <td>{{ review.code }}</td>
+                <td>{{ review.writer }}</td>
+                <td>{{ review.content }}</td>
+                <td>{{ review.rating }}</td>
+                <div class="edit-button">
+            <button @click="$router.push({name :'/UpdateReview', params: {review_code : review.code}})">수정</button>
         </div>
+              </tr>
+            
+            </tbody>
+          </table>
+          </div>
+      </div>
+
+  
 
       </div>
     </div>
@@ -44,6 +102,7 @@
   import { useMemberStore } from "@/stores/memberStore";
   import { useVideoStore } from "@/stores/videoStore";
   import { useBoardStore } from "@/stores/boardStore";
+  import { useReviewStore } from "@/stores/reviewStore";
   import { ref, onMounted } from "vue";
   import { useRoute } from "vue-router";
   import { computed } from "vue";
@@ -54,12 +113,16 @@
   const memberStore = useMemberStore();
   const videoStore = useVideoStore();
   const boardStore = useBoardStore();
+  const reviewStore = useReviewStore();
   const route = useRoute();
   const user = computed(() => memberStore.user);
-  const isUserLoaded = computed(() => user.value !== null);
+  const isUserLoaded = ref(false);  
   const isVideoLoaded = ref(false);  
-  const isBoardLoaded = computed(() => boards.length > 0); 
-  const boards = computed(() => boardStore.boards);
+  const isBoardLoaded = ref(false);  
+  const isReviewLoaded = ref(false);
+  const boards = computed(() => boardStore.boardList);
+  const reviews = computed(() => reviewStore.reviewList);
+
   const sessionMember = JSON.parse(sessionStorage.getItem('loginMember'));
   const boardCode = computed(() => boardStore.board_code);
 
@@ -67,18 +130,24 @@
     try {
       const member_code = route.params.member_code;
       
-       memberStore.selectUserPromise(member_code);
-
-       console.log(memberStore.user);
+      memberStore.selectUserPromise(member_code);
+ 
       // await videoStore.VideoListBy(member_code);
       // videos.value = videoStore.videoList;
       // isVideoLoaded.value = true;
 
       boardStore.BoardListByMemberPromise(member_code);
+
+      reviewStore.ReviewListByWriter(member_code);
       
       // await reviewStore.ReviewListByUser(member_code);
       // reviews.value = reviewStore.reviewList;
       // isReviewLoaded.value = true;
+
+      isUserLoaded.value = computed(() => user.value !== null);
+      isVideoLoaded.value = computed(() => videos.value !== null);
+      isBoardLoaded.value = computed(() => boards.length > 0); 
+      isReviewLoaded.value= computed(() => reviews.length > 0); 
 
     } catch (error) {
       console.error("유저 정보를 불러오는 동안 오류가 발생했습니다:", error);
