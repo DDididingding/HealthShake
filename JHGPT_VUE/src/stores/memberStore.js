@@ -83,6 +83,7 @@ export const useMemberStore = defineStore("member", () => {
 
   const getTrainerListPromise = () => {
     return new Promise((resolve, reject) => {
+      trainers.value = [];
       axios
         .get("http://localhost:9999/api/trainer")
         .then((resp) => {
