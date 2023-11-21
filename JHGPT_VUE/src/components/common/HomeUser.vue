@@ -24,14 +24,21 @@
 <script setup>
 import { useMemberStore } from "@/stores/memberStore";
 import { ref, onMounted } from "vue";
+import { useRoute } from "vue-router";
+import { computed } from "vue";
 
+const route = useRoute();
 const memberStore = useMemberStore();
-const trainers = ref([]);
-const trainersLoaded = ref(false);
+const trainers = computed(() => memberStore.trainers);
+const trainersLoaded = computed(() =>{
+  console.log(trainers.value.length);
+  return trainers.value.length > 0;
+});
 
-onMounted(async () => {
+
+onMounted( () => {
   if (!memberStore.trainers.length) {
-    await memberStore.getTrainerList();
+    memberStore.getTrainerListPromise();
   }
   trainers.value = memberStore.trainers;
   trainersLoaded.value = true;

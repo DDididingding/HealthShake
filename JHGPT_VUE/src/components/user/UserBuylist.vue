@@ -21,20 +21,24 @@
 import { useMemberStore } from "@/stores/memberStore";
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
-const route = useRoute();
+import { computed } from "vue";
 
+const route = useRoute();
 const memberStore = useMemberStore();
-const trainers = ref([]);
-const trainersLoaded = ref(false);
+const trainers = computed(() => memberStore.trainers);
+const trainersLoaded = computed(() =>{
+  console.log(trainers.value.length);
+  return trainers.value.length > 0;
+});
 
 onMounted(async () => {
   const member_code = route.params.member_code;
-  
-  if (!memberStore.trainers.length) {
-    await memberStore.getBuyList(member_code);
+
+  try {
+    await memberStore.getBuyListPromise(member_code);
+  } catch (error) {
+    console.error("Failed to fetch trainer list:", error);
   }
-  trainers.value = memberStore.trainers;
-  trainersLoaded.value = true;
 });
 
 </script>

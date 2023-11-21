@@ -25,6 +25,23 @@ export const useMemberStore = defineStore("member", () => {
       })
   })
 
+  const getMemberListPromise = () => {
+    return new Promise((resolve, reject) => {
+      axios
+        .get("http://localhost:9999/api/member")
+        .then((resp) => {
+          console.log("멤버 목록 가져오기 성공");
+          members.value = resp.data;
+          console.log(members.value);
+          resolve();
+        })
+        .catch((error) => {
+          console.log("멤버 목록 가져오기 실패", error);
+          reject();
+        });
+    });
+  };
+
   const users = ref([]);
 
   const getUserList = (() => {
@@ -64,6 +81,32 @@ export const useMemberStore = defineStore("member", () => {
       })
   })
 
+  const getTrainerListPromise = () => {
+    return new Promise((resolve, reject) => {
+      axios
+        .get("http://localhost:9999/api/trainer")
+        .then((resp) => {
+          console.log("트레이너 목록 가져오기 성공");
+          const responseData = resp.data;
+  
+          trainers.value = responseData.map((item) => ({
+            code: item.member_code,
+            id: item.member_id,
+            name: item.member_name,
+            nickname: item.member_nickname,
+            readme: item.trainer_readme,
+          }));
+  
+          console.log(trainers.value);
+          resolve();
+        })
+        .catch(() => {
+          console.log("트레이너 목록 가져오기 실패");
+          reject();
+        });
+    });
+  };
+
   //멤버가 구매한 트레이너리스트
   const getBuyList = ((member_code) => {
     axios
@@ -87,6 +130,34 @@ export const useMemberStore = defineStore("member", () => {
             console.log("구매 목록 가져오기 실패");
         })
   })
+
+  const getBuyListPromise = (member_code) => {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(`http://localhost:9999/api/userbuylist/${member_code}`)
+        .then((resp) => {
+          console.log("구매 목록 가져오기 성공");
+          const responseData = resp.data;
+  
+          trainers.value = responseData.map((item) => ({
+            code: item.member_code,
+            id: item.member_id,
+            name: item.member_name,
+            nickname: item.member_nickname,
+            readme: item.trainer_readme,
+            provide_part: item.provide_part,
+            provide_style: item.provide_style,
+            provide_goal: item.provide_goal,
+          }));
+  
+          resolve();
+        })
+        .catch((error) => {
+          console.log("구매 목록 가져오기 실패", error);
+          reject();
+        });
+    });
+  };
 
   const user = ref(null);
 
@@ -177,6 +248,31 @@ export const useMemberStore = defineStore("member", () => {
         console.log("트레이너 선택 실패");
       })
   })
+
+  const selectTrainerPromise = (member_code) => {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(`http://localhost:9999/api/trainer/${member_code}`)
+        .then((resp) => {
+          console.log("트레이너 선택 성공");
+          const responseData = resp.data;
+  
+          trainer.value = {
+            code: responseData.member_code,
+            id: responseData.member_id,
+            name: responseData.member_name,
+            nickname: responseData.member_nickname,
+            readme: responseData.trainer_readme,
+          };
+  
+          resolve();
+        })
+        .catch(() => {
+          console.log("트레이너 선택 실패");
+          reject();
+        });
+    });
+  };
 
   //회원가입
   const userSignup = ((user) => {
@@ -292,5 +388,5 @@ export const useMemberStore = defineStore("member", () => {
 
   //멤버 삭제
 
-  return {users, user, setLoginMember, getMemberList, getTrainerList, getUserList, updateTrainerMy, updateUserMy, trainerSignup, trainers, trainer, userSignup, selectTrainer, selectUser, selectUserPromise, getBuyList}
+  return {users, user, setLoginMember, getMemberList, getMemberListPromise, getTrainerList, getTrainerListPromise, getUserList, updateTrainerMy, updateUserMy, trainerSignup, selectTrainerPromise, trainers, trainer, userSignup, selectTrainer, selectUser, selectUserPromise, getBuyList, getBuyListPromise}
 }, { persist: true });
