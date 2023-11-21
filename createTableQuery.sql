@@ -56,12 +56,13 @@ CREATE TABLE IF NOT EXISTS Video (
 );
 
 -- Create the BuyList table
-CREATE TABLE IF NOT EXISTS BuyList (
+CREATE TABLE IF NOT EXISTS Buylist (
     buylist_code INT PRIMARY KEY AUTO_INCREMENT,
-    user_code INT,
-    video_code INT,
-    FOREIGN KEY (user_code) REFERENCES User(member_code),
-    FOREIGN KEY (video_code) REFERENCES Video(video_code)
+    user_member_code INT,
+    trainer_member_code INT,
+    buy_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_member_code) REFERENCES User(member_code),
+    FOREIGN KEY (trainer_member_code) REFERENCES Trainer(member_code)
 );
 
 -- Create the Board table
@@ -86,5 +87,7 @@ CREATE TABLE IF NOT EXISTS Review (
     review_uploadtime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     review_like INT DEFAULT 0,
     review_dislike INT DEFAULT 0,
-    FOREIGN KEY (member_code) REFERENCES Member(member_code)
+    review_writer INT,
+    FOREIGN KEY (member_code) REFERENCES Member(member_code),
+    FOREIGN KEY (review_writer) REFERENCES User(member_code)
 );

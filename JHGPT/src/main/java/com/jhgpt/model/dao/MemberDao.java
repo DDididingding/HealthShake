@@ -14,6 +14,8 @@ public interface MemberDao {
 
 	Member selectOneMemberById(String member_id);
 
+	List<int> selectPurchasedVideoList(int member_code);
+	
 	void insertMemberU(User user);
 
 	void insertMemberT(Trainer trainer);

@@ -8,7 +8,6 @@ public class User extends Member{
 	private String prefer_style;
 	private String prefer_goal;
 	private String user_readme;
-	private String buy_list;
 
 	// getters and setters
 	public User() {
@@ -25,7 +24,6 @@ public class User extends Member{
 		this.prefer_style = prefer_style;
 		this.prefer_goal = prefer_goal;
 		this.user_readme = user_readme;
-		this.buy_list = buy_list;
 	}
 
 
@@ -78,13 +76,15 @@ public class User extends Member{
 		this.user_readme = user_readme;
 	}
 
-	public String getBuy_list() {
-		return buy_list;
+
+	@Override
+	public String toString() {
+		return "User [member_code=" + member_code + ", prefer_part=" + prefer_part + ", prefer_gender=" + prefer_gender
+				+ ", prefer_style=" + prefer_style + ", prefer_goal=" + prefer_goal + ", user_readme=" + user_readme
+				+ "]";
 	}
 
-	public void setBuy_list(String buy_list) {
-		this.buy_list = buy_list;
-	}
+	
 	
 
 }
