@@ -19,41 +19,42 @@
 import { ref } from "vue";
 import { useMemberStore } from "@/stores/memberStore";
 import { useUserStore } from "@/stores/userStore";
+import { onMounted } from "vue";
+import { useRouter } from "vue-router";
 
 const memberStore = useMemberStore();
 const userStore = useUserStore();
+const router = useRouter();
 
 const id = ref("");
 const password = ref("");
 
-const defineEmits = defineEmits(["login"]);
-
 const handleLogin = async () => {
-  // Perform any necessary validation on 'id' and 'password' here
   console.log("id: ", id.value);
   console.log("password: ", password.value);
-  
-  // Call your login function in the store
-  const loginResult = await memberStore.setLoginMember({
-    member_id: id.value,
-    member_password: password.value
-  });
 
-  // Check the result and handle accordingly
-  if (loginResult) {
-  
-    emits("login" /* 추가 데이터 전달 가능 */);
-    console.log("로그인 성공");
-    sessionStorage.setItem("loginMember", JSON.stringify(loginResult));
-    userStore.setLoginMember(loginResult);
+  try {
+    const loginResult = await memberStore.setLoginMember({
+      member_id: id.value,
+      member_password: password.value,
+    });
 
-  } else {
-    // Login failed, you can display an error message or perform other actions
-    console.log("로그인 실패!");
+    // Check the result and handle accordingly
+    if (loginResult) {
+      console.log("로그인 성공");
+      alert("로그인 성공");
+      sessionStorage.setItem("loginMember", JSON.stringify(loginResult));
+      userStore.setLoginMember(loginResult);
+    } else {
+      // Login failed, you can display an error message or perform other actions
+      console.log("로그인 실패!");
+    }
+  } catch (error) {
+    console.error("로그인 에러:", error);
   }
 };
-
 </script>
+
 
 <style scoped>
 .container {

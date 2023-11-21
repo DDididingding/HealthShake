@@ -32,15 +32,26 @@
         <!-- 내가 작성한 글-->
         <div class="boards">
           <h2>내가 작성한 게시물</h2>
-          <VideoList
+          <!-- boardList로 변경-->
+          <BoardList
             :memberCode="route.params.member_code"
             v-if="isBoardLoaded"
           />
           <p v-else>게시물을 로딩 중입니다...</p>
         </div>
-        <!-- 추후 구현 -->
+        
+        <!-- 리뷰 리스트 -->
+        <div class="reviews">
+          <h2>리뷰 리스트</h2>
+          <!-- reviewList로 변경-->
+          <ReviewList
+            :memberCode="route.params.member_code"
+            v-if="isReviewLoaded"
+          />
+          <p v-else>리뷰를 로딩 중입니다...</p>
       </div>
     </div>
+  </div>
   </div>
 </template>
 
@@ -52,42 +63,39 @@ import { useReviewStore } from "@/stores/reviewStore";
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import VideoList from "@/components/video/VideoList.vue";
+import ReviewList from "@/components/review/ReviewList.vue";
+import BoardList from "@/components/board/BoardList.vue";
 import { useUserStore } from "@/stores/userStore";
 import router from "@/router";
+import { computed } from "vue";
 
 const memberStore = useMemberStore();
 const videoStore = useVideoStore();
 const boardStore = useBoardStore();
 const reviewStore = useReviewStore();
 const route = useRoute();
-const trainer = ref(null);
-const isTrainerLoaded = ref(false);
-const isVideoLoaded = ref(false);
-const isReviewLoaded = ref(false);
-const isBoardLoaded = ref(false);
-const videoList = ref([null]);
-const reviews = ref([null]);
-const boards = ref([null]);
+const trainer = computed(() => memberStore.trainer);
+const videoList = computed(() => videoStore.videoList);
+const reviews = computed(() => reviewStore.reviewList);
+const boards = computed(() => boardStore.boards);
+const isTrainerLoaded = computed(() => trainer.value !== null);
+const isVideoLoaded = computed(() => videoList.value !== null);
+const isReviewLoaded = computed(() => reviews.value !== null);
+const isBoardLoaded = computed(() => boards.value !== null);
 const sessionMember = JSON.parse(sessionStorage.getItem('loginMember'));
 
 onMounted(async () => {
   try {
     const member_code = route.params.member_code;
-    await memberStore.selectTrainer(member_code);
-    trainer.value = memberStore.trainer;
-    isTrainerLoaded.value = true;
+    await memberStore.selectTrainerPromise(member_code);
 
     await videoStore.VideoListByTrainer(member_code);
-    videoList.value = videoStore.videoList;
-    isVideoLoaded.value = true;
 
     await boardStore.BoardListByMember(member_code);
-    boards.value = boardStore.boards;
-    isBoardLoaded.value = true;
+
 
     await reviewStore.ReviewListByTrainer(member_code);
-    reviews.value = reviewStore.reviewList;
-    isReviewLoaded.value = true;
+
   } catch (error) {
     console.error("트레이너 정보를 불러오는 동안 오류가 발생했습니다:", error);
   }

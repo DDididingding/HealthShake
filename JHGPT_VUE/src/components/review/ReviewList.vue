@@ -20,12 +20,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="review in reviews" :key="review.id">
-            <td>{{ review.writercode }}</td>
+          <tr v-for="review in reviews" :key="review.review_id">
+            <td>{{ review.writer_code }}</td>
             <td>
-              <RouterLink :to="`/review/${review.id}`">{{ review.content }}</RouterLink>
+              <RouterLink :to="`/review/${review.id}`">{{ review.review_content }}</RouterLink>
             </td>
-            <td>{{ review.rating }}</td>
+            <!-- <td>{{ review.rating }}</td> -->
           </tr>
         </tbody>
       </table>

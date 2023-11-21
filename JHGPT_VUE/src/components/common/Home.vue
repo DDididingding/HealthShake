@@ -1,47 +1,51 @@
 <template>
-  <div>
-    <div class="popular-trainers" v-if="trainersLoaded">
+  <div class="popular-trainers" v-if="trainersLoaded">
+    <div class="trainer-card-container">
       <div v-for="trainer in trainers" :key="trainer.code" class="trainer-card">
-          <h3>{{ trainer.name }}</h3>
-    
-        <p>{{ trainer.readme }}</p>
-        <p>
-          닉네임 : 
-          <!-- 트레이너 닉네임을 클릭하여 TrainerDetail 페이지로 이동 -->
-          <router-link :to="{ name: 'TrainerDetail', params: { member_code: trainer.code } }">
-            {{ trainer.nickname }}
-          </router-link>
-        </p>
+        <router-link
+          :to="{ name: 'TrainerDetail', params: { member_code: trainer.code } }"
+          ><h3>{{ trainer.name }}</h3>
+        </router-link>
+        <p>트레이너 소개글 : {{ trainer.readme }}</p>
+        <p>닉네임 : {{ trainer.nickname }}</p>
+        <p>제공 부위(?) : {{ trainer.provide_part }}</p>
+        <p>제공 스타일 : {{ trainer.provide_style }}</p>
+        <p>제공 목표 : {{ trainer.provide_goal }}</p>
       </div>
     </div>
-    <div v-else>
-      데이터 로딩 중...
-    </div>
   </div>
+  <div v-else>데이터 로딩 중...</div>
 </template>
 
 <script setup>
 import { useMemberStore } from "@/stores/memberStore";
 import { ref, onMounted } from "vue";
+import { useRoute } from "vue-router";
+import { computed } from "vue";
 
+const route = useRoute();
 const memberStore = useMemberStore();
-const trainers = ref([]);
-const trainersLoaded = ref(false);
+const trainers = computed(() => memberStore.trainers);
+const trainersLoaded = computed(() => trainers.value.length > 0);
 
-onMounted(async () => {
-  if (!memberStore.trainers.length) {
-    await memberStore.getTrainerList();
-  }
-  trainers.value = memberStore.trainers;
-  trainersLoaded.value = true;
+onMounted(() => {
+  memberStore.getTrainerListPromise();
 });
 </script>
 
 <style scoped>
-/* 추가적인 스타일링을 할 수 있습니다 */
+/* 수정된 스타일 */
 .popular-trainers {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+}
+
+.trainer-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 .trainer-card {
@@ -52,9 +56,6 @@ onMounted(async () => {
   border-radius: 8px;
   width: 300px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: lemonchiffon;
 }
-
-/* .trainer-card:hover {
-  background-color: #f0f0f0;
-} */
 </style>

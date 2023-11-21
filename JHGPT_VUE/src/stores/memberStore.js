@@ -208,6 +208,7 @@ export const useMemberStore = defineStore("member", () => {
           nickname: responseData.member_nickname,
           readme: responseData.user_readme,
           age : responseData.member_age,
+          gender : responseData.member_gender,
           password : responseData.member_password,
           preferPart: responseData.prefer_part,
           preferGoal: responseData.prefer_goal,
@@ -355,7 +356,7 @@ export const useMemberStore = defineStore("member", () => {
           // const loggedInUser = resp.data;
           // console.log("Logged in user:", loggedInUser);
           userStore.setLoginMember(responseMember);
-
+          userStore.setLoginMemberCode(responseMember);
 
           sessionStorage.setItem("loginMember", JSON.stringify(responseMember));
 

@@ -16,26 +16,31 @@ export const useVideoStore = defineStore('video', () => {
       })
   }
 
-  const VideoListByTrainer = ((member_code) => {
-    axios
+  const VideoListByTrainer = (member_code) => {
+    return new Promise((resolve, reject) => {
+      axios
         .get(`http://localhost:9999/api/video/trainer/${member_code}`)
         .then((resp) => {
-            console.log("비디오 목록 가져오기 성공");
-            const responseData = resp.data
-
-            videoList.value = responseData.map(item => ({
-                uploadercode : item.video_uploader,
-                code : item.video_code,
-                title : item.video_title,
-                readme : item.video_readme,
-                url : item.video_url,
-                viewcnt : item.video_viewcnt,
-            }))
+          console.log("비디오 목록 가져오기 성공");
+          const responseData = resp.data;
+  
+          videoList.value = responseData.map((item) => ({
+            uploadercode: item.video_uploader,
+            code: item.video_code,
+            title: item.video_title,
+            readme: item.video_readme,
+            url: item.video_url,
+            viewcnt: item.video_viewcnt,
+          }));
+  
+          resolve();
         })
-        .catch(() => {
-            console.log("비디오 목록 가져오기 실패");
-        })
-  })
+        .catch((error) => {
+          console.log("비디오 목록 가져오기 실패", error);
+          reject();
+        });
+    });
+  };
 
 
   //비디오 객체 저장

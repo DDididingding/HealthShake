@@ -37,11 +37,9 @@ const trainersLoaded = computed(() =>{
 
 
 onMounted( () => {
-  if (!memberStore.trainers.length) {
-    memberStore.getTrainerListPromise();
-  }
-  trainers.value = memberStore.trainers;
-  trainersLoaded.value = true;
+  
+  memberStore.getTrainerListPromise();
+
 });
 </script>
 

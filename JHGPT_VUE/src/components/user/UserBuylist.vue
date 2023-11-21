@@ -31,11 +31,11 @@ const trainersLoaded = computed(() =>{
   return trainers.value.length > 0;
 });
 
-onMounted(async () => {
+onMounted( () => {
   const member_code = route.params.member_code;
 
   try {
-    await memberStore.getBuyListPromise(member_code);
+    memberStore.getBuyListPromise(member_code);
   } catch (error) {
     console.error("Failed to fetch trainer list:", error);
   }

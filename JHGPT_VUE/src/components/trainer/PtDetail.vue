@@ -3,7 +3,7 @@
     <h1>피티 상세 페이지</h1>
     <!--트레이너 본인이 보는 피티 상세 페이지, 수정 기능 넣기--> 
 
-    <div v-if="isTrainerLoaded && trainer" class="trainer-info">
+    <div v-if="isTrainerLoaded && trainer!= null" class="trainer-info">
       <div class="profile">
         <div class="profile-section">
           <h2>프로필</h2>
@@ -14,7 +14,7 @@
 
         <hr>
 
-        <div v-if="isVideoLoaded && videos" class="videos">
+        <div v-if="isVideoLoaded && videos != null" class="videos">
           <h2>비디오</h2>
           <VideoList :memberCode="route.params.member_code" />
         </div>
@@ -25,14 +25,14 @@
 
         <hr>
 
-        <div v-if="isBoardLoaded && boards" class="boards">
+        <div v-if="isBoardLoaded && boards != null" class="boards">
           <h2>게시판</h2>
           <BoardList :memberCode="route.params.member_code" />
         </div>
 
         <hr>
 
-        <div v-if="isReviewLoaded && reviews" class="reviews">
+        <div v-if="isReviewLoaded && reviews != null" class="reviews">
           <h2>리뷰 리스트</h2>
           <ReviewList :memberCode="route.params.member_code" />
         </div>
@@ -57,39 +57,34 @@ import { useRoute } from "vue-router";
 import ReviewList from "@/components/review/ReviewList.vue";
 import BoardList from "@/components/board/BoardList.vue";
 import VideoList from "@/components/video/VideoList.vue";
+import { computed } from "vue";
+import { useRouter } from "vue-router";
 
 const memberStore = useMemberStore();
 const videoStore = useVideoStore();
 const boardStore = useBoardStore();
 const reviewStore = useReviewStore();
 const route = useRoute();
-const trainer = ref(null);
-const isTrainerLoaded = ref(false);
-const isVideoLoaded = ref(false);
-const isReviewLoaded = ref(false);
-const isBoardLoaded = ref(false);
-const reviews = ref([null]);
-const boards = ref([null]);
-const videos = ref([null]);
+const trainer = computed(() => memberStore.traines);
+const isTrainerLoaded = computed(() => trainer.value !== null);
+const isVideoLoaded = computed(() => videoStore.videoList !== null);
+const isReviewLoaded = computed(() => reviewStore.reviewList !== null);
+const isBoardLoaded = computed(() => boardStore.boards !== null);
+const reviews = computed(() => reviewStore.reviewList);
+const boards = computed(() => boardStore.boards);
+const videos = computed(() => videoStore.videoList);
 
 onMounted(async () => {
   try {
     const member_code = route.params.member_code;
     await memberStore.selectTrainer(member_code);
-    trainer.value = memberStore.trainer;
-    isTrainerLoaded.value = true;
 
     await videoStore.VideoListByTrainer(member_code);
-    videos.value = videoStore.videoList;
-    isVideoLoaded.value = true;
 
-    await boardStore.BoardListByMember(member_code);
-    boards.value = boardStore.boards;
-    isBoardLoaded.value = true;
+    await boardStore.BoardListByMemberPromise(member_code);
 
     await reviewStore.ReviewListByTrainer(member_code);
-    reviews.value = reviewStore.reviewList;
-    isReviewLoaded.value = true;
+
 
 
   } catch (error) {

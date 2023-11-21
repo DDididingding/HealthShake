@@ -9,8 +9,8 @@
           <div class="profile-details">
             <p><strong>나이:</strong> {{ user.age }}</p>
             <p><strong>성별:</strong> {{ user.gender }}</p>
-            <p><strong>운동 관심사:</strong> {{ user.workoutInterests }}</p>
-            <p><strong>구매한 프로그램:</strong> {{ user.purchasedPrograms }}</p>
+            <p><strong>운동 관심사:</strong> {{ user.preferPart }}</p>
+            <p><strong>선호하는 트레이너 성별:</strong> {{ user.preferGender }}</p>
           </div>
           <div class="edit-button">
             <button @click="goToUserMypageUpdate">수정</button>
@@ -23,7 +23,11 @@
         <div class="boards">
           <h2>내가 작성한 게시물</h2>
           <VideoList :memberCode="route.params.member_code" v-if="isBoardLoaded" />
-          <p v-else>게시물을 로딩 중입니다...</p>
+            <div v-for="board in boards" :key="board.board_code" class="board">
+              <h3>{{ board.title }}</h3>
+              <p>{{ board.content }}</p>
+              <p>{{ board.reg_date }}</p>
+            </div>
         </div>
         <!--각 게시물에 할당되도록 수정 필요-->
         <div class="edit-button">
@@ -42,6 +46,8 @@
   import { useBoardStore } from "@/stores/boardStore";
   import { ref, onMounted } from "vue";
   import { useRoute } from "vue-router";
+  import { computed } from "vue";
+  import { useRouter } from "vue-router";
   import VideoList from "@/components/video/VideoList.vue";
   import router from "@/router";
 
@@ -49,35 +55,27 @@
   const videoStore = useVideoStore();
   const boardStore = useBoardStore();
   const route = useRoute();
-  const user = ref(null);
-  const isUserLoaded = ref(false);  
+  const user = computed(() => memberStore.user);
+  const isUserLoaded = computed(() => user.value !== null);
   const isVideoLoaded = ref(false);  
-  const isReviewLoaded = ref(false);  
-  const isBoardLoaded = ref(false);  
-  const boards = ref([null]);
+  const isBoardLoaded = computed(() => boards.length > 0); 
+  const boards = computed(() => boardStore.boards);
   const sessionMember = JSON.parse(sessionStorage.getItem('loginMember'));
-  const boardCord = ref(null);
+  const boardCode = computed(() => boardStore.board_code);
 
-  onMounted(async () => {
+  onMounted( () => {
     try {
-      //유저 관련으로 수정
       const member_code = route.params.member_code;
-      console.log(member_code);
-      await memberStore.selectUser(member_code);
-      user.value = memberStore.user;
-      isUserLoaded.value = true;
-      console.log(isUserLoaded.value);
-      console.log(user.value);
+      
+       memberStore.selectUserPromise(member_code);
 
+       console.log(memberStore.user);
       // await videoStore.VideoListBy(member_code);
       // videos.value = videoStore.videoList;
       // isVideoLoaded.value = true;
 
-      await boardStore.BoardListByMember(member_code);
-      boards.value = boardStore.boardList;
-      isBoardLoaded.value = true;
-      boardCode = boards.board_code;
-
+      boardStore.BoardListByMemberPromise(member_code);
+      
       // await reviewStore.ReviewListByUser(member_code);
       // reviews.value = reviewStore.reviewList;
       // isReviewLoaded.value = true;

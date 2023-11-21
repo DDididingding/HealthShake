@@ -3,7 +3,7 @@
     <h4>트레이너 프로필 수정</h4>
     <fieldset>
       <legend>수정</legend>
-     
+     <!-- 변수 설정 잘 하면 됨-->
       <div>
           <label for="name">이름 :</label>
           <input type="text" id="name" v-model="trainer.name" disabled>
@@ -64,11 +64,13 @@ import { useMemberStore } from "@/stores/memberStore";
 import { useRoute } from "vue-router";
 import router from "@/router";
 import axios from 'axios';
+import { computed } from "vue";
+
 
 const route = useRoute();
 const memberStore = useMemberStore();
-const trainer = ref({});
-const isTrainerLoaded = ref(false);
+const trainer = computed(() => memberStore.trainer);
+const isTrainerLoaded = computed(() => trainer.value !== null);
 
 
 onMounted(async () => {
