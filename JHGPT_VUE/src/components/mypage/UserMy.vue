@@ -81,8 +81,8 @@
                 <td>{{ review.content }}</td>
                 <td>{{ review.rating }}</td>
                 <div class="edit-button">
-            <button @click="$router.push({name :'/UpdateReview', params: {review_code : review.code}})">수정</button>
-        </div>
+                  <button @click="$router.push({name :'UpdateReview', params: {review_code : review.code}})">수정</button>
+                </div>
               </tr>
             
             </tbody>
@@ -107,19 +107,16 @@
   import { useRoute } from "vue-router";
   import { computed } from "vue";
   import { useRouter } from "vue-router";
-  import VideoList from "@/components/video/VideoList.vue";
   import router from "@/router";
 
   const memberStore = useMemberStore();
-  const videoStore = useVideoStore();
   const boardStore = useBoardStore();
   const reviewStore = useReviewStore();
   const route = useRoute();
   const user = computed(() => memberStore.user);
-  const isUserLoaded = ref(false);  
-  const isVideoLoaded = ref(false);  
-  const isBoardLoaded = ref(false);  
-  const isReviewLoaded = ref(false);
+  const isUserLoaded = computed(() => user.value !== null);
+  const isBoardLoaded = computed(() => boardStore.boardList.length > 0);
+  const isReviewLoaded = computed(() => reviewStore.reviewList.length > 0);
   const boards = computed(() => boardStore.boardList);
   const reviews = computed(() => reviewStore.reviewList);
 
@@ -129,25 +126,17 @@
   onMounted( () => {
     try {
       const member_code = route.params.member_code;
-      
+      //셋 다 프로미스로 됨
       memberStore.selectUserPromise(member_code);
- 
-      // await videoStore.VideoListBy(member_code);
-      // videos.value = videoStore.videoList;
-      // isVideoLoaded.value = true;
 
       boardStore.BoardListByMemberPromise(member_code);
 
       reviewStore.ReviewListByWriter(member_code);
-      
-      // await reviewStore.ReviewListByUser(member_code);
-      // reviews.value = reviewStore.reviewList;
-      // isReviewLoaded.value = true;
 
-      isUserLoaded.value = computed(() => user.value !== null);
-      isVideoLoaded.value = computed(() => videos.value !== null);
-      isBoardLoaded.value = computed(() => boards.length > 0); 
-      isReviewLoaded.value= computed(() => reviews.length > 0); 
+      // isUserLoaded.value = computed(() => user.value !== null);
+      // isVideoLoaded.value = computed(() => videos.value !== null);
+      // isBoardLoaded.value = computed(() => boards.length > 0); 
+      // isReviewLoaded.value= computed(() => reviews.length > 0); 
 
     } catch (error) {
       console.error("유저 정보를 불러오는 동안 오류가 발생했습니다:", error);

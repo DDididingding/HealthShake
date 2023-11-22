@@ -111,7 +111,7 @@
             <tbody>
               <tr v-for="review in reviews" :key="review.code">
                 <td>{{ review.code }}</td>
-                <td>{{ review.writercode }}</td>
+                <td>{{ review.writer }}</td>
                 <td>{{ review.content }}</td>
                 <td>{{ review.rating }}</td>
               </tr>
@@ -137,11 +137,7 @@ import { useBoardStore } from "@/stores/boardStore";
 import { useReviewStore } from "@/stores/reviewStore";
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
-import ReviewList from "@/components/review/ReviewList.vue";
-import BoardList from "@/components/board/BoardList.vue";
-import VideoList from "@/components/video/VideoList.vue";
 import { computed } from "vue";
-import { useRouter } from "vue-router";
 import router from "@/router";
 
 const memberStore = useMemberStore();
@@ -149,12 +145,12 @@ const videoStore = useVideoStore();
 const boardStore = useBoardStore();
 const reviewStore = useReviewStore();
 const route = useRoute();
-const isTrainerLoaded = ref(false);
-const isVideoLoaded = ref(false);
-const isReviewLoaded = ref(false);
-const isBoardLoaded = ref(false);
 const sessionMember = JSON.parse(sessionStorage.getItem('loginMember'));
 const trainer = computed(() => memberStore.trainer);
+const isTrainerLoaded = computed(() => trainer.value !== null);
+const isVideoLoaded = computed(() => videoStore.videoList.length>0);
+const isReviewLoaded = computed(() => reviewStore.reviewList.length>0);
+const isBoardLoaded = computed(() => boardStore.boardList.length>0);
 const reviews = computed(() => reviewStore.reviewList);
 const boards = computed(() => boardStore.boardList);
 const videos = computed(() => videoStore.videoList);

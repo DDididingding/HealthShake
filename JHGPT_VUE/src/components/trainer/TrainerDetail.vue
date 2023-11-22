@@ -67,11 +67,11 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="board in boards" :key="board.code">
-                  <td>{{ board.code }}</td>
-                  <td>{{ board.writercode }}</td>
-                  <td>{{ board.title }}</td>
-                  <td>{{ board.content}}</td>
+                <tr v-for="b in boards" :key="b.code">
+                  <td>{{ b.code }}</td>
+                  <td>{{ b.writercode }}</td>
+                  <td>{{ b.title }}</td>
+                  <td>{{ b.content}}</td>
                    <!-- <router-link :to="{ name: 'UpdateBoard', params: { board_code: board.code } }">
                     <button class="btn btn-primary">수정</button>
                   </router-link> -->
@@ -130,9 +130,6 @@ import { useBoardStore } from "@/stores/boardStore";
 import { useReviewStore } from "@/stores/reviewStore";
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
-import ReviewList from "@/components/review/ReviewList.vue";
-import BoardList from "@/components/board/BoardList.vue";
-import VideoList from "@/components/video/VideoList.vue";
 import { computed } from "vue";
 
 const memberStore = useMemberStore();
@@ -141,10 +138,10 @@ const boardStore = useBoardStore();
 const reviewStore = useReviewStore();
 const route = useRoute();
 const trainer = computed(() => memberStore.trainer);
-const isTrainerLoaded = ref(false);
-const isVideoLoaded = ref(false);
-const isReviewLoaded = ref(false);
-const isBoardLoaded = ref(false);
+const isTrainerLoaded = computed(() => trainer.value !== null);
+const isVideoLoaded = computed(() => videoStore.videoList.length>0);
+const isReviewLoaded = computed(() => reviewStore.reviewList.length>0);
+const isBoardLoaded = computed(() => boardStore.boardList.length>0);
 const reviews = computed(() => reviewStore.reviewList);
 const boards = computed(() => boardStore.boardList);
 const videos = computed(() => videoStore.videoList);

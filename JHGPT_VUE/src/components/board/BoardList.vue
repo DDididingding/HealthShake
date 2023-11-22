@@ -44,8 +44,11 @@ import { useRoute } from "vue-router";
 
 const { params } = useRoute();
 const boardStore = useBoardStore();
-const boards = ref([]);
+const boards = computed(() => boardStore.boards);
 const boardsLoaded = ref(false);
+
+// store에 들어있는 정보를 꺼낼 때는
+// computed(())
 
 // onMounted(async () => {
 //   await boardStore.BoardListByTrainer(params.member_code);

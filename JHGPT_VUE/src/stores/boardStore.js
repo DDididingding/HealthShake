@@ -38,16 +38,16 @@ export const useBoardStore = defineStore('board', () => {
             .get(`http://localhost:9999/api/board/writer/${member_code}`)
             .then((resp) => {
               console.log("게시물 목록 가져오기 성공");
-              boardList.value = resp.data;
+              const responseData = resp.data;
       
-            //   boardList.value = responseData.map((item) => ({
-            //     writercode: item.board_uploader,
-            //     code: item.board_code,
-            //     title: item.board_title,
-            //     uploadtime: item.board_uploadtime,
-            //     content: item.board_content,
-            //     viewcnt: item.board_viewcnt,
-            //   }));
+              boardList.value = responseData.map((item) => ({
+                writercode: item.board_uploader,
+                code: item.board_code,
+                title: item.board_title,
+                uploadtime: item.board_uploadtime,
+                content: item.board_content,
+                viewcnt: item.board_viewcnt,
+              }));
       
               resolve();
             })
@@ -66,7 +66,7 @@ export const useBoardStore = defineStore('board', () => {
             console.log("게시물 목록 가져오기 성공");
             const responseData = resp.data
 
-            boards.value = responseData.map(item => ({
+            boardList.value = responseData.map(item => ({
                 writercode : item.board_uploader,
                 code : item.board_code,
                 title : item.board_title,
@@ -86,16 +86,16 @@ export const useBoardStore = defineStore('board', () => {
             .get(`http://localhost:9999/api/board/trainer/${member_code}`)
             .then((resp) => {
               console.log("게시물 목록 가져오기 성공");
-              boardList.value = resp.data;
-      
-            //   boardList.value = responseData.map((item) => ({
-            //     writercode: item.board_uploader,
-            //     code: item.board_code,
-            //     title: item.board_title,
-            //     uploadtime: item.board_uploadtime,
-            //     content: item.board_content,
-            //     viewcnt: item.board_viewcnt,
-            //   }));
+              const responseData = resp.data
+
+            boardList.value = responseData.map(item => ({
+                writercode : item.board_uploader,
+                code : item.board_code,
+                title : item.board_title,
+                uploadtime : item.board_uploadtime,
+                content : item.board_content,
+                viewcnt : item.board_viewcnt,
+            }))
       
               resolve();
             })
