@@ -1,17 +1,17 @@
 INSERT INTO Member (member_id, member_password, member_name, member_nickname, member_age, member_gender, member_profile_pic, member_status) 
 VALUES 
-('u1', 'u1', '김현지', '유저1김현지', 25, 'female', 'profile1.jpg', 1),
-('u2', 'u2', '안준현', '유저2안준현', 30, 'male', 'profile_pic2.jpg', 1),
-('u3', 'u3', '최연준', '유저3최연준', 25, 'female', 'profile_pic3.jpg', 1),
-('u4', 'u4', '이지우', '유저4이지우', 30, 'female', 'profile_pic4.jpg', 1),
-('u5', 'u5',  '강수아', '유저5강수아', 30, 'female', 'profile_pic5.jpg', 1),
-('u6', 'u6', '정소영', '유저6정소영', 30, 'female', 'profile_pic6.jpg', 1),
-('t1', 't1', '김피티', '트레이너1김피티', 28, 'male', 'profile_pic1.jpg', 2),
-('t2', 't2', '이피티', '트레이너2이피티', 30, 'female', 'profile_pic2.jpg', 2),
-('t3', 't3', '최피티', '트레이너3최피티', 35, 'male', 'profile_pic3.jpg', 2),
-('t4', 't4', '김운동', '트레이너4김운동', 27, 'female', 'profile_pic4.jpg', 2),
-('t5', 't5', '이운동', '트레이너5이운동', 21, 'male', 'profile_pic5.jpg', 2),
-('t6', 't6', '최운동', '트레이너6최운동', 21, 'female', 'profile_pic5.jpg', 2),
+('u1', 'u1', '김현지', '유저1김현지', 25, 'female', '/images/user1.jpg', 1),
+('u2', 'u2', '안준현', '유저2안준현', 30, 'male', '/images/user2.jpg', 1),
+('u3', 'u3', '최연준', '유저3최연준', 25, 'female', '/images/user3.jpg', 1),
+('u4', 'u4', '이지우', '유저4이지우', 30, 'female', '/images/user4.jpg', 1),
+('u5', 'u5',  '강수아', '유저5강수아', 30, 'female', '/images/user5.jpg', 1),
+('u6', 'u6', '정소영', '유저6정소영', 30, 'female', '/images/user6.jpg', 1),
+('t1', 't1', '김피티', '트레이너1김피티', 28, 'male', '/images/trainer1.jpg', 2),
+('t2', 't2', '이피티', '트레이너2이피티', 30, 'female', '/images/trainer2.jpg', 2),
+('t3', 't3', '최피티', '트레이너3최피티', 35, 'male', '/images/trainer3.jpg', 2),
+('t4', 't4', '김운동', '트레이너4김운동', 27, 'female', '/images/trainer4.jpg', 2),
+('t5', 't5', '이운동', '트레이너5이운동', 21, 'male', '/images/trainer5.jpg', 2),
+('t6', 't6', '최운동', '트레이너6최운동', 21, 'female', '/images/trainer6.jpg', 2),
 ('admin', 'adminpass', 'Admin', 'Admin', NULL, NULL, 'profile_pic4.jpg', 0);
 
 
