@@ -103,6 +103,7 @@ public class BoardRestController {
 		boardService.writeBoard(board);
 		return new ResponseEntity<Board>(board, HttpStatus.CREATED);
 	}
+	
 
 	// 4. 삭제
 	@DeleteMapping("/board/{id}")

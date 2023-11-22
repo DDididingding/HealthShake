@@ -307,10 +307,12 @@ export const useMemberStore = defineStore("member", () => {
     });
   };
 
+
   //회원가입
   const userSignup = ((user) => {
+
     axios
-      .post(`http://localhost:9999/api/signup/user`)
+      .put(`http://localhost:9999/api/signup/user`)
       .then(() => {
             console.log("createUser 성공");
             router.push({ name: "Home" })

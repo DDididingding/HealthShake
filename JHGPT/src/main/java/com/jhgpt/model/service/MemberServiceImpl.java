@@ -147,6 +147,7 @@ public class MemberServiceImpl implements MemberService {
 		return userDao.selectUsersByPrefer(trainer);
 	}
 
+
 	
 
     

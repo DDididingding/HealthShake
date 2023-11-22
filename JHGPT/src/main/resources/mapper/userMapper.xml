@@ -92,5 +92,10 @@
             ) DESC
         LIMIT 5;
     </select>
+    
+    <insert id = "insertPerchasedTrainer" parameterType = "int">
+    	INSERT INTO buyList (user_member_code, trainer_member_code)
+        VALUES (#{user_code}, #{trainer_code});
+    </insert>
 
 </mapper>

@@ -64,4 +64,5 @@ public interface MemberService {
 	
 	//트레이너의 관심사로 유저리스트 가져오기
 	public List<User> GetUserListByPrefer(Trainer trainer);
+	
 }

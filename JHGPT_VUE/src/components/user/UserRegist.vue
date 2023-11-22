@@ -49,7 +49,7 @@
       </div>
 
       <div class="text-center">
-        <button type="submit" class="btn btn-primary">등록</button>
+        <button type="submit" class="btn btn-primary" @click="handleCreateUser">등록</button>
       </div>
 
     </form>
@@ -166,6 +166,14 @@ const redirectToHome = () => {
   // 회원가입 성공 후 홈 페이지로 이동
   router.push('home'); 
 };
+
+const handleCreateUser = (user) => {
+  // 회원가입 성공 후 홈 페이지로 이동
+  memberStore.userSignup(user);
+  console.log("회원가입 성공");
+  redirectToHome();
+};
+
 </script>
 
 

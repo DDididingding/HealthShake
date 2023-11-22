@@ -12,10 +12,13 @@ public interface UserDao extends MemberDao {
 	User selectOneUser(int member_code);
 	
 	List<User> selectUsersByPrefer(Trainer trainer);
+	
+	void insertPerchasedTrainer(User user, Trainer trainer);
 
 	void insertUser(User user);
 
 	void deleteUser(int member_code);
 
 	void updateUser(User user);
+	
 }
