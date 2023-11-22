@@ -1,52 +1,64 @@
 <template>
-    <div class = "container">
-      <h2>회원 유형 선택</h2>
-      <div class="buttons-container">
-        <RouterLink class="btn" :to="{ name: 'TrainerRegist' }">Trainer</RouterLink>
-        <RouterLink class="btn" :to="{ name: 'UserRegist' }">User</RouterLink>
-        <!--나중에 이미지로 대체하자-->
-      </div>
-      <RouterView/>
+  <div class="center-container">
+    <h2>회원 유형을 선택하세요 </h2>
+    <div class="buttons-container">
+      <RouterLink class="btn user-btn" :to="{ name: 'UserRegist' }">User</RouterLink>
+      <RouterLink class="btn trainer-btn" :to="{ name: 'TrainerRegist' }">Trainer</RouterLink>
     </div>
-  </template>
-  
-  <script setup>
-  import { RouterLink, RouterView } from "vue-router";
-  import TrainerRegist from "@/components/trainer/TrainerRegist.vue";
-  import UserRegist from "@/components/user/UserRegist.vue";
-  </script>
-  
-  <style scoped>
-  .container {
+    <RouterView />
+  </div>
+</template>
+
+<script setup>
+import { RouterLink, RouterView } from "vue-router";
+</script>
+
+<style scoped>
+.center-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   margin-top: 20px;
   max-width: 400px;
+  width: 80%; /* Centered container */
   padding: 20px;
   border-radius: 5px;
   background-color: #f9f9f9;
-  justify-content: center;
+  margin: auto; /* Center the container horizontally */
 }
-  .buttons-container {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 15px;
-  }
+
+.buttons-container {
+  display: flex;
+  justify-content:space-between;
+  margin-top: 15px;
+  align-items: center;
+}
+
+.btn {
+  width: 150px; /* Increased button size */
+  height: 150px; /* Increased button size */
+  border: none;
+  border-radius: 20%;
+  background-color: mediumaquamarine;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
   
-  .btn {
-    width: 80%; /* 버튼 너비를 80%로 조절 */
-    padding: 20px; /* 내부 여백을 조절하여 정사각형으로 만듭니다. */
-    border: none;
-    background-color: mediumaquamarine;
-    color: white;
-    border-radius: 5px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 18px;
-    transition: background-color 0.3s ease;
-    margin: 10%;
-  }
-  
-  .btn:hover {
-    background-color: mediumaquamarine; /* 마우스 호버 시 더 어두운 회색으로 변경 */
-  }
-  </style>
-  
+}
+
+.user-btn:hover,
+.trainer-btn:hover {
+  background-color: darkcyan;
+  transform: scale(1.1); /* Slightly increase size on hover */
+}
+
+h2.mb-4{
+  text-align: center;
+}
+</style>
