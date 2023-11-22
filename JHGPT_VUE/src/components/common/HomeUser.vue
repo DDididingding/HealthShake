@@ -31,7 +31,6 @@ import { computed } from "vue";
 const route = useRoute();
 const memberStore = useMemberStore();
 const trainers = computed(() => memberStore.trainers);
-
 const isTrainerLoaded = ref(false);
 
 onMounted(async () => {

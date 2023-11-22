@@ -3,7 +3,7 @@
     <h1>유저 마이페이지</h1>
     
     <div v-if="isUserLoaded && user" class="user-info">
-      <div class="profile">
+      <div class="section profile">
         <div class="profile-section">
           <h2>프로필</h2>
           <div class="profile-details">
@@ -14,14 +14,14 @@
             <p><strong>선호하는 트레이너 성별:</strong> {{ user.preferGender }}</p>
           </div>
           <div class="edit-button">
-            <button @click="goToUserMypageUpdate">수정</button>
+            <button @click="goToUserMypageUpdate" class="btn btn-primary">수정</button>
           </div>
         </div>
         <hr>
         <!-- 구매한 비디오 리스트 뜨게 할까..? -->
 
         <!-- 내가 작성한 글목록, 수정, 삭제 -->
-        <div v-if="isBoardLoaded && boards != null" class="boards">
+        <div v-if="isBoardLoaded && boards != null" class="section board">
           <h2>내가 작성한 게시물</h2>
           <div class="board-card">
             <table class="board-list">
@@ -56,7 +56,7 @@
         <!--각 게시물에 할당되도록 수정 필요-->
 
         <hr>
-        <div v-if="isReviewLoaded && reviews != null" class="reviews">
+        <div v-if="isReviewLoaded && reviews != null" class="section review">
           <h2>내가 작성한 리뷰</h2>
           <div class="review-card">
           <table class="review-list">
@@ -169,41 +169,108 @@
   </script>
   
   <style scoped>
-.user-mypage {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  font-family: 'Arial', sans-serif;
+.profile-section,
+.video-card,
+.board-card,
+.review-card {
+  border: 1px solid #ddd; /* Add border to each section */
+  border-radius: 8px; /* Optional: Add border-radius for a rounded appearance */
+  padding: 20px; /* Add padding for spacing */
+  margin-bottom: 20px; /* Add margin for separation between sections */
 }
 
-.user-info {
+.profile-section table,
+.video-card table,
+.board-card table,
+.review-card table {
+  width: 100%; /* Ensure tables take full width inside their parent div */
+  border-collapse: collapse; /* Collapse table borders for a cleaner look */
+}
+
+.profile-section th,
+.video-card th,
+.board-card th,
+.review-card th {
+  background-color: peachpuff; /* Header background color */
+  padding: 10px; /* Padding for table headers */
+}
+.profile-section td,
+.video-card td,
+.board-card td,
+.review-card td {
+  padding: 10px; /* Padding for table cells */
+}
+
+.trainer-detail {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.section {
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.trainer-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.profile {
   background-color: #f9f9f9;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
+  border-radius: 8px;
 }
 
 .profile-section {
   margin-bottom: 20px;
 }
 
-.profile-details {
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 15px;
+h2 {
+  font-size: 1.2em;
+  margin-bottom: 10px;
 }
 
-.profile-details p {
-  margin: 8px 0;
-}
-
-.edit-button button {
-  padding: 8px 16px;
-  background-color: #3498db;
-  color: white;
+hr {
   border: none;
+  border-top: 1px solid #ddd;
+  margin: 20px 0;
+}
+
+.btn {
+  padding: 8px 16px;
+  font-size: 14px;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+  background-color: lightsalmon;
+  color: #fff;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: salmon;
+}
+
+.profile {
+  background-color: #f9f9f9;
+}
+
+.video {
+  background-color: #e8f4f8;
+}
+
+.board {
+  background-color: lavenderblush;
+}
+
+.review {
+  background-color: oldlace;
 }
 
 /* 추가적인 스타일링이 필요한 경우 여기에 추가하세요 */

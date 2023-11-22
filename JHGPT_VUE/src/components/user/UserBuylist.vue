@@ -65,4 +65,23 @@ li {
   padding: 10px;
   border-radius: 5px;
 }
+
+.trainer-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.trainer-card {
+  text-align: center;
+  padding: 20px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: lemonchiffon;
+}
 </style>

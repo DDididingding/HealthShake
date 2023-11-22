@@ -3,7 +3,7 @@
     <h1>트레이너 상세페이지</h1>
 
     <div v-if="isTrainerLoaded && trainer" class="trainer-info">
-      <div class="profile">
+      <div class="section profile">
         <div class="profile-section">
           <h2>프로필</h2>
           <p><strong>이름:</strong> {{ trainer.name }}</p>
@@ -13,7 +13,7 @@
 
         <hr>
 
-        <div v-if="isVideoLoaded && videos != null" class="videos">
+        <div v-if="isVideoLoaded && videos != null" class="section video">
           <h2>비디오</h2>
           <div class="video-card">
             <table class="video-list">
@@ -48,7 +48,7 @@
 
         <hr>
 
-        <div v-if="isBoardLoaded && boards != null" class="boards">
+        <div v-if="isBoardLoaded && boards != null" class="section board">
           <h2>트레이너 게시판</h2>
           <div class="board-card">
             <table class="board-list">
@@ -83,7 +83,7 @@
 
         <hr>
 
-        <div v-if="isReviewLoaded && reviews != null" class="reviews">
+        <div v-if="isReviewLoaded && reviews != null" class="section review">
           <h2>트레이너 리뷰</h2>
           <div class="review-card">
           <table class="review-list">
@@ -174,10 +174,47 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-/* 추가적인 스타일링을 위한 CSS 코드 */
+.profile-section,
+.video-card,
+.board-card,
+.review-card {
+  border: 1px solid #ddd; /* Add border to each section */
+  border-radius: 8px; /* Optional: Add border-radius for a rounded appearance */
+  padding: 20px; /* Add padding for spacing */
+  margin-bottom: 20px; /* Add margin for separation between sections */
+}
+
+.profile-section table,
+.video-card table,
+.board-card table,
+.review-card table {
+  width: 100%; /* Ensure tables take full width inside their parent div */
+  border-collapse: collapse; /* Collapse table borders for a cleaner look */
+}
+
+.profile-section th,
+.video-card th,
+.board-card th,
+.review-card th {
+  background-color: peachpuff; /* Header background color */
+  padding: 10px; /* Padding for table headers */
+}
+.profile-section td,
+.video-card td,
+.board-card td,
+.review-card td {
+  padding: 10px; /* Padding for table cells */
+}
+
 .trainer-detail {
   padding: 20px;
   font-family: Arial, sans-serif;
+}
+
+.section {
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
 }
 
 .trainer-info {
@@ -205,5 +242,39 @@ hr {
   border: none;
   border-top: 1px solid #ddd;
   margin: 20px 0;
+}
+
+.btn {
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+  background-color: lightsalmon;
+  color: #fff;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: salmon;
+}
+
+.profile {
+  background-color: #f9f9f9;
+}
+
+.video {
+  background-color: #e8f4f8;
+}
+
+.board {
+  background-color: lavenderblush;
+}
+
+.review {
+  background-color: oldlace;
 }
 </style>
