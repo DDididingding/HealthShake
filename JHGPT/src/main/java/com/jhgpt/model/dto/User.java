@@ -81,8 +81,13 @@ public class User extends Member{
 	public String toString() {
 		return "User [member_code=" + member_code + ", prefer_part=" + prefer_part + ", prefer_gender=" + prefer_gender
 				+ ", prefer_style=" + prefer_style + ", prefer_goal=" + prefer_goal + ", user_readme=" + user_readme
+				+ ", member_id=" + member_id + ", member_password=" + member_password + ", member_name=" + member_name
+				+ ", member_nickname=" + member_nickname + ", member_age=" + member_age + ", member_gender="
+				+ member_gender + ", member_profile_pic=" + member_profile_pic + ", member_status=" + member_status
 				+ "]";
 	}
+
+
 
 	
 	

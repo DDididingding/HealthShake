@@ -164,6 +164,7 @@ public class MemberRestController {
 	@PostMapping("signup/user")
 	@ApiOperation(value = "유저 객체를 등록한다.", response = Integer.class)
 	public ResponseEntity<Integer> userSignup(@RequestBody User user) {
+		System.out.println(user);
 	    Member member = memberService.selectOneMemberById(user.getMember_id());
 		if(member != null) {
 			return new ResponseEntity<Integer>(0, HttpStatus.BAD_REQUEST);
@@ -211,9 +212,12 @@ public class MemberRestController {
 	public ResponseEntity<Void> logout(HttpSession session) {
 	//        session.removeAttribute("loginUser");
 	        session.invalidate();
-	
+	        
 	        return new ResponseEntity<Void>(HttpStatus.OK);
 	}
+	
+	@PostMapping("buytrainer/{user_code}/{trainer_code}")
+	
 	
 	// UpdateMapping
 	// put(PUT)

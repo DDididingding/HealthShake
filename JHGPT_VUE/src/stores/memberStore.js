@@ -64,15 +64,15 @@ export const useMemberStore = defineStore("member", () => {
       .get("http://localhost:9999/api/trainer")
       .then((resp) => {
         console.log("트레이너 목록 가져오기 성공");
-        const responseData = resp.data;
+        trainers.value = resp.data;
 
-        trainers.value = responseData.map(item => ({
-          code : item.member_code,
-          id : item.member_id,
-          name : item.member_name,
-          nickname : item.member_nickname,
-          readme : item.trainer_readme,
-        }))
+        // trainers.value = responseData.map(item => ({
+        //   code : item.member_code,
+        //   id : item.member_id,
+        //   name : item.member_name,
+        //   nickname : item.member_nickname,
+        //   readme : item.trainer_readme,
+        // }))
 
         console.log(trainers.value);
       })
@@ -310,12 +310,15 @@ export const useMemberStore = defineStore("member", () => {
 
   //회원가입
   const userSignup = ((user) => {
+    console.log(user);
 
     axios
-      .put(`http://localhost:9999/api/signup/user`)
+      //유저를 json형식으로 보내기
+      .post(`http://localhost:9999/api/signup/user`, user)
       .then(() => {
             console.log("createUser 성공");
-            router.push({ name: "Home" })
+            alert("회원가입이 완료되었습니다.");
+            router.push({ name: "Home"});
         })
         .catch(() => {
             console.log("createUser 실패");
@@ -324,8 +327,9 @@ export const useMemberStore = defineStore("member", () => {
 
   const trainerSignup = ((trainer) => {
     axios
-      .post("http://localhost:9999/api/signup/trainer")
+      .post("http://localhost:9999/api/signup/trainer", trainer)
       .then(() => {
+            alert("회원가입이 완료되었습니다.");
             console.log("createTrainer 성공");
             router.push({ name: "Home" })
         })

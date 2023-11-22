@@ -35,7 +35,7 @@
     <!-- User Member 등록 -->
     <insert id="insertMemberU" parameterType="User">
         INSERT INTO Member (member_id, member_password, member_name, member_nickname, member_age, member_gender, member_profile_pic, member_status)
-        VALUES (#{member_id}, #{member_password}, #{member_name}, #{member_nickname}, #{member_age}, #{member_gender}, #{member_profile_pic}, 1);
+        VALUES (#{member_id}, #{member_password}, #{member_name}, #{member_nickname},#{member_age}, #{member_gender}, #{member_profile_pic}, 1);
     </insert>
 
     <!-- Trainer Member 등록 -->
