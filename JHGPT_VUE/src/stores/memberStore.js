@@ -96,6 +96,10 @@ export const useMemberStore = defineStore("member", () => {
             name: item.member_name,
             nickname: item.member_nickname,
             readme: item.trainer_readme,
+            provide_part: item.provide_part,
+            provide_style: item.provide_style,
+            provide_goal: item.provide_goal,
+            profileImagePath : item.member_profile_pic
           }));
   
           console.log(trainers.value);
@@ -126,6 +130,7 @@ export const useMemberStore = defineStore("member", () => {
             provide_part : item.provide_part,
             provide_style : item.provide_style,
             provide_goal : item.provide_goal,
+            profileImagePath : item.member_profile_pic
           }));
   
           console.log(trainers.value);
@@ -156,6 +161,7 @@ export const useMemberStore = defineStore("member", () => {
           provide_part : item.provide_part,
           provide_style : item.provide_style,
           provide_goal : item.provide_goal,
+          profileImagePath : item.member_profile_pic
         }))
         })
         .catch(() => {
@@ -165,6 +171,7 @@ export const useMemberStore = defineStore("member", () => {
 
   const getBuyListPromise = (member_code) => {
     return new Promise((resolve, reject) => {
+       trainers.value = [];
       axios
         .get(`http://localhost:9999/api/userbuylist/${member_code}`)
         .then((resp) => {
@@ -180,6 +187,7 @@ export const useMemberStore = defineStore("member", () => {
             provide_part: item.provide_part,
             provide_style: item.provide_style,
             provide_goal: item.provide_goal,
+            profileImagePath : item.member_profile_pic
           }));
   
           resolve();
@@ -212,7 +220,7 @@ export const useMemberStore = defineStore("member", () => {
           preferGoal: responseData.prefer_goal,
           preferGender: responseData.prefer_gender,
           preferStyle: responseData.prefer_style,
-
+          profileImagePath : responseData.member_profile_pic
           };
 
         
@@ -245,6 +253,7 @@ export const useMemberStore = defineStore("member", () => {
           preferGoal: responseData.prefer_goal,
           preferGender: responseData.prefer_gender,
           preferStyle: responseData.prefer_style,
+          profileImagePath : responseData.member_profile_pic
 
           };
           resolve();
@@ -275,6 +284,10 @@ export const useMemberStore = defineStore("member", () => {
         name: responseData.member_name,
         nickname: responseData.member_nickname,
         readme: responseData.trainer_readme,
+        provide_part : responseData.provide_part,
+        provide_style : responseData.provide_style,
+        provide_goal : responseData.provide_goal,
+        profileImagePath : responseData.member_profile_pic
         };
       })
       .catch(() => {
@@ -296,6 +309,10 @@ export const useMemberStore = defineStore("member", () => {
             name: responseData.member_name,
             nickname: responseData.member_nickname,
             readme: responseData.trainer_readme,
+            provide_part : responseData.provide_part,
+            provide_style : responseData.provide_style,
+            provide_goal : responseData.provide_goal,
+            profileImagePath : responseData.member_profile_pic
           };
   
           resolve();

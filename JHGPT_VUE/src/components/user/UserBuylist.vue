@@ -1,10 +1,11 @@
 <template>
   <div class="container">
-    <h2>구매한 트레이너 목록</h2>
+    <h2>구독한 트레이너 목록</h2>
     <div class="trainer-card-container">
       <div v-for="trainer in trainers" :key="trainer.code" class="trainer-card">
         <router-link :to="{ name: 'TrainerDetail', params: { member_code: trainer.code } }"><h3>{{ trainer.name }}</h3>
         </router-link>
+        <img :src="trainer.profileImagePath" alt="Trainer Profile" class="trainer-profile-image">
         <p>트레이너 소개글 : {{ trainer.readme }}</p>
         <p>
           닉네임 :  {{ trainer.nickname }}

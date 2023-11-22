@@ -1,12 +1,14 @@
 <template>
+<div class="container">
   <h2 class="title">트레이너 목록입니다</h2>
-  <div class="popular-trainers" v-if="trainersLoaded">
+  <div class="popular-trainers">
     <div class="trainer-card-container">
       <div v-for="trainer in trainers" :key="trainer.code" class="trainer-card">
         <router-link
           :to="{ name: 'TrainerDetail', params: { member_code: trainer.code } }"
           ><h3>{{ trainer.name }}</h3>
         </router-link>
+        <img :src="trainer.profileImagePath" alt="Trainer Profile" class="trainer-profile-image">
         <p>트레이너 소개글 : {{ trainer.readme }}</p>
         <p>닉네임 : {{ trainer.nickname }}</p>
         <p>제공 부위(?) : {{ trainer.provide_part }}</p>
@@ -15,7 +17,7 @@
       </div>
     </div>
   </div>
-  <div v-else>데이터 로딩 중...</div>
+</div>
 </template>
 
 <script setup>
