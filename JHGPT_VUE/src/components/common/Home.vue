@@ -1,4 +1,5 @@
 <template>
+  <h2 class="title">트레이너 목록입니다</h2>
   <div class="popular-trainers" v-if="trainersLoaded">
     <div class="trainer-card-container">
       <div v-for="trainer in trainers" :key="trainer.code" class="trainer-card">
@@ -57,5 +58,11 @@ onMounted(() => {
   width: 300px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: lemonchiffon;
+}
+
+.title {
+  text-align: center;
+  color: rgb(0, 0, 0);
+  margin-top : 30px;
 }
 </style>

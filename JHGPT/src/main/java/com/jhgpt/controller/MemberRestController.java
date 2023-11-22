@@ -236,6 +236,7 @@ public class MemberRestController {
 	@PutMapping("/user/{member_code}/update")
 	@ApiOperation(value = "유저 객체를 수정한다.", response = Integer.class)
 	public ResponseEntity<Void> updateUser(@PathVariable int member_code, @RequestBody User user) {
+		System.out.println(user);
 		User tmp = memberService.selectOneUser(member_code);
 		if (tmp == null || tmp.getMember_status() != 1) {
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);

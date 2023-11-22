@@ -54,7 +54,7 @@
     <update id="updateMember" parameterType="Member">
         UPDATE Member
         SET member_name=#{member_name}, member_nickname=#{member_nickname}, member_age=#{member_age},
-            member_gender=#{member_gender}, member_profile_pic = #{member_profile_pic}, member_status=#{member_status}
+            member_gender=#{member_gender}, member_profile_pic = #{member_profile_pic}
         WHERE member_code=#{member_code}
     </update>
 

@@ -359,16 +359,7 @@ export const useMemberStore = defineStore("member", () => {
     console.log(member_code)
 
     axios
-      .put(`http://localhost:9999/api/user/${member_code}/update`, {
-        member_code: user.member_code,
-        memeber_name: user.name,
-        member_age: user.age,
-        member_email: user.email,
-        member_id: user.id
-      }
-      
-
-      )//수정 링크
+      .put(`http://localhost:9999/api/user/${member_code}/update`, user)//수정 링크
       .then(() => {
           console.log("updateUser 성공");
           router.push({ name: "userMypage" })
@@ -382,50 +373,41 @@ export const useMemberStore = defineStore("member", () => {
   const setLoginMember = async (inputMember) => {
     console.log("로그인 시도", inputMember);
     try {
-      const userStore = useUserStore();
-      const resp = await axios.post("http://localhost:9999/api/login/", inputMember);
-  
-      const responseMember = resp.data;
+        const userStore = useUserStore();
+        const resp = await axios.post("http://localhost:9999/api/login/", inputMember);
 
-      if (responseMember !== null) {
-        if (responseMember.member_password === inputMember.member_password) {
-          // console.log("로그인 성공");
-          // const loggedInUser = resp.data;
-          // console.log("Logged in user:", loggedInUser);
-          userStore.setLoginMember(responseMember);
-          userStore.setLoginMemberCode(responseMember);
+        const responseMember = resp.data;
 
-          sessionStorage.setItem("loginMember", JSON.stringify(responseMember));
+        return new Promise((resolve, reject) => {
+            if (responseMember !== null) {
+                if (responseMember.member_password === inputMember.member_password) {
+                    userStore.setLoginMember(responseMember);
+                    userStore.setLoginMemberCode(responseMember);
 
-          const memberStatus = responseMember.member_status;
+                    sessionStorage.setItem("loginMember", JSON.stringify(responseMember));
 
-          if (memberStatus === 1) {
-            router.push({ name: "Home" });
-          } else if (memberStatus === 2) {
-            router.push({ name: "PtDetail" ,params: { member_code : responseMember.member_code }});
-          }
-          
-          return true; // 로그인 성공을 나타냄
-        } else {
-          alert("비밀번호가 올바르지 않습니다");
-        }
-      } else {
-        alert("존재하지 않는 아이디입니다");
-      }
+                    const memberStatus = responseMember.member_status;
+
+                    if (memberStatus === 1) {
+                        router.push({ name: "Home" });
+                    } else if (memberStatus === 2) {
+                        router.push({ name: "PtDetail", params: { member_code: responseMember.member_code } });
+                    }
+
+                    resolve(true); // Resolve with true indicating successful login
+                } else {
+                    reject("비밀번호가 올바르지 않습니다");
+                }
+            } else {
+                reject("존재하지 않는 아이디입니다");
+            }
+        });
     } catch (error) {
-      console.log("로그인 실패", error);
+        console.log("로그인 실패", error);
+        return Promise.reject("로그인 실패"); // Reject with an error message
     }
+};
   
-    return false; // 로그인 실패를 나타냄
-  };
-  
-
-
-  //로그아웃 추후 구현
-
-  //수정 추후 구현
-
-  //멤버 삭제
 
   return {getPreferTrainerListPromise, users, user, setLoginMember, getMemberList, getMemberListPromise, getTrainerList, getTrainerListPromise, getUserList, updateTrainerMy, updateUserMy, trainerSignup, selectTrainerPromise, trainers, trainer, userSignup, selectTrainer, selectUser, selectUserPromise, getBuyList, getBuyListPromise}
 }, { persist: true });

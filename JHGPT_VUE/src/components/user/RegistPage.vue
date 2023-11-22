@@ -49,7 +49,7 @@ import { RouterLink, RouterView } from "vue-router";
   align-items: center;
   justify-content: center;
   transition: background-color 0.3s ease;
-  
+  margin : 20px;
 }
 
 .user-btn:hover,

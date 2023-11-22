@@ -42,9 +42,10 @@ const handleLogin = async () => {
     // Check the result and handle accordingly
     if (loginResult) {
       console.log("로그인 성공");
-      alert("로그인 성공");
       sessionStorage.setItem("loginMember", JSON.stringify(loginResult));
       userStore.setLoginMember(loginResult);
+
+      alert("환영합니다!");
     } else {
       // Login failed, you can display an error message or perform other actions
       console.log("로그인 실패!");
