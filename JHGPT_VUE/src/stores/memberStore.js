@@ -394,7 +394,7 @@ export const useMemberStore = defineStore("member", () => {
           const memberStatus = responseMember.member_status;
 
           if (memberStatus === 1) {
-            router.push({ name: "HomeUser" });
+            router.push({ name: "Home" });
           } else if (memberStatus === 2) {
             router.push({ name: "PtDetail" ,params: { member_code : responseMember.member_code }});
           }

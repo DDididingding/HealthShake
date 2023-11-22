@@ -1,45 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
-    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.jhgpt.board.model.dao.ReviewDao">
+<mapper namespace="com.jhgpt.model.dao.ReviewDao">
+
+    <!-- 전체 리뷰 목록 가져오기 -->
+    <select id="selectAllReviews" resultType="Review">
+        SELECT * FROM Review;
+    </select>
+
+    <!-- 트레이너를 기준으로 리뷰 목록 가져오기 -->
+    <select id="selectReviewsByMember" parameterType="int" resultType="Review">
+        SELECT * FROM Review WHERE member_code = #{member_code};
+    </select>
+
+    <!-- 작성자를 기준으로 리뷰 목록 가져오기 -->
+    <select id="selectReviewsByWriter" parameterType="int" resultType="Review">
+        SELECT * FROM Review WHERE review_writer = #{review_writer};
+    </select>
+
+    <!-- 리뷰 코드를 이용하여 하나의 리뷰 가져오기 -->
+    <select id="selectOneReview" parameterType="int" resultType="Review">
+        SELECT * FROM Review WHERE review_code = #{review_code};
+    </select>
+
 
     <!-- 리뷰 등록 -->
-    <insert id="writeReview" parameterType="Review">
-        INSERT INTO Review(review_id, video_id, member_id, title, content, rating)
-        VALUES(#{review_id}, #{video_id}, #{member_id}, #{title}, #{content}, #{rating})
+    <insert id="insertReview" parameterType="Review">
+        INSERT INTO Review(member_code, review_writer, review_rating, review_content)
+        VALUES(#{member_code}, #{review_writer}, #{review_rating}, #{review_content});
     </insert>
-    
-    <!-- 리뷰 전체 조회 -->
-    <select id ="getReviewList" resultType="Review">
-        SELECT *
-        FROM Review
-    </select>
-    
-    <!-- 리뷰 상세 조회 -->
-    <select id ="selectReview" resultMap="reviewMap" parameterType="int">
-        SELECT *
-        FROM Review
-        WHERE review_id = #{review_id};
-    </select>
-    
-    <!-- 리뷰 수정 -->
-    <update id="modifyReview" parameterType="Review">
-        UPDATE Review
-        SET content = #{content}
-        WHERE review_id = #{review_id};
-    </update>
-    
-    <!-- 리리 삭제 -->
+
+    <!-- 리뷰 삭제 -->
     <delete id="deleteReview" parameterType="int">
-        DELETE FROM Review
-        WHERE review_id = #{review_id};
+        DELETE FROM Review WHERE review_code = #{review_code};
     </delete>
-    
-     <delete id="getReviewsForVideo" parameterType="int">
-        SELECT *
-        FROM Review
-        WHERE video_id = #{video_id};
-    </delete>
-    
+
+    <!-- 리뷰 수정 -->
+    <update id="updateReview" parameterType="Review">
+        UPDATE Review
+        SET review_rating=#{review_rating}, review_content=#{review_content}
+        WHERE review_code=#{review_code};
+    </update>
+
 </mapper>

@@ -1,32 +1,96 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
-    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.jhgpt.board.model.dao.UserDao">
+<mapper namespace="com.jhgpt.model.dao.UserDao">
 
-    <!-- User 목록 가져오기 -->
-    <select id="getUserList" resultType="User">
-        SELECT * 
-        FROM User;
+    <!-- User 목록 가져오기 (Member와 Join) -->
+    <select id="selectAllUsers" resultType="User">
+        SELECT M.*, U.prefer_part, U.prefer_gender, U.prefer_style, U.prefer_goal, U.user_readme
+        FROM Member M
+        JOIN User U ON M.member_code = U.member_code;
     </select>
 
-    <!-- User 정보를 조회한다. -->
-    <select id="selectOne" parameterType="int" resultType="User">
-            select * 
-            from User 
-            where user_id=#{user_id}
+    <!-- User 정보를 조회한다. (Member와 Join) -->
+    <select id="selectOneUser" parameterType="int" resultType="User">
+        SELECT M.*, U.prefer_part, U.prefer_gender, U.prefer_style, U.prefer_goal, U.user_readme
+        FROM Member M
+        JOIN User U ON M.member_code = U.member_code
+        WHERE M.member_code=#{member_code};
+    </select>
+	
+	<select id="selectPurchasedTrainerList" parameterType ="int" resultType="Trainer">
+        SELECT t.*
+        FROM Trainer t
+        JOIN BuyList b ON t.member_code = b.trainer_member_code
+        WHERE b.user_member_code = #{userMemberCode}
     </select>
     
+    <!-- User 등록 -->
+    <insert id="insertUser" parameterType="User">
+        INSERT INTO User (member_code, prefer_part, prefer_gender, prefer_style, prefer_goal, user_readme)
+        VALUES ((SELECT member_code FROM Member WHERE member_id = #{member_id}), #{prefer_part}, #{prefer_gender}, #{prefer_style}, #{prefer_goal}, #{user_readme});
+    </insert>
+
     <!-- User 삭제 -->
     <delete id="deleteUser" parameterType="int">
         DELETE FROM User
-        WHERE user_id=#{user_id}
+        WHERE member_code=#{member_code}
     </delete>
+
+    <!-- User 수정 -->
+    <update id="updateUser" parameterType="User">
+        UPDATE User
+        SET prefer_part=#{prefer_part}, prefer_gender=#{prefer_gender}, prefer_style=#{prefer_style},
+            prefer_goal=#{prefer_goal}, user_readme=#{user_readme}
+        WHERE member_code=#{member_code}
+    </update>
     
-    <!-- 로그인로그아웃은 매퍼에서 안해줘도 된대 도하님께서  ㅇㅋㅇㅋㅇ-->
-    
-
-
-
+    <select id="selectUsersByPrefer" parameterType="Trainer" resultType="User">
+        SELECT u.*, m.*
+        FROM user u
+        JOIN member m ON u.member_code = m.member_code
+        WHERE
+            (
+                CASE
+                    WHEN #{provide_part} IS NULL THEN 0
+                    WHEN u.prefer_part = #{provide_part} THEN 1
+                    ELSE 0
+                END
+                +
+                CASE
+                    WHEN #{member_gender} IS NULL THEN 0
+                    WHEN u.prefer_gender = #{member_gender} THEN 1
+                    ELSE 0
+                END
+                +
+                CASE
+                    WHEN #{provide_goal} IS NULL THEN 0
+                    WHEN u.prefer_goal = #{provide_goal} THEN 1
+                    ELSE 0
+                END
+            ) > 0
+        ORDER BY
+            (
+                CASE
+                    WHEN #{provide_part} IS NULL THEN 0
+                    WHEN u.prefer_part = #{provide_part} THEN 1
+                    ELSE 0
+                END
+                +
+                CASE
+                    WHEN #{member_gender} IS NULL THEN 0
+                    WHEN u.prefer_gender = #{member_gender} THEN 1
+                    ELSE 0
+                END
+                +
+                CASE
+                    WHEN #{provide_goal} IS NULL THEN 0
+                    WHEN u.prefer_goal = #{provide_goal} THEN 1
+                    ELSE 0
+                END
+            ) DESC
+        LIMIT 5;
+    </select>
 
 </mapper>
