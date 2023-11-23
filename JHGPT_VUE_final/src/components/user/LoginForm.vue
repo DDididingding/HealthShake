@@ -1,16 +1,16 @@
 <template>
-  <div class="container">
-    <h2>로그인</h2>
-    <fieldset class="form-group">
+  <div class="container text-center flex flex-col items-center my-12 gap-6">
+    <h2 class="font-bold text-xl">로그인</h2>
+    <fieldset class="form-group flex flex-col gap-4">
       <div class="input-group">
-        <label for="id">아이디</label>
-        <input type="text" id="id" v-model="id" class="form-control" />
+        <label for="id" class="w-24 inline-block">아이디</label>
+        <input type="text" id="id" v-model="id" class="form-control p-2 rounded-xl border border-slate-200 border-2" />
       </div>
       <div class="input-group">
-        <label for="password">비밀번호</label>
-        <input type="password" id="password" v-model="password" class="form-control" />
+        <label for="password" class="w-24 inline-block">비밀번호</label>
+        <input type="password" id="password" v-model="password" class="form-control p-2 rounded-xl border border-slate-200 border-2" />
       </div>
-      <button class="btn btn-pink" @click="handleLogin">로그인</button>
+      <button class="bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 p-3 rounded-xl text-white font-bold mt-4" @click="handleLogin">로그인</button>
     </fieldset>
   </div>
 </template>
@@ -55,59 +55,3 @@ const handleLogin = async () => {
   }
 };
 </script>
-
-
-<style scoped>
-.container {
-  margin-top: 20px;
-  max-width: 400px;
-  padding: 20px;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-  justify-content: center;
-}
-
-h2 {
-  text-align: center;
-  color:  mediumaquamarine; 
-}
-
-.form-group {
-  margin-bottom: 30px;
-  border: none;
-}
-
-.input-group {
-  margin-bottom: 30px;
-  border: none;
-}
-
-label {
-  display: block;
-  margin-bottom: 10px;
-}
-
-.form-control {
-  width: 100%;
-  padding: 8px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.btn {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border: none;
-  border-radius: 4px;
-  background-color: mediumaquamarine; 
-  color: #fff;
-  cursor: pointer;
-}
-
-.btn:hover {
-  background-color: mediumaquamarine;
-}
-</style>

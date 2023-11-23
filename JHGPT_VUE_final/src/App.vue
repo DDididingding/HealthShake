@@ -40,12 +40,17 @@ onMounted(()=>{
   padding: 0;
   box-sizing: border-box;
   list-style: none;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Pretendard Variable"
 }
+
 .text-center {
   text-align: center;
 }
 .container {
   margin: 0px 30px;
 }
+a {
+  text-decoration: none;
+}
+
 </style>

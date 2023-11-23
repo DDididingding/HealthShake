@@ -235,7 +235,6 @@ const goToTrainerMypageUpdate = () => {
 
 .trainer-detail {
   padding: 20px;
-  font-family: Arial, sans-serif;
 }
 
 .section {

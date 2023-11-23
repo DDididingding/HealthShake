@@ -1,7 +1,7 @@
 <template>
   <!--1119구현 완, 근데 테스트는 안해봄-->
   <div class="container">
-    <h2 class="mb-4">트레이너 회원 가입</h2>
+    <h2 class="mb-4 font-bold text-xl">트레이너 회원 가입</h2>
     <div class="needs-validation" novalidate>
       <div class="mb-3">
         <label for="id" class="form-label">아이디</label>
@@ -9,7 +9,7 @@
           type="text"
           id="id"
           v-model="id"
-          class="form-control"
+          class="form-control p-2 rounded-xl border border-slate-200 border-2"
           placeholder="아이디를 입력하세요"
           required
         />
@@ -20,7 +20,7 @@
           type="password"
           id="password"
           v-model="password"
-          class="form-control"
+          class="form-control p-2 rounded-xl border border-slate-200 border-2"
           placeholder="특수문자 포함 8자리 이상"
           required
         />
@@ -31,7 +31,7 @@
           type="password"
           id="password2"
           v-model="password2"
-          class="form-control"
+          class="form-control p-2 rounded-xl border border-slate-200 border-2"
           placeholder="비밀번호 확인"
           required
         />
@@ -42,7 +42,7 @@
           type="text"
           id="name"
           v-model="name"
-          class="form-control"
+          class="form-control p-2 rounded-xl border border-slate-200 border-2"
           placeholder="이름을 입력하세요"
           required
         />
@@ -53,14 +53,19 @@
           type="text"
           id="nickname"
           v-model="nickname"
-          class="form-control"
+          class="form-control p-2 rounded-xl border border-slate-200 border-2"
           placeholder="닉네임을 입력하세요"
           required
         />
       </div>
       <div class="mb-3">
         <label for="gender" class="form-label">성별</label>
-        <select id="gender" v-model="gender" class="form-control" required>
+        <select
+          id="gender"
+          v-model="gender"
+          class="form-control p-2 rounded-xl border border-slate-200 border-2"
+          required
+        >
           <option value="" disabled selected hidden>성별을 선택하세요</option>
           <option value="남자">남자</option>
           <option value="여자">여자</option>
@@ -72,7 +77,7 @@
           type="email"
           id="email"
           v-model="email"
-          class="form-control"
+          class="form-control p-2 rounded-xl border border-slate-200 border-2"
           required
         />
       </div>
@@ -82,7 +87,7 @@
           type="number"
           id="age"
           v-model="age"
-          class="form-control"
+          class="form-control p-2 rounded-xl border border-slate-200 border-2"
           required
         />
       </div>
@@ -91,7 +96,7 @@
         <select
           id="providePart"
           v-model="providePart"
-          class="form-control"
+          class="form-control p-2 rounded-xl border border-slate-200 border-2"
           required
         >
           <option value="" disabled selected>부위를 선택하세요</option>
@@ -106,7 +111,7 @@
         <select
           id="provideStyle"
           v-model="provideStyle"
-          class="form-control"
+          class="form-control p-2 rounded-xl border border-slate-200 border-2"
           required
         >
           <option value="" disabled selected>스타일을 선택하세요</option>
@@ -122,10 +127,10 @@
         <select
           id="provideGoal"
           v-model="provideGoal"
-          class="form-control"
+          class="form-control p-2 rounded-xl border border-slate-200 border-2"
           required
         >
-        <option value="" disabled selected>목표를 선택하세요</option>
+          <option value="" disabled selected>목표를 선택하세요</option>
           <option value="체중 감량">체중 감량</option>
           <option value="근육 증가">근육 증가</option>
           <option value="체력 향상">체력 향상</option>
@@ -138,7 +143,7 @@
         <textarea
           id="trainerReadme"
           v-model="trainerReadme"
-          class="form-control"
+          class="form-control p-2 rounded-xl border border-slate-200 border-2"
           rows="4"
           required
         ></textarea>
@@ -149,12 +154,17 @@
           type="number"
           id="trainerPrice"
           v-model="trainerPrice"
-          class="form-control"
+          class="form-control p-2 rounded-xl border border-slate-200 border-2"
           required
         />
       </div>
       <div class="text-center">
-        <button class="btn btn-primary" @click="regist">등록</button>
+        <button
+          class="bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 w-full mt-12 rounded-2xl"
+          @click="regist"
+        >
+          등록
+        </button>
       </div>
     </div>
   </div>
@@ -265,16 +275,6 @@ const redirectToHome = () => {
   max-width: 500px;
   margin: 30px auto;
   padding: 20px;
-  background-color: #fff8dc; 
-  border-radius: 10px; 
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-form {
-  background-color: #f9f9f9;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 input[type="text"],
@@ -288,11 +288,16 @@ input[type="number"] {
   border-radius: 4px;
 }
 
+.form-label {
+  display: inline-block;
+  margin-bottom: 1rem;
+  margin-right: 2rem;
+}
+
 button {
   padding: 10px 20px;
   border: none;
   border-radius: 4px;
-  background-color: #007bff;
   color: #fff;
   cursor: pointer;
 }

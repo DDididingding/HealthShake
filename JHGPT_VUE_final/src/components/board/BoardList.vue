@@ -91,7 +91,4 @@ const boardsLoaded = ref(false);
   color: #007bff;
 }
 
-.board-list a:hover {
-  text-decoration: underline;
-}
 </style>

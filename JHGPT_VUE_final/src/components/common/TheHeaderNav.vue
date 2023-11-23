@@ -1,15 +1,20 @@
 <template>
   <div id="container">
     <LoginForm @login="handleLoginSuccess" />
-    <header v-if="!isLoggedin">
+    <header v-if="!isLoggedin" class="flex flex-row">
       <!-- 로그인 안된 상태의 헤더 요소 -->
       <router-link
         to="/home"
         class="nav-link"
         :class="{ 'active-link': $route.path === '/home' }"
       >
-        <h1>JHGPT</h1>
+        <h1
+          class="bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 bg-clip-text text-transparent font-black text-2xl"
+        >
+          HealthShake
+        </h1>
       </router-link>
+      <div class="flex-1"></div>
       <router-link
         to="/login"
         class="nav-link"
@@ -30,8 +35,13 @@
         to="/home"
         class="nav-link"
         :class="{ 'active-link': $route.path === '/home' }"
-        ><h1>JHGPT</h1></router-link
+        ><h1
+          class="bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 bg-clip-text text-transparent font-black text-2xl"
+        >
+          HealthShake
+        </h1></router-link
       >
+      <div class="flex-1"></div>
       <router-link
         to="/homeUser"
         class="nav-link"
@@ -53,21 +63,25 @@
       <button @click="handleLogout" class="nav-link">Logout</button>
     </header>
 
-    <header v-else-if="isLoggedin && userType === 2">
+    <header v-else-if="isLoggedin && userType === 2" class="flex flex-row">
       <!-- 트레이너가 로그인 했을 때 -->
       <router-link
-        :to="{ name: 'PtDetail', params: { member_code: member_code } }"
+        to="/home"
         class="nav-link"
-        :class="{ 'active-link': $route.name === 'PtDetail' }"
+        :class="{ 'active-link': $route.path === '/home' }"
+        ><h1
+          class="bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 bg-clip-text text-transparent font-black text-2xl"
+        >
+          HealthShake
+        </h1></router-link
       >
-        <h1>JHGPT</h1></router-link
-      >
-      <router-link
+      <div class="flex-1"></div>
+      <!-- <router-link
         :to="{ name: 'PtDetail', params: { member_code: member_code } }"
         class="nav-link"
         :class="{ 'active-link': $route.name === 'PtDetail' }"
         >운영중인 pt</router-link
-      >
+      > -->
       <router-link
         :to="{ name: 'trainerMypage', params: { member_code: member_code } }"
         class="nav-link"
@@ -143,7 +157,6 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  background-color: mediumaquamarine;
   color: #fff; /*흰색 텍스트*/
 }
 
@@ -157,19 +170,11 @@ nav {
 }
 
 .nav-link {
-  font-weight: bold;
   text-decoration: none;
-  color: #fff; /* 흰색 텍스트 */
+  color: #525252; /* 흰색 텍스트 */
   margin-left: 20px; /* 링크 간격 조절 */
-  font-size: 18px;
+  font-size: 16px;
   transition: color 0.3s ease;
-}
-
-.nav-link:hover {
-  color: #a4a4a4; /* 마우스 호버 시 더 연한 색으로 변경 */
-}
-
-.active-link {
-  color: yellow; /* 선택된 항목은 다른 색으로 강조 */
+  font-weight: 500;
 }
 </style>

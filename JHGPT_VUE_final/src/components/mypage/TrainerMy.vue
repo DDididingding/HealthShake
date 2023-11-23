@@ -1,28 +1,51 @@
 <template>
   <div class="trainer-mypage">
-    <h1>트레이너 마이페이지</h1>
+    <div class="container w-screen">
+      <div class="container-header my-12">
+        <h2 class="font-bold text-3xl mb-3">마이 페이지에요.</h2>
+        <p class="text-slate-600">
+          업로드한 비디오, 게시판, 리뷰를 확인할 수 있어요
+        </p>
+      </div>
+    </div>
 
     <div v-if="isTrainerLoaded && trainer" class="trainer-info">
-      <div class="section profile">
-        <div class="profile-section">
-          <h2>프로필</h2>
-          <div class="profile-details">
-            <img :src="trainer.profileImagePath" alt="Trainer Profile" class="trainer-profile-image">
-            <p><strong>이름:</strong> {{ trainer.name }}</p>
-            <p><strong>닉네임:</strong> {{ trainer.nickname }}</p>
-            <p><strong>소개:</strong> {{ trainer.readme }}</p>
-            <!-- 서비스 관련 추가 -->
+      <div class="section profile w-screen">
+        <div class="profile-section flex flex-row">
+          <div class="flex flex-row gap-12 items-center">
+            <img
+              :src="trainer.profileImagePath"
+              class="user-profile-image"
+              style="width: 300px; height: auto"
+            />
+            <div class="flex flex-col gap-2">
+              <div class="flex flex-row gap-y-4">
+                <div class="w-40 text-slate-400">이름</div>
+                <div class="flex-1 font-medium">{{ trainer.name }}</div>
+              </div>
+              <div class="flex flex-row gap-y-4">
+                <div class="w-40 text-slate-400">닉네임</div>
+                <div class="flex-1 font-medium">{{ trainer.nickname }}</div>
+              </div>
+              <div class="flex flex-row">
+                <div class="w-40 text-slate-400">소개</div>
+                <div class="flex-1 font-medium">{{ trainer.readme }}</div>
+              </div>
+              <button
+                @click="goToTrainerMypageUpdate"
+                class="bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 w-30 p-3 rounded-xl text-white font-bold mt-4"
+              >
+                수정
+              </button>
+            </div>
+            <!-- 수정 버튼 -->
           </div>
-          <!-- 수정 버튼 -->
-          <div class="edit-button">
-            <button @click="goToTrainerMypageUpdate" class="btn btn-primary">수정</button>
-          </div>
+          <hr />
         </div>
-        <hr />
 
         <!-- 비디오 리스트 -->
+        <h2 class="font-bold text-xl mb-3 ml-3">비디오</h2>
         <div v-if="isVideoLoaded && videos != null" class="section video">
-          <h2>비디오</h2>
           <div class="video-card">
             <table class="video-list">
               <colgroup>
@@ -45,23 +68,33 @@
                   <td>{{ video.readme }}</td>
                   <td>{{ video.viewcnt }}</td>
                   <td>
-                    <a :href="video.url" target="_blank" rel="noopener noreferrer">{{ video.url }}</a>
+                    <a
+                      :href="video.url"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >{{ video.url }}</a
+                    >
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
-        <router-link :to="{ name: 'VideoRegist', params: { member_code: route.params.member_code } }">
-  <!--params: { member_code: route.params.member_code }-->
-<button class="btn btn-primary">비디오 추가 등록</button>
-</router-link>
+        <router-link
+          :to="{
+            name: 'VideoRegist',
+            params: { member_code: route.params.member_code },
+          }"
+        >
+          <!--params: { member_code: route.params.member_code }-->
+          <button class="btn btn-primary">비디오 추가 등록</button>
+        </router-link>
 
-        <hr>
+        <hr />
 
         <!-- 내가 작성한 글-->
+        <h2 class="font-bold text-xl mb-3 ml-3">내가 작성한 게시물</h2>
         <div v-if="isBoardLoaded && boards != null" class="section board">
-          <h2>내가 작성한 게시물</h2>
           <div class="board-card">
             <table class="board-list">
               <colgroup>
@@ -83,54 +116,59 @@
                   <td>{{ board.code }}</td>
                   <td>{{ board.writercode }}</td>
                   <td>{{ board.title }}</td>
-                  <td>{{ board.content}}</td>
-                   <!-- <router-link :to="{ name: 'UpdateBoard', params: { board_code: board.code } }">
+                  <td>{{ board.content }}</td>
+                  <!-- <router-link :to="{ name: 'UpdateBoard', params: { board_code: board.code } }">
                     <button class="btn btn-primary">수정</button>
                   </router-link> -->
                 </tr>
               </tbody>
             </table>
-         </div>
+          </div>
         </div>
         <div>
-          <router-link :to="{ name: 'BoardRegist', params: { member_code: route.params.member_code } }">
+          <router-link
+            :to="{
+              name: 'BoardRegist',
+              params: { member_code: route.params.member_code },
+            }"
+          >
             <button class="btn btn-primary">게시물 등록</button>
           </router-link>
         </div>
-        
-        <hr>
+
+        <hr />
         <!-- 리뷰 리스트 -->
         <div v-if="isReviewLoaded && reviews != null" class="section review">
-          <h2>나에게 작성된 리뷰</h2>
+          <h2 class="font-bold text-xl mb-3 ml-3">나에게 작성된 리뷰</h2>
           <div class="review-card">
-          <table class="review-list">
-            <colgroup>
-              <col style="width: 15%" />
-              <col style="width: 15%" />
-              <col style="width: 55%" />
-              <col style="width: 15%" />
-            </colgroup>
-            <thead>
-              <tr>
-                <th>번호</th>
-                <th>작성자</th>
-                <th>내용</th>
-                <th>별점</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="review in reviews" :key="review.code">
-                <td>{{ review.code }}</td>
-                <td>{{ review.writer }}</td>
-                <td>{{ review.content }}</td>
-                <td>{{ review.rating }}</td>
-              </tr>
-            </tbody>
-          </table>
+            <table class="review-list">
+              <colgroup>
+                <col style="width: 15%" />
+                <col style="width: 15%" />
+                <col style="width: 55%" />
+                <col style="width: 15%" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>번호</th>
+                  <th>작성자</th>
+                  <th>내용</th>
+                  <th>별점</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="review in reviews" :key="review.code">
+                  <td>{{ review.code }}</td>
+                  <td>{{ review.writer }}</td>
+                  <td>{{ review.content }}</td>
+                  <td>{{ review.rating }}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
+        </div>
       </div>
     </div>
-  </div>
   </div>
 </template>
 
@@ -157,12 +195,11 @@ const isTrainerLoaded = ref(false);
 const isVideoLoaded = ref(false);
 const isReviewLoaded = ref(false);
 const isBoardLoaded = ref(false);
-const sessionMember = JSON.parse(sessionStorage.getItem('loginMember'));
+const sessionMember = JSON.parse(sessionStorage.getItem("loginMember"));
 const videos = computed(() => videoStore.videoList);
 const reviews = computed(() => reviewStore.reviewList);
 const boards = computed(() => boardStore.boardList);
 const trainer = computed(() => memberStore.trainer);
-
 
 onMounted(async () => {
   try {
@@ -179,7 +216,6 @@ onMounted(async () => {
     isVideoLoaded.value = videos.value !== null;
     isReviewLoaded.value = reviews.value !== null;
     isBoardLoaded.value = boards.value !== null;
-
   } catch (error) {
     console.error("트레이너 정보를 불러오는 동안 오류가 발생했습니다:", error);
   }
@@ -197,20 +233,20 @@ onMounted(async () => {
 // };
 const goToTrainerMypageUpdate = () => {
   const memberCode = sessionMember ? sessionMember.member_code : null;
-  console.log('memberCode: ', memberCode);
+  console.log("memberCode: ", memberCode);
   if (memberCode) {
-    router.push({ name: 'trainerMypageUpdate', params: { member_code: memberCode } });
+    router.push({
+      name: "trainerMypageUpdate",
+      params: { member_code: memberCode },
+    });
   } else {
     // Handle the case where member_code is not available
-    console.error('Member code not available');
+    console.error("Member code not available");
   }
 };
-
 </script>
 
 <style scoped>
-
-.profile-section,
 .video-card,
 .board-card,
 .review-card {
@@ -220,7 +256,6 @@ const goToTrainerMypageUpdate = () => {
   margin-bottom: 20px; /* Add margin for separation between sections */
 }
 
-.profile-section table,
 .video-card table,
 .board-card table,
 .review-card table {
@@ -228,14 +263,13 @@ const goToTrainerMypageUpdate = () => {
   border-collapse: collapse; /* Collapse table borders for a cleaner look */
 }
 
-.profile-section th,
 .video-card th,
 .board-card th,
 .review-card th {
   background-color: peachpuff; /* Header background color */
   padding: 10px; /* Padding for table headers */
 }
-.profile-section td,
+
 .video-card td,
 .board-card td,
 .review-card td {
@@ -244,13 +278,6 @@ const goToTrainerMypageUpdate = () => {
 
 .trainer-detail {
   padding: 20px;
-  font-family: Arial, sans-serif;
-}
-
-.section {
-  padding: 20px;
-  border-radius: 8px;
-  margin-bottom: 20px;
 }
 
 .trainer-info {
@@ -267,11 +294,6 @@ const goToTrainerMypageUpdate = () => {
 
 .profile-section {
   margin-bottom: 20px;
-}
-
-h2 {
-  font-size: 1.2em;
-  margin-bottom: 10px;
 }
 
 hr {

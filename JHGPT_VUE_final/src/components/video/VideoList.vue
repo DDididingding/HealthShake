@@ -75,13 +75,5 @@ onMounted(async () => {
   background-color: #fff;
 }
 
-.board-list a {
-  text-decoration: none;
-  color: #007bff;
-}
-
-.board-list a:hover {
-  text-decoration: underline;
-}
 </style>
 

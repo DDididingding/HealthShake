@@ -84,7 +84,4 @@ const reviewsLoaded = ref(false);
   color: #007bff;
 }
 
-.review-list a:hover {
-  text-decoration: underline;
-}
 </style>

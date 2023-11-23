@@ -41,27 +41,6 @@ public class BoardRestController {
 		return new ResponseEntity<List<Board>>(list, HttpStatus.OK);
 	}
 
-	// @GetMapping("/board/{searchType}/{searchValue}")
-	// @ApiOperation(value = "게시글 조회", notes = "검색조건도 넣으면 같이 가져온다.")
-	// public ResponseEntity<?> list(@PathVariable(required = false) String searchType,
-	// 		@PathVariable(required = false) String searchValue) {
-	// 	//검색 조건 있으면 그걸로 조회
-	// 	//검색 조건 없으면 전체 조회
-	// 	// if(searchType != null && searchValue != null) {
-	// 	// 	List<Board> list = boardService.getListBySearch(searchType, searchValue);
-	// 	// 	if (list.size() == 0)
-	// 	// 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-	// 	// 	return new ResponseEntity<List<Board>>(list, HttpStatus.OK);
-	// 	// }
-
-	// 	List<Board> list = boardService.getList(); 
-	// 	if (list.size() == 0)
-	// 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-	// 	return new ResponseEntity<List<Board>>(list, HttpStatus.OK);
-	// }
-
-
-
 	// 2. 상세보기
 	@GetMapping("/board/{board_code}")
 	public ResponseEntity<?> detail(@PathVariable int board_code) {
