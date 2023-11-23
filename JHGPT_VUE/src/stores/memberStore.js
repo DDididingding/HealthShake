@@ -425,6 +425,52 @@ export const useMemberStore = defineStore("member", () => {
     }
 };
   
+const buyTrainer = (user_member_code, trainer_member_code) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(`http://localhost:9999/api/buytrainer?user_member_code=${user_member_code}&trainer_member_code=${trainer_member_code}`)
+      .then(() => {
+        console.log("buyTrainer 성공");
+        resolve();
+      })
+      .catch((error) => {
+        console.log("buyTrainer 실패", error);
+        reject();
+      });
+  });
+}
 
-  return {getPreferTrainerListPromise, users, user, setLoginMember, getMemberList, getMemberListPromise, getTrainerList, getTrainerListPromise, getUserList, updateTrainerMy, updateUserMy, trainerSignup, selectTrainerPromise, trainers, trainer, userSignup, selectTrainer, selectUser, selectUserPromise, getBuyList, getBuyListPromise}
+const deleteTrainer = (user_member_code, trainer_member_code) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .delete(`http://localhost:9999/api/buytrainer?user_member_code=${user_member_code}&trainer_member_code=${trainer_member_code}`)
+      .then(() => {
+        console.log("deleteTrainer 성공");
+        resolve();
+      })
+      .catch((error) => {
+        console.log("deleteTrainer 실패", error);
+        reject();
+      });
+  });
+}
+
+const isAlreadyBuy = (user_member_code, trainer_member_code) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(`http://localhost:9999/api/buytrainer?user_member_code=${user_member_code}&trainer_member_code=${trainer_member_code}`)
+      .then((resp) => {
+        console.log("isAlreadyBuy 성공");
+        const responseData = resp.data;
+        console.log(responseData);
+        resolve(responseData);
+      })
+      .catch((error) => {
+        console.log("isAlreadyBuy 실패", error);
+        reject();
+      });
+  });
+}
+
+  return {isAlreadyBuy, deleteTrainer, getPreferTrainerListPromise, users, user, setLoginMember, getMemberList, getMemberListPromise, getTrainerList, getTrainerListPromise, getUserList, updateTrainerMy, updateUserMy, trainerSignup, selectTrainerPromise, trainers, trainer, userSignup, selectTrainer, selectUser, selectUserPromise, getBuyList, getBuyListPromise, buyTrainer}
 }, { persist: true });

@@ -68,10 +68,13 @@ export const useReviewStore = defineStore('review', () => {
     });
   };
 
-  const registReview = (review) => {
-    return new Promise((resolve, reject) => {
+  const registReview = ((review) => {
+      console.log(review);
       axios
-        .post("https://localhost:9999/api/review", review)
+        //spring 에서 invalid character found in method name오류
+        //스웨거는 잘 돌아가는디 axios에서 오류가 남
+        //boardStore도 마찬가지
+        .post("http://localhost:9999/api/review", review)
         .then(() => {
           console.log("registReview 성공");
           router.push({ name: "Home" });
@@ -81,13 +84,12 @@ export const useReviewStore = defineStore('review', () => {
           console.log("registReview 실패", error);
           reject();
         });
-    });
-  };
+  });
 
   const deleteReview = (review_code) => {
     return new Promise((resolve, reject) => {
       axios
-        .delete(`https://localhost:9999/api/review/${review_code}`)
+        .delete(`http://localhost:9999/api/review/${review_code}`)
         .then(() => {
           console.log("삭제 성공");
           router.push({ name: "Home" });
@@ -116,5 +118,35 @@ export const useReviewStore = defineStore('review', () => {
     });
   };
 
-  return { review, registReview, reviewList, ReviewListByWriter, ReviewListByTrainer, deleteReview, updateReview };
+  const likeReview = (review_code) => {
+    return new Promise((resolve, reject) => {
+      axios
+        .put(`http://localhost:9999/api/review/${review_code}/like`)
+        .then(() => {
+          console.log("likeReview 성공");
+          resolve();
+        })
+        .catch((error) => {
+          console.log("likeReview 실패", error);
+          reject();
+        });
+    });
+  };
+
+  const dislikeReview = (review_code) => {
+    return new Promise((resolve, reject) => {
+      axios
+        .put(`http://localhost:9999/api/review/${review_code}/dislike`)
+        .then(() => {
+          console.log("dislikeReview 성공");
+          resolve();
+        })
+        .catch((error) => {
+          console.log("dislikeReview 실패", error);
+          reject();
+        });
+    });
+  }
+
+  return { review, registReview, reviewList, ReviewListByWriter, ReviewListByTrainer, deleteReview, updateReview, likeReview, dislikeReview };
 });

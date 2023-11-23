@@ -1,44 +1,60 @@
 <template>
   <div class="review-registration">
     <h1>리뷰 등록 페이지</h1>
+    <div class="mb-3">
+      <label for="content">내용</label>
+      <textarea
+        id="content"
+        v-model="content"
+        class="form-control"
+        required
+      ></textarea>
+    </div>
 
-    <form @submit.prevent="submitReview" class="registration-form">
+    <div class="mb-3">
+      <label for="rating">평점 (1~5점)</label>
+      <input
+        type="number"
+        id="rating"
+        v-model="rating"
+        min="1"
+        max="5"
+        step="1"
+        class="form-control"
+        required
+      />
+    </div>
 
-      <div class="form-group">
-        <label for="content">내용</label>
-        <textarea id="content" v-model="review.content" class="form-control" required></textarea>
-      </div>
-
-      <div class="form-group">
-        <label for="rating">평점 (1~5점)</label>
-        <input type="number" id="rating" v-model="review.rating" min="1" max="5" class="form-control" required>
-      </div>
-
-      <button type="submit" class="btn btn-primary">등록</button>
-    </form>
+    <button class="btn btn-primary" @click="submitReview">등록</button>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
 import { useReviewStore } from "@/stores/reviewStore";
-
+import { useUserStore } from "@/stores/userStore";
+import { useRoute } from "vue-router";
+import { computed } from "vue";
+const route = useRoute();
+const userStore = useUserStore();
 const reviewStore = useReviewStore();
-const review = ref({
-  content: '',
-  rating: 1 // 기본값 설정
-});
+
+const loginMember = computed(() => userStore.loginMember);
+const trainer = parseInt(route.params.member_code);
 
 const submitReview = () => {
-  if (
-    review.value.content === "" ||
-    review.value.rating < 1 || review.value.rating > 5
-  ) {
+  const review = {
+    review_content: content.value,
+    review_rating: parseInt(rating.value),
+    review_writer: loginMember.value.member_code,
+    member_code: trainer,
+  };
+  console.log(review);
+  if (content.value === "" || rating.value < 1 || rating.value > 5) {
     alert("모든 내용을 입력하고 유효한 평점을 입력해주세요 (1부터 5까지)");
     return;
   }
 
-  reviewStore.registReview(review.value);
+  reviewStore.registReview(review);
 };
 </script>
 

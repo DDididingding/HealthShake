@@ -9,6 +9,7 @@ import com.jhgpt.model.dao.MemberDao;
 import com.jhgpt.model.dao.TrainerDao;
 import com.jhgpt.model.dao.UserDao;
 import com.jhgpt.model.dto.Member;
+import com.jhgpt.model.dto.Purchase;
 import com.jhgpt.model.dto.Trainer;
 import com.jhgpt.model.dto.User;
 
@@ -147,8 +148,19 @@ public class MemberServiceImpl implements MemberService {
 		return userDao.selectUsersByPrefer(trainer);
 	}
 	
+	@Override
+	public void BuyTrainer(Purchase purchase) {
+		memberDao.PurchaseTrainer(purchase);
+	}
 	
-	
+	@Override
+	public void CancelPurchase(Purchase purchase) {
+		memberDao.deletePurchase(purchase);
+	}
 
+	@Override
+	public int isInBuyList(Purchase purchase) {
+		return memberDao.isInBuyList(purchase);
+	}
     
 }

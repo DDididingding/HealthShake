@@ -7,8 +7,7 @@
         <div class="profile-section">
           <h2>프로필</h2>
           <div class="profile-details">
-            <img :src="trainer.profileImagePath" alt="Trainer Profile" class="trainer-profile-image"/>
-            <p><strong>이름:</strong> {{ trainer.name }} </p>
+            <p><strong>이름:</strong> {{ trainer.name }}</p>
             <p><strong>닉네임:</strong> {{ trainer.nickname }}</p>
             <p><strong>소개:</strong> {{ trainer.readme }}</p>
             <!-- 서비스 관련 추가 -->
@@ -49,13 +48,13 @@
                   </td>
                 </tr>
               </tbody>
-                <router-link :to="{ name: 'VideoRegist', params: { member_code: route.params.member_code } }">
-          <!--params: { member_code: route.params.member_code }-->
-        <button class="btn btn-primary">비디오 추가 등록</button>
-        </router-link>
             </table>
           </div>
         </div>
+        <router-link :to="{ name: 'VideoRegist', params: { member_code: route.params.member_code } }">
+  <!--params: { member_code: route.params.member_code }-->
+<button class="btn btn-primary">비디오 추가 등록</button>
+</router-link>
 
         <hr>
 
@@ -91,6 +90,11 @@
               </tbody>
             </table>
          </div>
+        </div>
+        <div>
+          <router-link :to="{ name: 'BoardRegist', params: { member_code: route.params.member_code } }">
+            <button class="btn btn-primary">게시물 등록</button>
+          </router-link>
         </div>
         
         <hr>

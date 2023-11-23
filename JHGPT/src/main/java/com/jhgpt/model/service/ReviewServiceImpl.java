@@ -49,4 +49,14 @@ public class ReviewServiceImpl implements ReviewService {
     public void updateReview(Review review) {
         reviewDao.updateReview(review);
     }
+
+    @Override
+    public void likeReview(int review_code) {
+        reviewDao.likeReview(review_code);
+    }
+
+    @Override
+    public void dislikeReview(int review_code) {
+        reviewDao.dislikeReview(review_code);
+    }
 }

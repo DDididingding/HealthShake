@@ -43,4 +43,18 @@
         WHERE review_code=#{review_code};
     </update>
 
+    <!-- 리뷰 좋아요 -->
+    <update id="likeReview" parameterType="int">
+        UPDATE Review
+        SET review_like=review_like+1
+        WHERE review_code=#{review_code};
+    </update>
+
+    <!-- 리뷰 싫어요 -->
+    <update id="dislikeReview" parameterType="int">
+        UPDATE Review
+        SET review_dislike=review_dislike+1
+        WHERE review_code=#{review_code};
+    </update>
+
 </mapper>

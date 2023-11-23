@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.jhgpt.model.dto.Member;
+import com.jhgpt.model.dto.Purchase;
 import com.jhgpt.model.dto.User;
 import com.jhgpt.model.dto.Trainer;
 
@@ -65,4 +66,12 @@ public interface MemberService {
 	//트레이너의 관심사로 유저리스트 가져오기
 	public List<User> GetUserListByPrefer(Trainer trainer);
 	
+	//트레이너 구매
+	public void BuyTrainer(Purchase purchase);
+	
+	//트레이너 구매 취소
+	public void CancelPurchase(Purchase purchase);
+
+	//트레이너 구매 여부 확인
+	public int isInBuyList(Purchase purchase);
 }

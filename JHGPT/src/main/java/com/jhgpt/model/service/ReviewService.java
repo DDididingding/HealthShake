@@ -22,4 +22,8 @@ public interface ReviewService {
     void deleteReview(int review_code);
 
     void updateReview(Review review);
+
+    void likeReview(int review_code);
+
+    void dislikeReview(int review_code);
 }

@@ -15,8 +15,8 @@
 
     <!-- 게시글 등록 -->
     <insert id="insertBoard" parameterType="com.jhgpt.model.dto.Board">
-        INSERT INTO Board (member_code, board_title, board_content, board_uploader, board_viewcnt, board_uploadtime, board_modify_status)
-        VALUES (#{member_code}, #{board_title}, #{board_content}, #{board_uploader}, #{board_viewcnt}, #{board_uploadtime}, #{board_modify_status});
+        INSERT INTO Board (member_code, board_title, board_content, board_uploader)
+        VALUES (#{member_code},#{board_title}, #{board_content}, #{board_uploader});
     </insert>
 
     <!-- 게시글 삭제 -->

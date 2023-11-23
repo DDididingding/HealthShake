@@ -97,4 +97,30 @@ public class ReviewRestController {
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
     
+    // 리뷰 좋아요
+    @PutMapping("/review/{review_code}/like")
+    @ApiOperation(value = "리뷰 좋아요", notes = "리뷰 좋아요")
+    public ResponseEntity<?> likeReview(@PathVariable int review_code){
+        Review temp = reviewService.selectOneReview(review_code);
+        if(temp == null){
+            return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+        }
+        
+        reviewService.likeReview(review_code);
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+
+    // 리뷰 싫어요
+    @PutMapping("/review/{review_code}/dislike")
+    @ApiOperation(value = "리뷰 싫어요", notes = "리뷰 싫어요")
+    public ResponseEntity<?> dislikeReview(@PathVariable int review_code){
+        Review temp = reviewService.selectOneReview(review_code);
+        if(temp == null){
+            return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+        }
+        
+        reviewService.dislikeReview(review_code);
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+    
 }

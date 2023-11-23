@@ -48,12 +48,12 @@ const router = createRouter({
       component: UserRegist
     },
     {
-      path:'/boardRegist',
+      path:'/boardRegist/:member_code',
       name:'BoardRegist',
       component: BoardRegist
     },
     {
-      path:'/reviewRegist',
+      path:'/reviewRegist/:member_code',
       name:'ReviewRegist',
       component: ReviewRegist
     },

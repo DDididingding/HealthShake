@@ -7,8 +7,7 @@
         <div class="profile-section">
           <h2>프로필</h2>
           <div class="profile-details">
-            <img :src="user.profileImagePath" class="user-profile-image" style="width: 300px; height: auto;">
-             <p><strong>이름:</strong> {{ user.name }} </p>
+             <p><strong>이름:</strong> {{ user.name }}</p>
             <p><strong>나이:</strong> {{ user.age }}</p>
             <p><strong>성별:</strong> {{ user.gender }}</p>
             <p><strong>운동 관심사:</strong> {{ user.preferPart }}</p>
@@ -105,8 +104,10 @@
   import { useBoardStore } from "@/stores/boardStore";
   import { useReviewStore } from "@/stores/reviewStore";
   import { ref, onMounted } from "vue";
+  import { useRoute } from "vue-router";
   import { computed } from "vue";
-  import { useRoute, useRouter } from "vue-router"; // 수정된 부분
+  import { useRouter } from "vue-router";
+  import router from "@/router";
 
   const memberStore = useMemberStore();
   const boardStore = useBoardStore();
@@ -121,8 +122,6 @@
 
   const sessionMember = JSON.parse(sessionStorage.getItem('loginMember'));
   const boardCode = computed(() => boardStore.board_code);
-
-  const router = useRouter(); // 수정된 부분
 
   onMounted( () => {
     try {
@@ -262,15 +261,6 @@ hr {
 .review {
   background-color: oldlace;
 }
-
-.user-mypage-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; /* 화면 전체 높이로 지정 */
-}
-
 
 /* 추가적인 스타일링이 필요한 경우 여기에 추가하세요 */
 

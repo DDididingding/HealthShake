@@ -76,17 +76,7 @@ const route = useRoute();
 const memberStore = useMemberStore();
 const user = ref({});
 const isUserLoaded = ref(false);
-const id = ref("");
-const name = ref("");
-const email = ref("");
-const age = ref(0);
-const gender = ref("");
-const nickname = ref("");
-const readme = ref("");
-const preferPart = ref("");
-const preferGender = ref("");
-const preferStyle = ref("");
-const preferGoal = ref("");
+
 
 
 

@@ -99,9 +99,9 @@ public class BoardRestController {
 
 	// 3. 등록
 	@PostMapping("/board")
-	public ResponseEntity<Board> write(@RequestBody Board board) {
+	public ResponseEntity<?> write(@RequestBody Board board) {
 		boardService.writeBoard(board);
-		return new ResponseEntity<Board>(board, HttpStatus.CREATED);
+		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 	
 

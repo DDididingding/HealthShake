@@ -1,6 +1,19 @@
 <template>
   <div class="trainer-detail">
-    <h1>트레이너 상세페이지</h1>
+    <div style="display: flex; justify-content: space-between;">
+      <h1>트레이너 상세페이지</h1>
+      <div v-if="isLoggedin && userType === 1"> 
+        <div v-if="tf">
+          <button class="btn btn-primary-grey" @click="cancelBuy"> 구독중</button>
+        </div>
+        <div v-else>
+          <button class="btn btn-primary" @click="buy">구독하기</button>
+        </div>
+        <!-- <div v-else>
+        </div> -->
+      </div>
+
+    </div>
 
     <div v-if="isTrainerLoaded && trainer" class="trainer-info">
       <div class="section profile">
@@ -78,7 +91,12 @@
                 </tr>
               </tbody>
             </table>
-         </div>
+          </div>
+        </div>
+        <div>
+          <router-link :to="{ name: 'BoardRegist', params: { member_code: route.params.member_code } }">
+            <button class="btn btn-primary">게시물 등록</button>
+          </router-link>
         </div>
 
         <hr>
@@ -88,10 +106,12 @@
           <div class="review-card">
           <table class="review-list">
             <colgroup>
-              <col style="width: 15%" />
-              <col style="width: 15%" />
+              <col style="width: 10%" />
+              <col style="width: 10%" />
               <col style="width: 55%" />
               <col style="width: 15%" />
+              <col style="width: 5%" />
+              <col style="width: 5%" />
             </colgroup>
             <thead>
               <tr>
@@ -99,6 +119,8 @@
                 <th>작성자</th>
                 <th>내용</th>
                 <th>별점</th>
+                <th>좋아</th>
+                <th>싫어</th>
               </tr>
             </thead>
             <tbody>
@@ -107,15 +129,21 @@
                 <td>{{ review.writer }}</td>
                 <td>{{ review.content }}</td>
                 <td>{{ review.rating }}</td>
+                <td @click="like(review.code)">{{ review.like }}</td>
+                <td @click="dislike(review.code)">{{ review.dislike }}</td>
               </tr>
             </tbody>
           </table>
           </div>
       </div>
-
-        <hr>   
+      <div v-if="isLoggedin && userType === 1">
+          <router-link :to="{ name: 'ReviewRegist', params: { member_code: route.params.member_code } }">
+            <button class="btn btn-primary">리뷰 등록</button>
+          </router-link>
+        </div>
       </div>
     </div>
+    
 
     <div v-else>
       데이터 로딩 중...
@@ -127,11 +155,13 @@
 import { useMemberStore } from "@/stores/memberStore";
 import { useVideoStore } from "@/stores/videoStore";
 import { useBoardStore } from "@/stores/boardStore";
+import { useUserStore } from "@/stores/userStore";
 import { useReviewStore } from "@/stores/reviewStore";
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { computed } from "vue";
 
+const userStore = useUserStore();
 const memberStore = useMemberStore();
 const videoStore = useVideoStore();
 const boardStore = useBoardStore();
@@ -145,6 +175,57 @@ const isBoardLoaded = computed(() => boardStore.boardList.length>0);
 const reviews = computed(() => reviewStore.reviewList);
 const boards = computed(() => boardStore.boardList);
 const videos = computed(() => videoStore.videoList);
+const loginMember = computed(() => userStore.loginMember);
+
+const tf = ref(false);
+
+const isLoggedin = computed(() => {
+  console.log(userStore.loginMember);
+  return userStore.loginMember !== null;
+});
+
+// const alreadyBuy = false;
+
+const alreadyBuy = () => {
+  //리스트 안에 현재 트레이너가 있는지 검사
+  const user_code = loginMember.value.member_code;
+  const trainer_code = parseInt(route.params.member_code);
+
+  memberStore.isAlreadyBuy(user_code, trainer_code)
+  .then((res)=>{
+    tf.value = res;
+  })
+};
+
+// userType을 computed 속성으로 정의합니다.
+const userType = computed(() => {
+  return loginMember.value ? loginMember.value.member_status : "";
+});
+
+const like = (review_code) => {
+  reviewStore.likeReview(review_code);
+};
+const dislike = (review_code) => {
+  reviewStore.dislikeReview(review_code);
+};
+
+const buy = () => {
+   const user_code = loginMember.value.member_code;
+    const trainer_code = parseInt(route.params.member_code);
+    alreadyBuy();
+
+  console.log(user_code, trainer_code);
+  memberStore.buyTrainer(user_code, trainer_code);
+};
+
+const cancelBuy = () => {
+  const user_code = loginMember.value.member_code;
+  const trainer_code = parseInt(route.params.member_code);
+  alreadyBuy();
+
+  console.log(user_code, trainer_code);
+  memberStore.deleteTrainer(user_code, trainer_code);
+};
 
 onMounted(async () => {
   try {
@@ -156,11 +237,7 @@ onMounted(async () => {
     await boardStore.BoardListByTrainerPromise(member_code);
 
     await reviewStore.ReviewListByTrainer(member_code);
- 
-    isTrainerLoaded.value = trainer.value !== null;
-    isVideoLoaded.value = videos.value !== null;
-    isReviewLoaded.value = reviews.value !== null;
-    isBoardLoaded.value = boards.value !== null;
+    alreadyBuy();
 
   } catch (error) {
     console.error("트레이너 정보를 불러오는 동안 오류가 발생했습니다:", error);
@@ -253,6 +330,17 @@ hr {
   background-color: lightsalmon;
   color: #fff;
   border: none;
+}
+
+.btn-primary-grey {
+  background-color: grey;
+  color: #fff;
+  border: none;
+}
+
+.btn-primary-grey:hover {
+  color : white;
+  background-color: rgb(75, 72, 70);
 }
 
 .btn-primary:hover {

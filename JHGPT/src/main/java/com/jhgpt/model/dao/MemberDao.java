@@ -3,6 +3,7 @@ package com.jhgpt.model.dao;
 import java.util.List;
 
 import com.jhgpt.model.dto.Member;
+import com.jhgpt.model.dto.Purchase;
 import com.jhgpt.model.dto.Trainer;
 import com.jhgpt.model.dto.User;
 
@@ -24,5 +25,10 @@ public interface MemberDao {
 
 	void updateMember(Member member);
 
+	void PurchaseTrainer(Purchase purchase);
+
+	void deletePurchase(Purchase purchase);
+	
+	int isInBuyList(Purchase purchase);
 	
 }

@@ -26,5 +26,11 @@ public interface ReviewDao {
 
     // 리뷰 수정
     void updateReview(Review review);
+
+    // 리뷰 좋아요
+    void likeReview(int review_code);
+
+    // 리뷰 싫어요
+    void dislikeReview(int review_code);
 }
 

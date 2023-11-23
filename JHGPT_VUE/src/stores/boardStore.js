@@ -137,8 +137,9 @@ export const useBoardStore = defineStore('board', () => {
 
     //게시물 등록
     const registBoard = ((board) => {
+        console.log(board);
         axios
-            .post("https://localhost:9999/api/board")
+            .post("http://localhost:9999/api/board", board)
             .then(() => {
                 console.log("게시물 등록 성공");
                 router.push({name:"Home"})

@@ -58,4 +58,21 @@
         WHERE member_code=#{member_code}
     </update>
 
+    <!--트레이너 구매-->
+    <insert id="PurchaseTrainer" parameterType="Purchase">
+        INSERT INTO BuyList (user_member_code, trainer_member_code, buy_date)
+        VALUES (#{user_code}, #{trainer_code}, now());
+    </insert>
+
+    <!--트레이너 구매 취소-->
+    <delete id="deletePurchase" parameterType="Purchase">
+        DELETE FROM BuyList
+        WHERE user_member_code=#{user_code} AND trainer_member_code=#{trainer_code};
+    </delete>
+
+    <!--트레이너 구매 여부 확인-->
+    <select id="isInBuyList" parameterType="Purchase" resultType="int">
+        SELECT COUNT(*) FROM BuyList
+        WHERE user_member_code=#{user_code} AND trainer_member_code=#{trainer_code};
+    </select>
 </mapper>

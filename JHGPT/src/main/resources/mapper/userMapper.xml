@@ -98,4 +98,5 @@
         VALUES (#{user_code}, #{trainer_code});
     </insert>
 
+
 </mapper>
