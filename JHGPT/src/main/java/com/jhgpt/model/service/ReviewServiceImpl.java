@@ -59,4 +59,6 @@ public class ReviewServiceImpl implements ReviewService {
     public void dislikeReview(int review_code) {
         reviewDao.dislikeReview(review_code);
     }
+
+    
 }
