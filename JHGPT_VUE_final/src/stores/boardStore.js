@@ -41,12 +41,12 @@ export const useBoardStore = defineStore('board', () => {
               const responseData = resp.data;
       
               boardList.value = responseData.map(() => ({
-                writercode: item.board_uploader,
-                code: item.board_code,
-                title: item.board_title,
-                uploadtime: item.board_uploadtime,
-                content: item.board_content,
-                viewcnt: item.board_viewcnt,
+                writercode: responseData.board_uploader,
+                code: responseData.board_code,
+                title: responseData.board_title,
+                uploadtime: responseData.board_uploadtime,
+                content: responseData.board_content,
+                viewcnt: responseData.board_viewcnt,
               }));
       
               resolve();
