@@ -40,7 +40,7 @@ export const useBoardStore = defineStore('board', () => {
               console.log("게시물 목록 가져오기 성공");
               const responseData = resp.data;
       
-              boardList.value = responseData.map((item) => ({
+              boardList.value = responseData.map(() => ({
                 writercode: item.board_uploader,
                 code: item.board_code,
                 title: item.board_title,

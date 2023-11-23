@@ -1,17 +1,17 @@
 INSERT INTO Member (member_id, member_password, member_name, member_nickname, member_age, member_gender, member_profile_pic, member_status) 
 VALUES 
-('u1', 'u1', '김현지', '유저1김현지', 25, 'female', 'profile1.jpg', 1),
-('u2', 'u2', '안준현', '유저2안준현', 30, 'male', 'profile_pic2.jpg', 1),
-('u3', 'u3', '최연준', '유저3최연준', 25, 'female', 'profile_pic3.jpg', 1),
-('u4', 'u4', '이지우', '유저4이지우', 30, 'female', 'profile_pic4.jpg', 1),
-('u5', 'u5',  '강수아', '유저5강수아', 30, 'female', 'profile_pic5.jpg', 1),
-('u6', 'u6', '정소영', '유저6정소영', 30, 'female', 'profile_pic6.jpg', 1),
-('t1', 't1', '김피티', '트레이너1김피티', 28, 'male', 'profile_pic1.jpg', 2),
-('t2', 't2', '이피티', '트레이너2이피티', 30, 'female', 'profile_pic2.jpg', 2),
-('t3', 't3', '최피티', '트레이너3최피티', 35, 'male', 'profile_pic3.jpg', 2),
-('t4', 't4', '김운동', '트레이너4김운동', 27, 'female', 'profile_pic4.jpg', 2),
-('t5', 't5', '이운동', '트레이너5이운동', 21, 'male', 'profile_pic5.jpg', 2),
-('t6', 't6', '최운동', '트레이너6최운동', 21, 'female', 'profile_pic5.jpg', 2),
+('u1', 'u1', '김현지', '유저1김현지', 25, 'female', '/images/user1.jpg', 1),
+('u2', 'u2', '안준현', '유저2안준현', 30, 'male', '/images/user2.jpg', 1),
+('u3', 'u3', '최연준', '유저3최연준', 25, 'female', '/images/user3.jpg', 1),
+('u4', 'u4', '이지우', '유저4이지우', 30, 'female', '/images/user4.jpg', 1),
+('u5', 'u5',  '강수아', '유저5강수아', 30, 'female', '/images/user5.jpg', 1),
+('u6', 'u6', '정소영', '유저6정소영', 30, 'female', '/images/user6.jpg', 1),
+('t1', 't1', '김피티', '트레이너1김피티', 28, 'male', '/images/trainer1.jpg', 2),
+('t2', 't2', '이피티', '트레이너2이피티', 30, 'female', '/images/trainer2.jpg', 2),
+('t3', 't3', '최피티', '트레이너3최피티', 35, 'male', '/images/trainer3.jpg', 2),
+('t4', 't4', '김운동', '트레이너4김운동', 27, 'female', '/images/trainer4.jpg', 2),
+('t5', 't5', '이운동', '트레이너5이운동', 21, 'male', '/images/trainer5.jpg', 2),
+('t6', 't6', '최운동', '트레이너6최운동', 21, 'female', '/images/trainer6.jpg', 2),
 ('admin', 'adminpass', 'Admin', 'Admin', NULL, NULL, 'profile_pic4.jpg', 0);
 
 
@@ -39,24 +39,24 @@ VALUES
 -- Video 테이블에 대한 샘플 데이터
 INSERT INTO Video (video_title, video_readme, video_url, video_uploader) 
 VALUES 
-('전신 운동', '전신에 대한 완벽한 운동 루틴.', 'video1.mp4', 7),
-('코어 강화', '강력한 코어를 위한 운동에 중점을 둡니다.', 'video2.mp4', 7),
-('카디오 블라스트', '고강도의 유산소 운동.', 'video3.mp4', 7),
-('다리 운동 루틴', '하체를 위한 효과적인 운동.', 'video4.mp4', 8),
-('기능성 트레이닝', '기능성 운동으로 전체적인 피트니스 향상.', 'video5.mp4', 8),
-('상체 스트렝스', '상체 근력을 키우는 운동 프로그램.', 'video6.mp4', 8),
-('요가 시간', '신체와 마음을 동시에 강화하는 요가 수업.', 'video7.mp4', 9),
-('유연성 향상 프로그램', '유연성을 향상시키는 다양한 스트레칭.', 'video8.mp4', 9),
-('근육 토닝', '근육을 단련시키고 조형하는 프로그램.', 'video9.mp4', 9),
-('전신 스트레칭', '모든 근육을 포함한 전신 스트레칭 루틴.', 'video10.mp4', 10),
-('체중 감량 프로그램', '체중을 줄이고 건강한 몸매를 위한 운동.', 'video11.mp4', 10),
-('스트레스 해소 요가', '스트레스를 풀어주는 효과적인 요가 수업.', 'video12.mp4', 10),
-('근력 향상 트레이닝', '근육을 강화하고 키우는 전문적인 트레이닝.', 'video13.mp4', 11),
-('유산소 트레이닝', '유산소 운동으로 기초체력을 향상시키는 프로그램.', 'video14.mp4', 11),
-('하체 강화 루틴', '다양한 하체 운동으로 강력한 다리를 만드는 프로그램.', 'video15.mp4', 11),
-('스트레칭 루틴', '몸의 유연성을 높여주는 다양한 스트레칭.', 'video16.mp4', 12),
-('체력 증진 프로그램', '체력을 향상시키는 운동 루틴.', 'video17.mp4', 12),
-('근력 훈련', '근력을 키우는 다양한 운동 방법.', 'video18.mp4', 12);
+('복부 운동', '뱃살 아랫뱃살 최고의 운동', 'https://www.youtube.com/watch?v=0L5gAT1fJaM&t=1s', 7),
+('복부 운동', '무.조.건! 뱃살 빠지는 운동 베스트5', 'https://www.youtube.com/watch?v=iOSYLKBk894', 7),
+('복부 운동', '11자복근 복부 최고의 운동 [복근 핵매운맛]', 'https://www.youtube.com/watch?v=PjGcOP-TQPE', 7),
+('복부 운동', '[ENG] (층간소음X, 설명O) 복근운동과 유산소를 한번에❗️서서하는 복근운동 1탄🔥', 'https://www.youtube.com/watch?v=kETh8T3it4k&t=1s', 8),
+('전신 운동', '[ENG] 🔥효과 200% 보장🔥 힙으뜸 덤벨 운동 올인원루틴💪🏼💪🏼슬림탄탄! 가보자고~~', 'https://www.youtube.com/watch?v=ojWHzxUzEVk', 8),
+('전신 운동', '[ENG] 🚨폭식 후 운동🚨 뱃살로 가기 전에 움직여!!!!! 힙으뜸 전신운동 20분 올인원루틴✊🏼', 'https://www.youtube.com/watch?v=Ueb365f-bY0', 8),
+('유산소 운동', '가볍지만 확실하게 체지방 걷어내는 유산소 / 다이어트 운동 홈트레이닝 - 논스탑 휴식없음', 'https://www.youtube.com/watch?v=yJm9SGS2IhA&t=1s', 9),
+('유산소 운동', '할로윈 파티 대신 우리는 홈트 한다 👻 10분 논스톱 근력 유산소', 'https://www.youtube.com/watch?v=vRTymm71tPo&t=1s', 9),
+('유산소 운동', '새해 시작은 덤벨 - 체지방 빼며 근육 잡는 20분 전신 덤벨 근력 유산소 홈트 운동', 'https://www.youtube.com/watch?v=wPF-l9gt-hw', 9),
+('하체 운동', '이거하면 ‘톡 튀어나온 허벅지 안쪽 맨 윗살’이 🔥무조건🔥 빠져요! (+허벅지 사이가 일자로 똑 떨어지는 7일 루틴)', 'https://www.youtube.com/watch?v=3neRUAR5r1c', 10),
+('스트레칭', '몸이 붓고 답답하다면, 전신 노폐물 쫙 빼주는 12분 폼롤러 마사지🏝', 'https://www.youtube.com/watch?v=CXL0RgtXoJE', 10),
+('전신 운동', '상체살 빼는 효과최강 루틴만 모았습니다🔥 (뱃살/등살/팔뚝살/승모근 올케어 루틴)', 'https://www.youtube.com/watch?v=-Rbf1gGWrLk', 10),
+('유산소 운동', '살이 너무 빠지는 죽음의 타바타 운동 (no 층간소음) / Beautiful tabata workout', 'https://www.youtube.com/watch?v=4EKo44DUvjg', 11),
+('유산소 운동', '르세라핌이 실제로 했던 18분 다이어트 운동 ( * 살 빨리 빼고 싶다면 이 루틴 꼭 해보세요. 효과 대박입니다. )', 'https://www.youtube.com/watch?v=7GNK3G6JT0w', 11),
+('팔 운동', '💪🏻정말 안빠지는 두툼한 팔뚝살 🔥1달만에 -7cm 없애는🔥 효과 보장 루틴 ( * 하루에 딱 8분만 투자하세요 )', 'https://www.youtube.com/watch?v=N1ZpbAWvRpw', 11),
+('다이어트 댄스', '🔥살 빠지는 칼로리 폭파 다이어트 댄스🔥 뉴진스 - SUPER SHY💕 슈퍼샤이 다이어트 댄스', 'https://www.youtube.com/watch?v=Ldkx9anl588', 12),
+('복부 운동', '카즈하님…솔직히 이렇게 운동하는 건 반칙이죠…ㅠㅜ [역대급 6분 뱃살 파괴 운동]', 'https://www.youtube.com/watch?v=kj2Cx3QlVCQ', 12),
+('전신 운동', '와...르세라핌이 ‘이 동작’으로 살을 뺐구나....[극강의 9분 전신운동]', 'https://www.youtube.com/watch?v=N7W4mvOyxIk', 12);
 
 
 -- BuyList 테이블에 대한 샘플 데이터

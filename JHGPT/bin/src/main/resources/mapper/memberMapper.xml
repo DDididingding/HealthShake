@@ -35,7 +35,7 @@
     <!-- User Member 등록 -->
     <insert id="insertMemberU" parameterType="User">
         INSERT INTO Member (member_id, member_password, member_name, member_nickname, member_age, member_gender, member_profile_pic, member_status)
-        VALUES (#{member_id}, #{member_password}, #{member_name}, #{member_nickname}, #{member_age}, #{member_gender}, #{member_profile_pic}, 1);
+        VALUES (#{member_id}, #{member_password}, #{member_name}, #{member_nickname},#{member_age}, #{member_gender}, #{member_profile_pic}, 1);
     </insert>
 
     <!-- Trainer Member 등록 -->
@@ -54,8 +54,25 @@
     <update id="updateMember" parameterType="Member">
         UPDATE Member
         SET member_name=#{member_name}, member_nickname=#{member_nickname}, member_age=#{member_age},
-            member_gender=#{member_gender}, member_profile_pic = #{member_profile_pic}, member_status=#{member_status}
+            member_gender=#{member_gender}, member_profile_pic = #{member_profile_pic}
         WHERE member_code=#{member_code}
     </update>
 
+    <!--트레이너 구매-->
+    <insert id="PurchaseTrainer" parameterType="Purchase">
+        INSERT INTO BuyList (user_member_code, trainer_member_code, buy_date)
+        VALUES (#{user_code}, #{trainer_code}, now());
+    </insert>
+
+    <!--트레이너 구매 취소-->
+    <delete id="deletePurchase" parameterType="Purchase">
+        DELETE FROM BuyList
+        WHERE user_member_code=#{user_code} AND trainer_member_code=#{trainer_code};
+    </delete>
+
+    <!--트레이너 구매 여부 확인-->
+    <select id="isInBuyList" parameterType="Purchase" resultType="int">
+        SELECT COUNT(*) FROM BuyList
+        WHERE user_member_code=#{user_code} AND trainer_member_code=#{trainer_code};
+    </select>
 </mapper>

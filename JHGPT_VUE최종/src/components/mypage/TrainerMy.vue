@@ -7,6 +7,7 @@
         <div class="profile-section">
           <h2>프로필</h2>
           <div class="profile-details">
+            <img :src="trainer.profileImagePath" alt="Trainer Profile" class="trainer-profile-image">
             <p><strong>이름:</strong> {{ trainer.name }}</p>
             <p><strong>닉네임:</strong> {{ trainer.nickname }}</p>
             <p><strong>소개:</strong> {{ trainer.readme }}</p>

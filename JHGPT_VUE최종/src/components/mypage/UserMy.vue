@@ -7,6 +7,7 @@
         <div class="profile-section">
           <h2>프로필</h2>
           <div class="profile-details">
+            <img :src="user.profileImagePath" class="user-profile-image" style="width: 300px; height: auto;">
              <p><strong>이름:</strong> {{ user.name }}</p>
             <p><strong>나이:</strong> {{ user.age }}</p>
             <p><strong>성별:</strong> {{ user.gender }}</p>
@@ -81,7 +82,7 @@
                 <td>{{ review.content }}</td>
                 <td>{{ review.rating }}</td>
                 <div class="edit-button">
-                  <button @click="$router.push({name :'UpdateReview', params: {review_code : review.code}})">수정</button>
+                  <button @click="goToUpdateReview(review.code)" class="btn btn-secondary">수정</button>
                 </div>
               </tr>
             
@@ -260,6 +261,20 @@ hr {
 
 .review {
   background-color: oldlace;
+}
+
+.btn-secondary {
+  background-color: lightsalmon;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: salmon;
 }
 
 /* 추가적인 스타일링이 필요한 경우 여기에 추가하세요 */

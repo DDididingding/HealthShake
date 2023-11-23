@@ -24,9 +24,9 @@
 	<!-- Trainer 등록 -->
 	<insert id="insertTrainer" parameterType="Trainer">
 		INSERT INTO Trainer (member_code, provide_part, provide_style, provide_goal,
-		video_list, trainer_readme, trainer_price)
+		 trainer_readme, trainer_price)
 		VALUES ((SELECT member_code FROM Member WHERE member_id = #{member_id}),
-		#{provide_part}, #{provide_style}, #{provide_goal}, #{video_list},
+		#{provide_part}, #{provide_style}, #{provide_goal},
 		#{trainer_readme}, #{trainer_price});
 	</insert>
 

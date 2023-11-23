@@ -7,13 +7,30 @@
           <router-link :to="{ name: 'TrainerDetail', params: { member_code: trainer.code } }"><h3>{{ trainer.name }}</h3>
           </router-link>
           <img :src="trainer.profileImagePath" alt="Trainer Profile" class="trainer-profile-image">
-          <p>트레이너 소개글 : {{ trainer.readme }}</p>
-          <p>
-            닉네임 :  {{ trainer.nickname }}
-          </p>
-          <p>제공 부위(?) : {{ trainer.provide_part }}</p>
-          <p>제공 스타일 : {{ trainer.provide_style }}</p>
-          <p>제공 목표 : {{ trainer.provide_goal }}</p>
+          <table class="trainer-table">
+            <tbody>
+              <tr>
+                <td>트레이너 소개글</td>
+                <td>{{ trainer.readme }}</td>
+              </tr>
+              <tr>
+                <td>닉네임</td>
+                <td>{{ trainer.nickname }}</td>
+              </tr>
+              <tr>
+                <td>제공 부위(?)</td>
+                <td>{{ trainer.provide_part }}</td>
+              </tr>
+              <tr>
+                <td>제공 스타일</td>
+                <td>{{ trainer.provide_style }}</td>
+              </tr>
+              <tr>
+                <td>제공 목표</td>
+                <td>{{ trainer.provide_goal }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -80,4 +97,23 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: lemonchiffon;
   }
+
+  .trainer-card:hover {
+  transform: scale(1.1); /* 호버 상태에서 카드 크기를 조정합니다. */
+  background-color: lightblue; /* 호버 상태에서 카드 배경 색상을 변경합니다. */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* 호버 상태에서 그림자 효과를 추가합니다. */
+  z-index: 1; /* 호버 상태에서 다른 카드 위에 표시합니다. */
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease; /* 애니메이션 속성을 추가합니다. */
+}
+
+.trainer-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.trainer-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+}
   </style>
