@@ -113,6 +113,37 @@ export const useMemberStore = defineStore(
       });
     };
 
+    const getUserListPromise = () => {
+      return new Promise((resolve, reject) => {
+        users.value = [];
+        axios
+          .get("http://localhost:9999/api/user")
+          .then((resp) => {
+            console.log("트레이너 목록 가져오기 성공");
+            const responseData = resp.data;
+
+            users.value = responseData.map((item) => ({
+              code: item.member_code,
+              id: item.member_id,
+              name: item.member_name,
+              nickname: item.member_nickname,
+              readme: item.user_readme,
+              prefer_part: item.prefer_part,
+              prefer_style: item.prefer_style,
+              prefer_goal: item.prefer_goal,
+              profileImagePath: item.member_profile_pic,
+            }));
+
+            console.log(trainers.value);
+            resolve();
+          })
+          .catch(() => {
+            console.log("트레이너 목록 가져오기 실패");
+            reject();
+          });
+      });
+    };
+
     const getPreferTrainerListPromise = (member_code) => {
       return new Promise((resolve, reject) => {
         trainers.value = [];
@@ -405,7 +436,7 @@ export const useMemberStore = defineStore(
               if (memberStatus === 1) {
                 router.push({ name: "Home" });
               } else if (memberStatus === 2) {
-                router.push({ name: "Home" });
+                router.push({ name: "HomeCopy" });
               }
 
               resolve(true); // Resolve with true indicating successful login
@@ -477,6 +508,7 @@ export const useMemberStore = defineStore(
 
     return {
       isAlreadyBuy,
+      getUserListPromise,
       deleteTrainer,
       getPreferTrainerListPromise,
       users,

@@ -165,8 +165,22 @@
                   <td>{{ review.writer }}</td>
                   <td>{{ review.content }}</td>
                   <td>{{ review.rating }}</td>
-                  <td @click="like(review.code)">{{ review.like }}</td>
-                  <td @click="dislike(review.code)">{{ review.dislike }}</td>
+                  <td>
+                    <button
+                      @click="like(review.code)"
+                      class="bg-grey border border-3 w-full"
+                    >
+                      {{ review.like }}
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      @click="dislike(review.code)"
+                      class="bg-grey border border-3 w-full"
+                    >
+                      {{ review.dislike }}
+                    </button>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -215,6 +229,8 @@ const boards = computed(() => boardStore.boardList);
 const videos = computed(() => videoStore.videoList);
 const loginMember = computed(() => userStore.loginMember);
 
+const Like = computed(() => reviewStore.like);
+const Dislike = computed(() => reviewStore.dislike);
 const tf = ref(false);
 
 const isLoggedin = computed(() => {

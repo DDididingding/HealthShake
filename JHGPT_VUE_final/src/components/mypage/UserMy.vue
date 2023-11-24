@@ -2,7 +2,11 @@
   <div class="container w-screen">
     <div class="user-mypage">
       <div class="container-header my-12">
-        <h2 class="font-bold text-3xl mb-3">마이페이지에요.</h2>
+        <div v-if="isUserLoaded && user" class="user-info">
+          <h2 class="font-bold text-3xl mb-3">
+            {{ user.name }}님의 마이페이지에요.
+          </h2>
+        </div>
         <p class="text-slate-600">
           그동안 쓴 게시물과 리뷰를 확인할 수 있어요.
         </p>
@@ -20,9 +24,9 @@
                 style="width: 300px; height: auto"
               />
               <div class="flex flex-col gap-2">
-                <div class="flex flex-row gap-y-4">
-                  <div class="w-40 text-slate-400">이름</div>
-                  <div class="flex-1 font-medium">{{ user.name }}</div>
+                <div class="flex flex-row">
+                  <div class="w-40 text-slate-400">닉네임</div>
+                  <div class="flex-1 font-medium">{{ user.nickname }}</div>
                 </div>
                 <div class="flex flex-row gap-y-4">
                   <div class="w-40 text-slate-400">나이</div>
@@ -39,6 +43,10 @@
                 <div class="flex flex-row">
                   <div class="w-40 text-slate-400">선호하는 트레이너 성별</div>
                   <div class="flex-1 font-medium">{{ user.preferGender }}</div>
+                </div>
+                <div class="flex flex-row">
+                  <div class="w-40 text-slate-400">소개글</div>
+                  <div class="flex-1 font-medium">{{ user.readme }}</div>
                 </div>
                 <div>
                   <button

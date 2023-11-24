@@ -66,9 +66,9 @@
     <header v-else-if="isLoggedin && userType === 2" class="flex flex-row">
       <!-- 트레이너가 로그인 했을 때 -->
       <router-link
-        to="/home"
+        to="/homeCopy"
         class="nav-link"
-        :class="{ 'active-link': $route.path === '/home' }"
+        :class="{ 'active-link': $route.path === '/homeCopy' }"
         ><h1
           class="bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 bg-clip-text text-transparent font-black text-2xl"
         >
